@@ -6,16 +6,15 @@
 <title>V&P · OKRs</title>
 <style>
 body{background:#f4f7fb;color:#1e293b;font-family:Arial;margin:0;padding:20px}
-.container{max-width:1400px;margin:auto}
+.container{max-width:1600px;margin:auto}
+.okr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:start}
 .header{margin-bottom:20px}
 h1{margin:0}
 .tag{display:inline-block;padding:6px 10px;border:1px solid #e2e8f0;border-radius:6px;margin-top:8px;background:white}
-.okr{background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin-bottom:14px}
+.okr{background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;height:100%}
 .okr-head{display:flex;justify-content:space-between;align-items:center}
 .kr{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:10px}
-.status{display:flex;align-items:center}
-.dot{width:10px;height:10px;border-radius:50%}
-.good .dot{background:#22c55e}
+.staackground:#22c55e}
 .warn .dot{background:#facc15}
 .bad .dot{background:#ef4444}
 .meta{display:flex;gap:10px;margin-top:8px}
@@ -25,6 +24,8 @@ h1{margin:0}
 <body>
 <div class="container">
 <div class="header">
+<div class="tag" id="lastUpdate"></div>
+<div class="tag" id="dataDate"></div>
 <h1>OKRs 2026</h1>
 <div class="tag" id="fecha"></div>
 </div>
@@ -32,8 +33,7 @@ h1{margin:0}
 </div>
 <script>
 const data=[
-{foco:'CALIDAD',objetivo:'Maximizar captura de valor',krs:[
-{name:'IVC',actual:72,meta:85,formula:'IVC = exportable x calidad x arribos'}
+{foco:'CALIDAD',objetivo:'Maximizar captura d<div id="okrs" class="okr-grid"></div>85,formula:'IVC = exportable x calidad x arribos'}
 ]},
 {foco:'EFICIENCIA',objetivo:'Maximizar eficiencia integral',krs:[
 {name:'Breakeven/kg',actual:1.62,meta:1.45,formula:'egresos/kg'},
@@ -111,6 +111,14 @@ function semanaISO(d=new Date()){
 }
 
 const hoy=new Date();
+
+// última actualización (momento de carga)
+document.getElementById('lastUpdate').textContent=`Actualizado: ${hoy.toLocaleString('es-PE')}`;
+
+// fecha de la información (editable luego desde inputs)
+const dataDate = new Date(); // esto luego vendrá del Excel
+
+document.getElementById('dataDate').textContent=`Información al: ${dataDate.toLocaleDateString('es-PE')}`;
 document.getElementById('fecha').textContent=`${hoy.toLocaleDateString('es-PE')} · Semana ${semanaISO(hoy)}`;
 
 build();
