@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FFP · Situación Financiera y Resultados</title>
+  <title>FFP · Dashboard Financiero 2025</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
-      --bg: #0a0f1c;
+      --bg: #09111f;
       --panel: #101827;
       --line: rgba(255,255,255,0.08);
       --text: #e5e7eb;
@@ -20,16 +20,15 @@
     }
 
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #020617 0%, #0a0f1c 100%);
+      background: linear-gradient(180deg, #020617 0%, #09111f 100%);
       color: var(--text);
     }
 
     .container {
-      max-width: 1520px;
+      max-width: 1540px;
       margin: 0 auto;
       padding: 24px;
     }
@@ -68,7 +67,7 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.6;
-      max-width: 900px;
+      max-width: 980px;
     }
 
     .header-tags {
@@ -96,7 +95,7 @@
       border: 1px solid rgba(56,189,248,0.24);
       font-weight: 800;
       text-align: center;
-      min-width: 240px;
+      min-width: 230px;
     }
 
     .grid {
@@ -127,13 +126,16 @@
       margin-bottom: 8px;
     }
 
-    .hero-kpis {
+    .hero-kpis, .kpi-grid, .ratio-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
 
-    .hero-kpi, .kpi {
+    .hero-kpis { grid-template-columns: repeat(4, 1fr); }
+    .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+    .ratio-grid { grid-template-columns: repeat(4, 1fr); }
+
+    .hero-kpi, .kpi, .ratio-item {
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--line);
       border-radius: 14px;
@@ -141,14 +143,14 @@
       min-height: 124px;
     }
 
-    .hero-kpi .value, .kpi .value {
+    .hero-kpi .value, .kpi .value, .ratio-item .val {
       font-size: 30px;
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-top: 6px;
     }
 
-    .sub {
+    .sub, .ratio-item .vs {
       color: var(--muted);
       font-size: 13px;
       margin-top: 6px;
@@ -194,36 +196,11 @@
       color: #dbe4ef;
     }
 
-    .ratio-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .ratio-item {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      border-radius: 14px;
-      padding: 12px;
-    }
-
     .ratio-item .name {
       color: var(--muted);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-    }
-
-    .ratio-item .val {
-      font-size: 24px;
-      font-weight: 800;
-      margin-top: 8px;
-    }
-
-    .ratio-item .vs {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 6px;
     }
 
     .table-wrap {
@@ -235,7 +212,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1100px;
+      min-width: 1000px;
     }
 
     th, td {
@@ -260,7 +237,7 @@
 
     textarea {
       width: 100%;
-      min-height: 260px;
+      min-height: 300px;
       resize: vertical;
       border-radius: 14px;
       border: 1px solid var(--line);
@@ -282,9 +259,7 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background: rgba(255,255,255,0.08);
-    }
+    button:hover { background: rgba(255,255,255,0.08); }
 
     .controls {
       display: flex;
@@ -295,9 +270,7 @@
       margin-bottom: 12px;
     }
 
-    canvas {
-      max-height: 320px;
-    }
+    canvas { max-height: 320px; }
 
     .footnote {
       color: var(--muted);
@@ -309,11 +282,11 @@
     @media (max-width: 1180px) {
       .header { grid-template-columns: 1fr; }
       .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
-      .hero-kpis, .ratio-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-kpis, .kpi-grid, .ratio-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 640px) {
-      .hero-kpis, .ratio-grid { grid-template-columns: 1fr; }
+      .hero-kpis, .kpi-grid, .ratio-grid { grid-template-columns: 1fr; }
       h1 { font-size: 28px; }
     }
   </style>
@@ -322,48 +295,49 @@
   <div class="container">
     <div class="header">
       <div>
-        <div class="eyebrow">Family Farms Perú · Estados Financieros</div>
-        <h1>Situación Financiera y Estado de Resultados</h1>
-        <div class="subtitle">Vista ejecutiva enfocada únicamente en el Estado de Situación Financiera y el Estado de Resultados. Calcula automáticamente ratios clave, incluyendo ROE y ROI, y compara el período actual contra el período anterior.</div>
+        <div class="eyebrow">Family Farms Perú · 2025</div>
+        <h1>Dashboard Financiero Ejecutivo</h1>
+        <div class="subtitle">Vista ejecutiva 2025 basada únicamente en el Estado de Situación Financiera y el Estado de Resultados. Se priorizan ROE, rentabilidad económica, liquidez, tesorería, autonomía financiera y plazos operativos clave.</div>
         <div class="header-tags">
-          <div class="tag">Actual vs anterior</div>
-          <div class="tag">ROE y ROI visibles</div>
-          <div class="tag">Ratios automáticos</div>
+          <div class="tag">Solo 2025</div>
+          <div class="tag">ROE visible</div>
+          <div class="tag">Rentabilidad económica visible</div>
+          <div class="tag">Ratios CFO básicos</div>
         </div>
       </div>
-      <div class="status-chip">FFP · Resumen Ejecutivo Comparativo</div>
+      <div class="status-chip">FFP · Diciembre 2025</div>
     </div>
 
     <div class="grid">
       <div class="card span-12">
         <div class="section-title">
           <h2>KPIs clave</h2>
-          <div class="mini-note">Período actual comparado con período anterior</div>
+          <div class="mini-note">2025</div>
         </div>
         <div class="hero-kpis">
           <div class="hero-kpi">
             <div class="label">ROE</div>
             <div id="roeValue" class="value">—</div>
-            <div class="sub">Resultado neto / patrimonio promedio</div>
-            <div id="roeDelta" class="delta violet">vs período anterior</div>
+            <div class="sub">Utilidad neta / patrimonio neto</div>
+            <div id="roeFlag" class="delta violet">Rentabilidad financiera</div>
           </div>
           <div class="hero-kpi">
-            <div class="label">ROI</div>
+            <div class="label">Rentabilidad económica</div>
             <div id="roiValue" class="value">—</div>
-            <div class="sub">Resultado operativo / activos totales promedio</div>
-            <div id="roiDelta" class="delta violet">vs período anterior</div>
+            <div class="sub">Resultado operativo / activo total</div>
+            <div id="roiFlag" class="delta violet">Rentabilidad del activo</div>
           </div>
           <div class="hero-kpi">
-            <div class="label">Resultado neto</div>
+            <div class="label">Utilidad neta</div>
             <div id="netIncomeValue" class="value">—</div>
-            <div class="sub">Resultado del ejercicio actual</div>
-            <div id="netIncomeDelta" class="delta violet">vs período anterior</div>
+            <div class="sub">Resultado del ejercicio 2025</div>
+            <div id="netIncomeFlag" class="delta violet">Magnitud del resultado</div>
           </div>
           <div class="hero-kpi">
-            <div class="label">Patrimonio</div>
+            <div class="label">Patrimonio neto</div>
             <div id="equityValue" class="value">—</div>
-            <div class="sub">Patrimonio de cierre del período actual</div>
-            <div id="equityDelta" class="delta violet">vs período anterior</div>
+            <div class="sub">Fondos propios al cierre</div>
+            <div id="equityFlag" class="delta violet">Base patrimonial</div>
           </div>
         </div>
       </div>
@@ -374,22 +348,22 @@
       </div>
 
       <div class="card span-4">
-        <div class="label">Bloques considerados</div>
-        <div class="sub">Este dashboard utiliza únicamente rubros del Estado de Situación Financiera y del Estado de Resultados. Los ratios se recalculan automáticamente a partir de esas cifras.</div>
+        <div class="label">Marco aplicado</div>
+        <div class="sub">Se aplican las ratios prácticas indicadas: fondo de maniobra entendido como razón corriente, ratio de tesorería, autonomía financiera, período medio de cobro, período medio de pago, rentabilidad económica y rentabilidad financiera. El período medio de pago usa costo de venta como proxy de compras por no contar aquí con compras del período.</div>
       </div>
 
       <div class="card span-6">
         <div class="section-title">
-          <h2>Situación Financiera</h2>
-          <div class="mini-note">Actual vs anterior</div>
+          <h2>Situación Financiera 2025</h2>
+          <div class="mini-note">Rubros principales</div>
         </div>
         <canvas id="balanceChart"></canvas>
       </div>
 
       <div class="card span-6">
         <div class="section-title">
-          <h2>Estado de Resultados</h2>
-          <div class="mini-note">Actual vs anterior</div>
+          <h2>Estado de Resultados 2025</h2>
+          <div class="mini-note">Rubros principales</div>
         </div>
         <canvas id="resultChart"></canvas>
       </div>
@@ -397,15 +371,15 @@
       <div class="card span-12">
         <div class="section-title">
           <h2>Ratios financieros clave</h2>
-          <div class="mini-note">Calculados automáticamente</div>
+          <div class="mini-note">2025</div>
         </div>
         <div id="ratioGrid" class="ratio-grid"></div>
       </div>
 
       <div class="card span-12">
         <div class="section-title">
-          <h2>Detalle comparativo de rubros</h2>
-          <div class="mini-note">Estado de Situación Financiera y Estado de Resultados</div>
+          <h2>Detalle de rubros utilizados</h2>
+          <div class="mini-note">Solo rubros efectivamente usados en el cálculo</div>
         </div>
         <div class="table-wrap">
           <table>
@@ -413,10 +387,7 @@
               <tr>
                 <th>Estado</th>
                 <th>Rubro</th>
-                <th class="num">Período actual</th>
-                <th class="num">Período anterior</th>
-                <th class="num">Variación</th>
-                <th class="num">Variación %</th>
+                <th class="num">Valor 2025</th>
               </tr>
             </thead>
             <tbody id="metricsBody"></tbody>
@@ -428,30 +399,62 @@
         <div class="controls">
           <div>
             <div class="label" style="margin-bottom:4px;">Fuente editable</div>
-            <div class="mini-note">Pega aquí el CSV comparativo. Columnas esperadas: estado, rubro, actual, anterior.</div>
+            <div class="mini-note">Pega aquí el CSV 2025. Columnas esperadas: estado, rubro, valor.</div>
           </div>
           <div>
-            <button id="loadSampleBtn">Cargar ejemplo</button>
+            <button id="loadSampleBtn">Cargar datos 2025</button>
             <button id="updateBtn">Actualizar dashboard</button>
           </div>
         </div>
         <textarea id="csvInput"></textarea>
-        <div class="footnote">Rubros mínimos recomendados para ratios: Activos Totales, Activo Corriente, Pasivos Totales, Pasivo Corriente, Patrimonio, Ingresos, Utilidad Operativa y Resultado Neto. El ROI aquí se calcula como utilidad operativa sobre activos promedio. Si prefieres otra definición, se puede cambiar.</div>
+        <div class="footnote">Para el ratio de tesorería se usa: efectivo + cuentas por cobrar comerciales neto + otras cuentas por cobrar neto, dividido entre pasivo corriente. Para el período medio de cobro se usa cuentas por cobrar comerciales neto / ventas x 365. Para el período medio de pago se usa cuentas por pagar comerciales / costo de venta x 365 como aproximación.</div>
       </div>
     </div>
   </div>
 
   <script>
-    const sampleCsv = `estado,rubro,actual,anterior
-Situación Financiera,Activos Totales,128783337,106244751
-Situación Financiera,Activo Corriente,38089547,34200707
-Situación Financiera,Pasivos Totales,78738415,60678842
-Situación Financiera,Pasivo Corriente,40115320,32463345
-Situación Financiera,Patrimonio,50044922,45565908
-Resultados,Ingresos,58662361,46056299
-Resultados,Costo de Ventas,40145236,29726610
-Resultados,Utilidad Operativa,13345544,11572556
-Resultados,Resultado Neto,6201675,7147964`;
+    const sampleCsv = `estado,rubro,valor
+Situación Financiera,Efectivo y equivalentes de efectivo,1371077
+Situación Financiera,Cuentas por cobrar comerciales neto,19596861
+Situación Financiera,Otras cuentas por cobrar relacionadas neto,2314652
+Situación Financiera,Otras cuentas por cobrar neto,1352671
+Situación Financiera,Impuesto por recuperar,8353168
+Situación Financiera,Existencias neto,3398294
+Situación Financiera,Activo biológico,1702826
+Situación Financiera,Activo corriente,38089547
+Situación Financiera,Otras cuentas por cobrar relacionadas LP,13333333
+Situación Financiera,Inversiones en subsidiarias,255
+Situación Financiera,Activos derecho en uso,4912559
+Situación Financiera,Inmuebles maquinaria y equipo neto,72292678
+Situación Financiera,Activos intangibles neto,154965
+Situación Financiera,Activo no corriente,90693790
+Situación Financiera,Activos totales,128783337
+Situación Financiera,Obligaciones financieras CP,25685306
+Situación Financiera,Cuenta por pagar comerciales,7835207
+Situación Financiera,Otras cuentas por pagar relacionadas CP,20235
+Situación Financiera,Otras cuentas por pagar neto CP,4748594
+Situación Financiera,Dividendos por pagar,1825979
+Situación Financiera,Pasivo corriente,40115320
+Situación Financiera,Obligaciones financieras LP,35769874
+Situación Financiera,Impuesto a la renta y participaciones diferidos,2453214
+Situación Financiera,Otras cuentas por pagar LP,400007
+Situación Financiera,Pasivo no corriente,38623095
+Situación Financiera,Pasivos totales,78738415
+Situación Financiera,Patrimonio neto,50044922
+Resultados,Ventas de bienes,58662361
+Resultados,Costo de venta,40145236
+Resultados,Drawback,299070
+Resultados,Utilidad bruta,18816195
+Resultados,Gastos de administración,4604390
+Resultados,Gastos de ventas,1813840
+Resultados,Otros ingresos gastos,-947578
+Resultados,Total gastos ingresos de operación,5470651
+Resultados,Resultado de operación,13345544
+Resultados,Total financieros neto,4360007
+Resultados,Margen de neto antes de impuestos,8985537
+Resultados,Impuesto a las ganancias diferido,2783862
+Resultados,Utilidad neta,6201675
+Resultados,EBITDA,16459915`;
 
     const csvInput = document.getElementById('csvInput');
     const loadSampleBtn = document.getElementById('loadSampleBtn');
@@ -468,73 +471,59 @@ Resultados,Resultado Neto,6201675,7147964`;
         const values = line.split(',');
         const row = {};
         headers.forEach((h, i) => row[h] = (values[i] || '').trim());
-        row.actual = Number(row.actual || 0);
-        row.anterior = Number(row.anterior || 0);
+        row.valor = Number(row.valor || 0);
         return row;
       });
     }
 
-    function getRow(rows, rubro) {
-      return rows.find(r => r.rubro === rubro) || { actual: 0, anterior: 0, estado: '' };
-    }
-
-    function avg(a, b) {
-      return (a + b) / 2;
+    function getValue(rows, rubro) {
+      const r = rows.find(x => x.rubro === rubro);
+      return r ? r.valor : 0;
     }
 
     function safeDiv(a, b) {
       return b ? a / b : 0;
     }
 
-    function pctChange(actual, previous) {
-      return previous ? ((actual - previous) / previous) * 100 : 0;
-    }
-
-    function deltaClass(value, inverse = false) {
-      if (value === 0) return 'violet';
-      const positiveIsGood = !inverse;
-      const good = positiveIsGood ? value > 0 : value < 0;
-      return good ? 'good' : 'bad';
+    function ratioClass(name, value) {
+      if (name === 'Razón corriente') return value >= 1 ? 'good' : 'bad';
+      if (name === 'Tesorería') return value >= 0.1 && value <= 0.3 ? 'good' : (value > 0.3 ? 'warn' : 'bad');
+      if (name === 'Autonomía financiera') return value >= 0.5 ? 'good' : 'warn';
+      if (name === 'ROE') return value >= 12 ? 'good' : 'warn';
+      if (name === 'Rentabilidad económica') return value >= 8 ? 'good' : 'warn';
+      if (name === 'Margen EBITDA') return value >= 20 ? 'good' : 'warn';
+      if (name === 'Margen neto') return value >= 10 ? 'good' : 'warn';
+      if (name === 'Periodo medio de cobro') return value <= 120 ? 'good' : 'warn';
+      if (name === 'Periodo medio de pago') return value >= 45 ? 'good' : 'warn';
+      return 'violet';
     }
 
     function formatRatio(name, value) {
-      if (['ROE','ROI','Margen Neto','Margen Operativo','Endeudamiento'].includes(name)) return `${fmtPct.format(value)}%`;
+      if (['ROE', 'Rentabilidad económica', 'Margen EBITDA', 'Margen neto'].includes(name)) return `${fmtPct.format(value)}%`;
+      if (['Periodo medio de cobro', 'Periodo medio de pago'].includes(name)) return `${fmtNum.format(value)} días`;
       return `${fmtNum.format(value)}x`;
-    }
-
-    function setDelta(elId, actual, previous, inverse = false, suffix = '%') {
-      const delta = pctChange(actual, previous);
-      const el = document.getElementById(elId);
-      const className = deltaClass(delta, inverse);
-      el.className = `delta ${className}`;
-      const sign = delta > 0 ? '+' : '';
-      el.textContent = `${sign}${fmtPct.format(delta)}${suffix} vs período anterior`;
     }
 
     const balanceChart = new Chart(document.getElementById('balanceChart'), {
       type: 'bar',
       data: {
-        labels: ['Activos Totales', 'Pasivos Totales', 'Patrimonio'],
-        datasets: [
-          {
-            label: 'Actual',
-            data: [0,0,0],
-            backgroundColor: 'rgba(56,189,248,0.75)',
-            borderRadius: 8,
-            borderWidth: 0
-          },
-          {
-            label: 'Anterior',
-            data: [0,0,0],
-            backgroundColor: 'rgba(139,92,246,0.55)',
-            borderRadius: 8,
-            borderWidth: 0
-          }
-        ]
+        labels: ['Activo corriente', 'Activo no corriente', 'Pasivo corriente', 'Pasivo no corriente', 'Patrimonio'],
+        datasets: [{
+          data: [0,0,0,0,0],
+          backgroundColor: [
+            'rgba(56,189,248,0.78)',
+            'rgba(139,92,246,0.75)',
+            'rgba(239,68,68,0.78)',
+            'rgba(245,158,11,0.75)',
+            'rgba(34,197,94,0.78)'
+          ],
+          borderRadius: 8,
+          borderWidth: 0
+        }]
       },
       options: {
         maintainAspectRatio: false,
-        plugins: { legend: { labels: { color: '#cbd5e1' } } },
+        plugins: { legend: { display: false } },
         scales: {
           y: { ticks: { color: '#cbd5e1', callback: v => '$' + (v/1000000).toFixed(0) + 'M' }, grid: { color: 'rgba(255,255,255,0.08)' } },
           x: { ticks: { color: '#cbd5e1' }, grid: { display: false } }
@@ -545,27 +534,23 @@ Resultados,Resultado Neto,6201675,7147964`;
     const resultChart = new Chart(document.getElementById('resultChart'), {
       type: 'bar',
       data: {
-        labels: ['Ingresos', 'Costo de Ventas', 'Utilidad Operativa', 'Resultado Neto'],
-        datasets: [
-          {
-            label: 'Actual',
-            data: [0,0,0,0],
-            backgroundColor: 'rgba(34,197,94,0.75)',
-            borderRadius: 8,
-            borderWidth: 0
-          },
-          {
-            label: 'Anterior',
-            data: [0,0,0,0],
-            backgroundColor: 'rgba(245,158,11,0.55)',
-            borderRadius: 8,
-            borderWidth: 0
-          }
-        ]
+        labels: ['Ventas', 'Utilidad bruta', 'Resultado de operación', 'Utilidad neta', 'EBITDA'],
+        datasets: [{
+          data: [0,0,0,0,0],
+          backgroundColor: [
+            'rgba(34,197,94,0.78)',
+            'rgba(56,189,248,0.78)',
+            'rgba(245,158,11,0.78)',
+            'rgba(139,92,246,0.78)',
+            'rgba(16,185,129,0.78)'
+          ],
+          borderRadius: 8,
+          borderWidth: 0
+        }]
       },
       options: {
         maintainAspectRatio: false,
-        plugins: { legend: { labels: { color: '#cbd5e1' } } },
+        plugins: { legend: { display: false } },
         scales: {
           y: { ticks: { color: '#cbd5e1', callback: v => '$' + (v/1000000).toFixed(0) + 'M' }, grid: { color: 'rgba(255,255,255,0.08)' } },
           x: { ticks: { color: '#cbd5e1' }, grid: { display: false } }
@@ -573,95 +558,100 @@ Resultados,Resultado Neto,6201675,7147964`;
       }
     });
 
-    function renderRatios(ratios) {
-      const grid = document.getElementById('ratioGrid');
-      grid.innerHTML = ratios.map(r => {
-        const delta = pctChange(r.actual, r.previous);
-        const sign = delta > 0 ? '+' : '';
-        const cls = deltaClass(delta, r.inverse || false);
-        return `
-          <div class="ratio-item">
-            <div class="name">${r.name}</div>
-            <div class="val">${formatRatio(r.name, r.actual)}</div>
-            <div class="vs">Anterior: ${formatRatio(r.name, r.previous)}</div>
-            <div class="delta ${cls}">${sign}${fmtPct.format(delta)}% vs anterior</div>
-          </div>
-        `;
-      }).join('');
-    }
-
     function render() {
       const rows = parseCsv(csvInput.value);
 
-      const activos = getRow(rows, 'Activos Totales');
-      const activoCorriente = getRow(rows, 'Activo Corriente');
-      const pasivos = getRow(rows, 'Pasivos Totales');
-      const pasivoCorriente = getRow(rows, 'Pasivo Corriente');
-      const patrimonio = getRow(rows, 'Patrimonio');
-      const ingresos = getRow(rows, 'Ingresos');
-      const costoVentas = getRow(rows, 'Costo de Ventas');
-      const utilidadOperativa = getRow(rows, 'Utilidad Operativa');
-      const resultadoNeto = getRow(rows, 'Resultado Neto');
+      const efectivo = getValue(rows, 'Efectivo y equivalentes de efectivo');
+      const cxcCom = getValue(rows, 'Cuentas por cobrar comerciales neto');
+      const otrasCxc = getValue(rows, 'Otras cuentas por cobrar neto');
+      const activoCorriente = getValue(rows, 'Activo corriente');
+      const activoNoCorriente = getValue(rows, 'Activo no corriente');
+      const activosTotales = getValue(rows, 'Activos totales');
+      const cppCom = getValue(rows, 'Cuenta por pagar comerciales');
+      const pasivoCorriente = getValue(rows, 'Pasivo corriente');
+      const pasivoNoCorriente = getValue(rows, 'Pasivo no corriente');
+      const pasivosTotales = getValue(rows, 'Pasivos totales');
+      const patrimonio = getValue(rows, 'Patrimonio neto');
+      const ventas = getValue(rows, 'Ventas de bienes');
+      const costoVenta = getValue(rows, 'Costo de venta');
+      const resultadoOperacion = getValue(rows, 'Resultado de operación');
+      const utilidadNeta = getValue(rows, 'Utilidad neta');
+      const ebitda = getValue(rows, 'EBITDA');
 
-      const roeActual = safeDiv(resultadoNeto.actual, avg(patrimonio.actual, patrimonio.anterior)) * 100;
-      const roeAnterior = safeDiv(resultadoNeto.anterior, patrimonio.anterior) * 100;
-      const roiActual = safeDiv(utilidadOperativa.actual, avg(activos.actual, activos.anterior)) * 100;
-      const roiAnterior = safeDiv(utilidadOperativa.anterior, activos.anterior) * 100;
+      const roe = safeDiv(utilidadNeta, patrimonio) * 100;
+      const rei = safeDiv(resultadoOperacion, activosTotales) * 100;
+      const razonCorriente = safeDiv(activoCorriente, pasivoCorriente);
+      const tesoreria = safeDiv((efectivo + cxcCom + otrasCxc), pasivoCorriente);
+      const autonomia = safeDiv(patrimonio, pasivosTotales);
+      const pmc = safeDiv(cxcCom, ventas) * 365;
+      const pmp = safeDiv(cppCom, costoVenta) * 365;
+      const margenEbitda = safeDiv(ebitda, ventas) * 100;
+      const margenNeto = safeDiv(utilidadNeta, ventas) * 100;
 
-      const ratios = [
-        { name: 'ROE', actual: roeActual, previous: roeAnterior },
-        { name: 'ROI', actual: roiActual, previous: roiAnterior },
-        { name: 'Margen Neto', actual: safeDiv(resultadoNeto.actual, ingresos.actual) * 100, previous: safeDiv(resultadoNeto.anterior, ingresos.anterior) * 100 },
-        { name: 'Margen Operativo', actual: safeDiv(utilidadOperativa.actual, ingresos.actual) * 100, previous: safeDiv(utilidadOperativa.anterior, ingresos.anterior) * 100 },
-        { name: 'Razón Corriente', actual: safeDiv(activoCorriente.actual, pasivoCorriente.actual), previous: safeDiv(activoCorriente.anterior, pasivoCorriente.anterior) },
-        { name: 'Deuda / Patrimonio', actual: safeDiv(pasivos.actual, patrimonio.actual), previous: safeDiv(pasivos.anterior, patrimonio.anterior), inverse: true },
-        { name: 'Endeudamiento', actual: safeDiv(pasivos.actual, activos.actual) * 100, previous: safeDiv(pasivos.anterior, activos.anterior) * 100, inverse: true },
-        { name: 'Rotación de Activos', actual: safeDiv(ingresos.actual, avg(activos.actual, activos.anterior)), previous: safeDiv(ingresos.anterior, activos.anterior) }
-      ];
+      document.getElementById('roeValue').textContent = `${fmtPct.format(roe)}%`;
+      document.getElementById('roiValue').textContent = `${fmtPct.format(rei)}%`;
+      document.getElementById('netIncomeValue').textContent = fmtMoney.format(utilidadNeta);
+      document.getElementById('equityValue').textContent = fmtMoney.format(patrimonio);
+      document.getElementById('roeFlag').className = `delta ${ratioClass('ROE', roe)}`;
+      document.getElementById('roiFlag').className = `delta ${ratioClass('Rentabilidad económica', rei)}`;
+      document.getElementById('netIncomeFlag').className = 'delta violet';
+      document.getElementById('equityFlag').className = 'delta violet';
 
-      document.getElementById('roeValue').textContent = `${fmtPct.format(roeActual)}%`;
-      document.getElementById('roiValue').textContent = `${fmtPct.format(roiActual)}%`;
-      document.getElementById('netIncomeValue').textContent = fmtMoney.format(resultadoNeto.actual);
-      document.getElementById('equityValue').textContent = fmtMoney.format(patrimonio.actual);
-
-      setDelta('roeDelta', roeActual, roeAnterior);
-      setDelta('roiDelta', roiActual, roiAnterior);
-      setDelta('netIncomeDelta', resultadoNeto.actual, resultadoNeto.anterior);
-      setDelta('equityDelta', patrimonio.actual, patrimonio.anterior);
-
-      renderRatios(ratios);
-
-      balanceChart.data.datasets[0].data = [activos.actual, pasivos.actual, patrimonio.actual];
-      balanceChart.data.datasets[1].data = [activos.anterior, pasivos.anterior, patrimonio.anterior];
+      balanceChart.data.datasets[0].data = [activoCorriente, activoNoCorriente, pasivoCorriente, pasivoNoCorriente, patrimonio];
       balanceChart.update();
 
-      resultChart.data.datasets[0].data = [ingresos.actual, costoVentas.actual, utilidadOperativa.actual, resultadoNeto.actual];
-      resultChart.data.datasets[1].data = [ingresos.anterior, costoVentas.anterior, utilidadOperativa.anterior, resultadoNeto.anterior];
+      resultChart.data.datasets[0].data = [ventas, getValue(rows, 'Utilidad bruta'), resultadoOperacion, utilidadNeta, ebitda];
       resultChart.update();
 
-      const bodyRows = rows.map(r => {
-        const variance = r.actual - r.anterior;
-        const variancePct = pctChange(r.actual, r.anterior);
-        const sign = variancePct > 0 ? '+' : '';
-        return `
-          <tr>
-            <td>${r.estado}</td>
-            <td>${r.rubro}</td>
-            <td class="num">${fmtMoney.format(r.actual)}</td>
-            <td class="num">${fmtMoney.format(r.anterior)}</td>
-            <td class="num">${fmtMoney.format(variance)}</td>
-            <td class="num">${sign}${fmtPct.format(variancePct)}%</td>
-          </tr>
-        `;
-      }).join('');
-      document.getElementById('metricsBody').innerHTML = bodyRows;
+      const ratios = [
+        { name: 'ROE', value: roe },
+        { name: 'Rentabilidad económica', value: rei },
+        { name: 'Razón corriente', value: razonCorriente },
+        { name: 'Tesorería', value: tesoreria },
+        { name: 'Autonomía financiera', value: autonomia },
+        { name: 'Periodo medio de cobro', value: pmc },
+        { name: 'Periodo medio de pago', value: pmp },
+        { name: 'Margen EBITDA', value: margenEbitda },
+        { name: 'Margen neto', value: margenNeto }
+      ];
 
-      const leverageActual = safeDiv(pasivos.actual, patrimonio.actual);
-      const currentRatioActual = safeDiv(activoCorriente.actual, pasivoCorriente.actual);
-      const netMarginActual = safeDiv(resultadoNeto.actual, ingresos.actual) * 100;
-      const opMarginActual = safeDiv(utilidadOperativa.actual, ingresos.actual) * 100;
+      document.getElementById('ratioGrid').innerHTML = ratios.map(r => `
+        <div class="ratio-item">
+          <div class="name">${r.name}</div>
+          <div class="val">${formatRatio(r.name, r.value)}</div>
+          <div class="vs">${r.name === 'Tesorería' ? 'Óptimo teórico: 0.1x a 0.3x' : r.name === 'Razón corriente' ? 'Referencia: mayor que 1x' : r.name === 'Autonomía financiera' ? 'Mayor es mejor, con lectura sectorial' : r.name.includes('Periodo') ? 'Interpretar según negocio y estacionalidad' : 'Interpretar con contexto sectorial y operativo'}</div>
+          <div class="delta ${ratioClass(r.name, r.value)}">Lectura ${ratioClass(r.name, r.value) === 'good' ? 'favorable' : ratioClass(r.name, r.value) === 'warn' ? 'intermedia' : 'presionada'}</div>
+        </div>
+      `).join('');
 
-      document.getElementById('executiveInsight').textContent = `El ROE actual se ubica en ${fmtPct.format(roeActual)}% y el ROI en ${fmtPct.format(roiActual)}%, ambos calculados automáticamente a partir de patrimonio, activos, resultado neto y utilidad operativa. El patrimonio de cierre asciende a ${fmtMoney.format(patrimonio.actual)} y el resultado neto a ${fmtMoney.format(resultadoNeto.actual)}. En estructura financiera, la razón corriente se ubica en ${fmtNum.format(currentRatioActual)}x y la relación deuda / patrimonio en ${fmtNum.format(leverageActual)}x. En performance, el margen operativo es ${fmtPct.format(opMarginActual)}% y el margen neto ${fmtPct.format(netMarginActual)}%.`;
+      const rubrosUtilizados = [
+        'Efectivo y equivalentes de efectivo',
+        'Cuentas por cobrar comerciales neto',
+        'Otras cuentas por cobrar neto',
+        'Activo corriente',
+        'Activo no corriente',
+        'Activos totales',
+        'Cuenta por pagar comerciales',
+        'Pasivo corriente',
+        'Pasivo no corriente',
+        'Pasivos totales',
+        'Patrimonio neto',
+        'Ventas de bienes',
+        'Costo de venta',
+        'Resultado de operación',
+        'Utilidad neta',
+        'EBITDA'
+      ];
+
+      document.getElementById('metricsBody').innerHTML = rows.filter(r => rubrosUtilizados.includes(r.rubro)).map(r => `
+        <tr>
+          <td>${r.estado}</td>
+          <td>${r.rubro}</td>
+          <td class="num">${fmtMoney.format(r.valor)}</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('executiveInsight').textContent = `En 2025, Family Farms Perú cierra con activos totales por ${fmtMoney.format(activosTotales)}, pasivos totales por ${fmtMoney.format(pasivosTotales)} y patrimonio neto por ${fmtMoney.format(patrimonio)}. La utilidad neta asciende a ${fmtMoney.format(utilidadNeta)} y el resultado de operación a ${fmtMoney.format(resultadoOperacion)}. Bajo este enfoque, el ROE se ubica en ${fmtPct.format(roe)}% y la rentabilidad económica en ${fmtPct.format(rei)}%. En liquidez, la razón corriente es ${fmtNum.format(razonCorriente)}x y el ratio de tesorería ${fmtNum.format(tesoreria)}x. En gestión operativa, el período medio de cobro estimado es ${fmtNum.format(pmc)} días y el período medio de pago estimado ${fmtNum.format(pmp)} días. El margen EBITDA es ${fmtPct.format(margenEbitda)}% y el margen neto ${fmtPct.format(margenNeto)}%.`;
     }
 
     loadSampleBtn.addEventListener('click', () => {
