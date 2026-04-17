@@ -2,70 +2,177 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>FFP Dashboard Financiero</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FFP · Dashboard Financiero</title>
 <style>
-body{background:#0b1220;color:#e5e7eb;font-family:Arial;margin:0;padding:20px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.card{background:#111827;padding:14px;border-radius:10px;border:1px solid #1f2937}
-.label{font-size:12px;color:#94a3b8}
-.value{font-size:26px;font-weight:bold}
-.delta{font-size:12px;margin-top:6px}
-.good{color:#22c55e}.bad{color:#ef4444}
+  :root{
+    --bg:#0b1220;
+    --panel:#111827;
+    --line:#1f2937;
+    --text:#e5e7eb;
+    --muted:#94a3b8;
+    --good:#22c55e;
+    --bad:#ef4444;
+    --accent:#38bdf8;
+  }
+  *{box-sizing:border-box}
+  body{background:linear-gradient(180deg,#030712 0%,#0b1220 100%);color:var(--text);font-family:Inter,Arial,sans-serif;margin:0;padding:20px}
+  .wrap{max-width:1500px;margin:0 auto}
+  .header{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+  .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:8px}
+  h1{margin:0;font-size:32px;letter-spacing:-0.03em}
+  .sub{color:var(--muted);margin-top:8px;line-height:1.55;font-size:14px;max-width:1000px}
+  .kilos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+  .mini{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .mini .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .mini .value{font-size:24px;font-weight:800;margin-top:6px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .card{background:var(--panel);padding:14px;border-radius:14px;border:1px solid var(--line)}
+  .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .value{font-size:28px;font-weight:800;margin-top:8px}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .compare-box{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:10px}
+  .compare-box .year{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .compare-box .num{font-size:18px;font-weight:700;margin-top:4px}
+  .delta{font-size:12px;margin-top:10px;font-weight:700}
+  .good{color:var(--good)}
+  .bad{color:var(--bad)}
+  .neutral{color:var(--accent)}
+  .section-title{margin:20px 0 10px;font-size:18px;font-weight:800;letter-spacing:-0.02em}
+  @media (max-width:1200px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:720px){.grid,.kilos{grid-template-columns:1fr} h1{font-size:26px}}
 </style>
 </head>
 <body>
-<h2>FFP · Dashboard Financiero</h2>
+<div class="wrap">
+  <div class="header">
+    <div class="eyebrow">Family Farms Perú</div>
+    <h1>Dashboard Financiero Ejecutivo</h1>
+    <div class="sub">Comparativo 2025 vs 2024 con foco en ventas, rentabilidad, EBITDA, estructura de gasto y unitarios por kilo producido. En gastos, se muestra también eficiencia como porcentaje de ventas y por kilo producido.</div>
+    <div class="kilos">
+      <div class="mini">
+        <div class="label">Producción 2024</div>
+        <div class="value" id="kg2024"></div>
+      </div>
+      <div class="mini">
+        <div class="label">Producción 2025</div>
+        <div class="value" id="kg2025"></div>
+      </div>
+    </div>
+  </div>
 
-<div class="grid" id="kpis"></div>
+  <div class="section-title">KPIs principales</div>
+  <div class="grid" id="mainKpis"></div>
+
+  <div class="section-title">Unitarios y eficiencia de gasto</div>
+  <div class="grid" id="efficiencyKpis"></div>
+</div>
 
 <script>
+const kg2024 = 5998000;
+const kg2025 = 9948000;
+
 const data = {
- ventas:{a:58662361,p:46056299},
- roe:{a:6201675/50044922*100,p:7147964/45565908*100},
- roa:{a:13345544/128783337*100,p:11572556/106244751*100},
- roi:{a:13345544/128783337*100,p:11572556/106244751*100},
- ebitda:{a:16459915,p:14484072},
- margenEbitda:{a:16459915/58662361*100,p:14484072/46056299*100},
- costoVentas:{a:40145236,p:29726610},
- gastoVentas:{a:1813840,p:630104},
- gastoAdmin:{a:4604390,p:3934899},
- gastoFin:{a:4360007,p:2202839}
+  ventas: { a: 58662361, p: 46056299, format: 'money', better: 'up' },
+  roe: { a: 6201675 / 50044922 * 100, p: 7147964 / 45565908 * 100, format: 'pct', better: 'up' },
+  roa: { a: 13345544 / 128783337 * 100, p: 11572556 / 106244751 * 100, format: 'pct', better: 'up' },
+  roi: { a: 13345544 / 128783337 * 100, p: 11572556 / 106244751 * 100, format: 'pct', better: 'up' },
+  ebitda: { a: 16459915, p: 14484072, format: 'money', better: 'up' },
+  margenEbitda: { a: 16459915 / 58662361 * 100, p: 14484072 / 46056299 * 100, format: 'pct', better: 'up' },
+  costoVentas: { a: 40145236, p: 29726610, format: 'money', better: 'down' },
+  gastoVentas: { a: 1813840, p: 630104, format: 'money', better: 'down' },
+  gastoAdmin: { a: 4604390, p: 3934899, format: 'money', better: 'down' },
+  gastoFin: { a: 4360007, p: 2202839, format: 'money', better: 'down' }
 };
 
-function delta(a,p){return ((a-p)/p*100)}
-function fmt(n){return Math.round(n).toLocaleString()}
-function pct(n){return n.toFixed(1)+"%"}
+const efficiency = {
+  ventasKg: { a: 58662361 / kg2025, p: 46056299 / kg2024, format: 'money2', better: 'up', label: 'Ventas / Kg producido' },
+  ebitdaKg: { a: 16459915 / kg2025, p: 14484072 / kg2024, format: 'money2', better: 'up', label: 'EBITDA / Kg producido' },
+  costoVentasKg: { a: 40145236 / kg2025, p: 29726610 / kg2024, format: 'money2', better: 'down', label: 'Costo de ventas / Kg' },
+  gastoVentasVentas: { a: 1813840 / 58662361 * 100, p: 630104 / 46056299 * 100, format: 'pct', better: 'down', label: 'Gasto ventas / Ventas' },
+  gastoVentasKg: { a: 1813840 / kg2025, p: 630104 / kg2024, format: 'money2', better: 'down', label: 'Gasto ventas / Kg' },
+  gastoAdminVentas: { a: 4604390 / 58662361 * 100, p: 3934899 / 46056299 * 100, format: 'pct', better: 'down', label: 'Gasto administrativo / Ventas' },
+  gastoAdminKg: { a: 4604390 / kg2025, p: 3934899 / kg2024, format: 'money2', better: 'down', label: 'Gasto administrativo / Kg' },
+  gastoFinVentas: { a: 4360007 / 58662361 * 100, p: 2202839 / 46056299 * 100, format: 'pct', better: 'down', label: 'Gasto financiero / Ventas' },
+  gastoFinKg: { a: 4360007 / kg2025, p: 2202839 / kg2024, format: 'money2', better: 'down', label: 'Gasto financiero / Kg' }
+};
 
-const map = [
- ['Ventas','ventas','$'],
- ['ROE','roe','%'],
- ['ROA','roa','%'],
- ['ROI','roi','%'],
- ['EBITDA','ebitda','$'],
- ['Margen EBITDA','margenEbitda','%'],
- ['Costo de ventas','costoVentas','$'],
- ['Gasto ventas','gastoVentas','$'],
- ['Gasto admin','gastoAdmin','$'],
- ['Gasto financiero','gastoFin','$']
+function delta(a, p) {
+  return p ? ((a - p) / p * 100) : 0;
+}
+
+function fmtInt(n) {
+  return Math.round(n).toLocaleString('en-US');
+}
+
+function fmtMoney(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+function fmtMoney2(n) {
+  return '$' + n.toFixed(2);
+}
+
+function fmtPct(n) {
+  return n.toFixed(1) + '%';
+}
+
+function formatValue(n, type) {
+  if (type === 'money') return fmtMoney(n);
+  if (type === 'money2') return fmtMoney2(n);
+  if (type === 'pct') return fmtPct(n);
+  return fmtInt(n);
+}
+
+function getClass(d, better) {
+  if (d === 0) return 'neutral';
+  if (better === 'up') return d > 0 ? 'good' : 'bad';
+  return d < 0 ? 'good' : 'bad';
+}
+
+function cardTemplate(title, obj, year2025Label = '2025', year2024Label = '2024') {
+  const d = delta(obj.a, obj.p);
+  const cls = getClass(d, obj.better);
+  const sign = d > 0 ? '+' : '';
+  return `
+    <div class="card">
+      <div class="label">${title}</div>
+      <div class="value">${formatValue(obj.a, obj.format)}</div>
+      <div class="compare">
+        <div class="compare-box">
+          <div class="year">${year2025Label}</div>
+          <div class="num">${formatValue(obj.a, obj.format)}</div>
+        </div>
+        <div class="compare-box">
+          <div class="year">${year2024Label}</div>
+          <div class="num">${formatValue(obj.p, obj.format)}</div>
+        </div>
+      </div>
+      <div class="delta ${cls}">${sign}${fmtPct(d)} vs 2024</div>
+    </div>`;
+}
+
+document.getElementById('kg2024').textContent = fmtInt(kg2024) + ' kg';
+document.getElementById('kg2025').textContent = fmtInt(kg2025) + ' kg';
+
+const mainMap = [
+  ['Ventas', data.ventas],
+  ['ROE', data.roe],
+  ['ROA', data.roa],
+  ['ROI', data.roi],
+  ['EBITDA', data.ebitda],
+  ['Margen EBITDA', data.margenEbitda],
+  ['Costo de ventas', data.costoVentas],
+  ['Gasto de ventas', data.gastoVentas],
+  ['Gasto administrativo', data.gastoAdmin],
+  ['Gasto financiero', data.gastoFin]
 ];
 
-const container=document.getElementById('kpis');
+document.getElementById('mainKpis').innerHTML = mainMap.map(([title, obj]) => cardTemplate(title, obj)).join('');
 
-map.forEach(([name,key,type])=>{
- const a=data[key].a;
- const p=data[key].p;
- const d=delta(a,p);
- const cls=d>0?'good':'bad';
- const val= type=='%'?pct(a):'$'+fmt(a);
- const del= (d>0?'+':'')+pct(d);
- container.innerHTML+=`
- <div class="card">
-  <div class="label">${name}</div>
-  <div class="value">${val}</div>
-  <div class="delta ${cls}">${del} vs 2024</div>
- </div>`;
-});
+document.getElementById('efficiencyKpis').innerHTML = Object.values(efficiency)
+  .map(obj => cardTemplate(obj.label, obj))
+  .join('');
 </script>
 </body>
 </html>
