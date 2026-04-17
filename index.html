@@ -14,7 +14,9 @@ h1{margin:0}
 .okr{background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;height:100%}
 .okr-head{display:flex;justify-content:space-between;align-items:center}
 .kr{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:10px}
-.staackground:#22c55e}
+.status{display:flex;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%}
+.good .dot{background:#22c55e}
 .warn .dot{background:#facc15}
 .bad .dot{background:#ef4444}
 .meta{display:flex;gap:10px;margin-top:8px}
@@ -29,11 +31,12 @@ h1{margin:0}
 <h1>OKRs 2026</h1>
 <div class="tag" id="fecha"></div>
 </div>
-<div id="okrs"></div>
+<div id="okrs" class="okr-grid"></div>
 </div>
 <script>
 const data=[
-{foco:'CALIDAD',objetivo:'Maximizar captura d<div id="okrs" class="okr-grid"></div>85,formula:'IVC = exportable x calidad x arribos'}
+{foco:'CALIDAD',objetivo:'Maximizar captura de valor',krs:[
+{name:'IVC',actual:72,meta:85,formula:'IVC = exportable x calidad x arribos'}
 ]},
 {foco:'EFICIENCIA',objetivo:'Maximizar eficiencia integral',krs:[
 {name:'Breakeven/kg',actual:1.62,meta:1.45,formula:'egresos/kg'},
