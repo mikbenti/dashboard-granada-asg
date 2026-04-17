@@ -1,178 +1,665 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FFP · Dashboard Financiero</title>
-<style>
-  :root{
-    --bg:#0b1220;
-    --panel:#111827;
-    --line:#1f2937;
-    --text:#e5e7eb;
-    --muted:#94a3b8;
-    --good:#22c55e;
-    --bad:#ef4444;
-    --accent:#38bdf8;
-  }
-  *{box-sizing:border-box}
-  body{background:linear-gradient(180deg,#030712 0%,#0b1220 100%);color:var(--text);font-family:Inter,Arial,sans-serif;margin:0;padding:20px}
-  .wrap{max-width:1500px;margin:0 auto}
-  .header{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
-  .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:8px}
-  h1{margin:0;font-size:32px;letter-spacing:-0.03em}
-  .sub{color:var(--muted);margin-top:8px;line-height:1.55;font-size:14px;max-width:1000px}
-  .kilos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
-  .mini{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:12px}
-  .mini .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-  .mini .value{font-size:24px;font-weight:800;margin-top:6px}
-  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-  .card{background:var(--panel);padding:14px;border-radius:14px;border:1px solid var(--line)}
-  .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-  .value{font-size:28px;font-weight:800;margin-top:8px}
-  .compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-  .compare-box{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:10px}
-  .compare-box .year{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-  .compare-box .num{font-size:18px;font-weight:700;margin-top:4px}
-  .delta{font-size:12px;margin-top:10px;font-weight:700}
-  .good{color:var(--good)}
-  .bad{color:var(--bad)}
-  .neutral{color:var(--accent)}
-  .section-title{margin:20px 0 10px;font-size:18px;font-weight:800;letter-spacing:-0.02em}
-  @media (max-width:1200px){.grid{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:720px){.grid,.kilos{grid-template-columns:1fr} h1{font-size:26px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V&P · Dashboard OKRs 2026</title>
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: #101827;
+      --panel-2: #0f172a;
+      --line: rgba(255,255,255,0.08);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --violet: #8b5cf6;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #020617 0%, #08111f 100%);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(16,24,39,0.98), rgba(15,23,42,0.98));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.22);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 1000px;
+    }
+
+    .header-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-chip {
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: rgba(56,189,248,0.10);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.24);
+      font-weight: 800;
+      text-align: center;
+      min-width: 220px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(16,24,39,0.92);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+    }
+
+    .span-12 { grid-column: span 12; }
+    .span-8 { grid-column: span 8; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .span-3 { grid-column: span 3; }
+
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .hero-kpi {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 124px;
+    }
+
+    .hero-kpi .value {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-top: 6px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    .delta {
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+
+    .good { background: rgba(34,197,94,0.16); color: var(--good); }
+    .warn { background: rgba(245,158,11,0.16); color: var(--warn); }
+    .bad { background: rgba(239,68,68,0.16); color: var(--bad); }
+    .violet { background: rgba(139,92,246,0.16); color: var(--violet); }
+
+    .insight {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #dbe4ef;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .okr-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .okr-card {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .okr-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .okr-head h3 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .focus-tag {
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .progress-wrap {
+      margin-top: 8px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      background: #0b1220;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      transition: width .3s ease;
+      background: linear-gradient(90deg, var(--bad), var(--warn), var(--good));
+    }
+
+    .kr-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .kr-card {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.025);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .kr-name {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .kr-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .kr-stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .kr-stat .n {
+      font-size: 18px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .kr-formula {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1100px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: rgba(255,255,255,0.03);
+      color: #cbd5e1;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    td.num, th.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 320px;
+      resize: vertical;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #0b1220;
+      color: var(--text);
+      padding: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover { background: rgba(255,255,255,0.08); }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .footnote {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 1180px) {
+      .header { grid-template-columns: 1fr; }
+      .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
+      .hero-kpis { grid-template-columns: repeat(2, 1fr); }
+      .kr-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-kpis { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+      .kr-meta { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="header">
-    <div class="eyebrow">Family Farms Perú</div>
-    <h1>Dashboard Financiero Ejecutivo</h1>
-    <div class="sub">Comparativo 2025 vs 2024 con foco en ventas, rentabilidad, EBITDA, estructura de gasto y unitarios por kilo producido. En gastos, se muestra también eficiencia como porcentaje de ventas y por kilo producido.</div>
-    <div class="kilos">
-      <div class="mini">
-        <div class="label">Producción 2024</div>
-        <div class="value" id="kg2024"></div>
+  <div class="container">
+    <div class="header">
+      <div>
+        <div class="eyebrow">Grupo Valle y Pampa · OKRs 2026</div>
+        <h1>Dashboard Ejecutivo de OKRs</h1>
+        <div class="subtitle">Primera versión estructural del dashboard organizacional. Usa los 5 KRs del documento base como esqueleto, con metas, valores actuales y fórmulas editables para luego derivar el Excel de carga exacto.</div>
+        <div class="header-tags">
+          <div class="tag">5 KRs organizacionales</div>
+          <div class="tag">Avance automático</div>
+          <div class="tag">Semáforos</div>
+          <div class="tag">Listo para derivar Excel de inputs</div>
+        </div>
       </div>
-      <div class="mini">
-        <div class="label">Producción 2025</div>
-        <div class="value" id="kg2025"></div>
+      <div class="status-chip">OKRs 2026 · Versión Base</div>
+    </div>
+
+    <div class="grid">
+      <div class="card span-12">
+        <div class="section-title">
+          <h2>Resumen general</h2>
+          <div class="mini-note">Consolidado de los 5 key results</div>
+        </div>
+        <div class="hero-kpis">
+          <div class="hero-kpi">
+            <div class="label">Avance promedio</div>
+            <div id="avgProgress" class="value">—</div>
+            <div class="sub">Promedio simple de avance de los 5 KRs</div>
+            <div id="avgBadge" class="delta violet">Estado general</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="label">KRs on track</div>
+            <div id="onTrackCount" class="value">—</div>
+            <div class="sub">KRs con avance igual o superior a 90%</div>
+            <div class="delta good">Meta: maximizar cumplimiento</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="label">KRs en riesgo</div>
+            <div id="riskCount" class="value">—</div>
+            <div class="sub">KRs con avance entre 60% y 89.9%</div>
+            <div class="delta warn">Requieren gestión</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="label">KRs fuera de línea</div>
+            <div id="offTrackCount" class="value">—</div>
+            <div class="sub">KRs con avance menor a 60%</div>
+            <div class="delta bad">Requieren corrección</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-8">
+        <div class="label">Lectura ejecutiva</div>
+        <div id="executiveInsight" class="insight"></div>
+      </div>
+
+      <div class="card span-4">
+        <div class="label">Cómo está pensado</div>
+        <div class="sub">Cada objetivo tiene un KR principal visible con: valor actual, meta, avance %, semáforo y fórmula. Esta maqueta sirve para validar qué debe ver el directorio y, desde ahí, diseñar el Excel que alimente el dashboard sin datos redundantes.</div>
+      </div>
+
+      <div class="card span-12">
+        <div class="section-title">
+          <h2>Objetivos y Key Results</h2>
+          <div class="mini-note">Diseño base del dashboard</div>
+        </div>
+        <div id="okrContainer" class="okr-grid"></div>
+      </div>
+
+      <div class="card span-12">
+        <div class="section-title">
+          <h2>Tabla de carga visible</h2>
+          <div class="mini-note">Esta tabla es la base para luego construir el Excel de inputs</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Foco</th>
+                <th>Objetivo</th>
+                <th>KR</th>
+                <th class="num">Actual</th>
+                <th class="num">Meta</th>
+                <th class="num">Avance</th>
+                <th>Fórmula base</th>
+              </tr>
+            </thead>
+            <tbody id="metricsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card span-12">
+        <div class="controls">
+          <div>
+            <div class="label" style="margin-bottom:4px;">Fuente editable</div>
+            <div class="mini-note">Pega aquí el CSV base del dashboard. Columnas esperadas: foco, objetivo, kr, actual, meta, formula.</div>
+          </div>
+          <div>
+            <button id="loadSampleBtn">Cargar estructura base</button>
+            <button id="updateBtn">Actualizar dashboard</button>
+          </div>
+        </div>
+        <textarea id="csvInput"></textarea>
+        <div class="footnote">En esta fase no estamos definiendo todavía el Excel final de inputs. Primero validamos qué debe ver el dashboard. Luego, a partir de esta estructura, derivamos exactamente qué datos hay que cargar y con qué granularidad.</div>
       </div>
     </div>
   </div>
 
-  <div class="section-title">KPIs principales</div>
-  <div class="grid" id="mainKpis"></div>
+  <script>
+    const sampleCsv = `foco,objetivo,kr,actual,meta,formula
+CALIDAD,Maximizar la captura de valor de la producción,Alcanzar un IVC en Arándanos y Granada,72,85,IVC = % Exportable x % JBO o CAT 1+2 x % Arribos >= 4 x 100
+EFICIENCIA,Maximizar la eficiencia integral del negocio,Alcanzar un Breakeven <= objetivo por kg,1.62,1.45,Breakeven = Total egresos del P&L / Total kilos producidos
+EFICIENCIA,Maximizar la eficiencia integral del negocio,Alcanzar un ICP >= 95%,91,95,ICP = Kg producidos / Kg programados x 100
+TALENTO,Maximizar la productividad de las personas,Alcanzar un IP objetivo,78,100,IP = % Kg cosechados por CAR / Total Kg cosechados x Costo Persona Target / Real x 100
+CRECIMIENTO ESTRATÉGICO,Maximizar la generación de nuevos flujos de negocios,Alcanzar un INF objetivo,9,15,INF = Contribución orgánica + inorgánica / Contribución total del grupo x 100`;
 
-  <div class="section-title">Unitarios y eficiencia de gasto</div>
-  <div class="grid" id="efficiencyKpis"></div>
-</div>
+    const csvInput = document.getElementById('csvInput');
+    const loadSampleBtn = document.getElementById('loadSampleBtn');
+    const updateBtn = document.getElementById('updateBtn');
 
-<script>
-const kg2024 = 5998000;
-const kg2025 = 9948000;
+    const fmtPct = new Intl.NumberFormat('es-PE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const fmtNum = new Intl.NumberFormat('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-const data = {
-  ventas: { a: 58662361, p: 46056299, format: 'money', better: 'up' },
-  roe: { a: 6201675 / 50044922 * 100, p: 7147964 / 45565908 * 100, format: 'pct', better: 'up' },
-  roa: { a: 13345544 / 128783337 * 100, p: 11572556 / 106244751 * 100, format: 'pct', better: 'up' },
-  roi: { a: 13345544 / 128783337 * 100, p: 11572556 / 106244751 * 100, format: 'pct', better: 'up' },
-  ebitda: { a: 16459915, p: 14484072, format: 'money', better: 'up' },
-  margenEbitda: { a: 16459915 / 58662361 * 100, p: 14484072 / 46056299 * 100, format: 'pct', better: 'up' },
-  costoVentas: { a: 40145236, p: 29726610, format: 'money', better: 'down' },
-  gastoVentas: { a: 1813840, p: 630104, format: 'money', better: 'down' },
-  gastoAdmin: { a: 4604390, p: 3934899, format: 'money', better: 'down' },
-  gastoFin: { a: 4360007, p: 2202839, format: 'money', better: 'down' }
-};
+    function parseCsv(text) {
+      const lines = text.trim().split(/\r?\n/).filter(Boolean);
+      const headers = lines[0].split(',').map(h => h.trim());
+      return lines.slice(1).map(line => {
+        const values = line.split(',');
+        const row = {};
+        headers.forEach((h, i) => row[h] = (values[i] || '').trim());
+        row.actual = Number(row.actual || 0);
+        row.meta = Number(row.meta || 0);
+        return row;
+      });
+    }
 
-const efficiency = {
-  ventasKg: { a: 58662361 / kg2025, p: 46056299 / kg2024, format: 'money2', better: 'up', label: 'Ventas / Kg producido' },
-  ebitdaKg: { a: 16459915 / kg2025, p: 14484072 / kg2024, format: 'money2', better: 'up', label: 'EBITDA / Kg producido' },
-  costoVentasKg: { a: 40145236 / kg2025, p: 29726610 / kg2024, format: 'money2', better: 'down', label: 'Costo de ventas / Kg' },
-  gastoVentasVentas: { a: 1813840 / 58662361 * 100, p: 630104 / 46056299 * 100, format: 'pct', better: 'down', label: 'Gasto ventas / Ventas' },
-  gastoVentasKg: { a: 1813840 / kg2025, p: 630104 / kg2024, format: 'money2', better: 'down', label: 'Gasto ventas / Kg' },
-  gastoAdminVentas: { a: 4604390 / 58662361 * 100, p: 3934899 / 46056299 * 100, format: 'pct', better: 'down', label: 'Gasto administrativo / Ventas' },
-  gastoAdminKg: { a: 4604390 / kg2025, p: 3934899 / kg2024, format: 'money2', better: 'down', label: 'Gasto administrativo / Kg' },
-  gastoFinVentas: { a: 4360007 / 58662361 * 100, p: 2202839 / 46056299 * 100, format: 'pct', better: 'down', label: 'Gasto financiero / Ventas' },
-  gastoFinKg: { a: 4360007 / kg2025, p: 2202839 / kg2024, format: 'money2', better: 'down', label: 'Gasto financiero / Kg' }
-};
+    function progress(row) {
+      const kr = row.kr.toLowerCase();
+      if (kr.includes('breakeven')) {
+        return row.actual > 0 ? Math.min((row.meta / row.actual) * 100, 140) : 0;
+      }
+      return row.meta > 0 ? Math.min((row.actual / row.meta) * 100, 140) : 0;
+    }
 
-function delta(a, p) {
-  return p ? ((a - p) / p * 100) : 0;
-}
+    function statusClass(p) {
+      if (p >= 90) return 'good';
+      if (p >= 60) return 'warn';
+      return 'bad';
+    }
 
-function fmtInt(n) {
-  return Math.round(n).toLocaleString('en-US');
-}
+    function statusText(p) {
+      if (p >= 90) return 'On track';
+      if (p >= 60) return 'En riesgo';
+      return 'Off track';
+    }
 
-function fmtMoney(n) {
-  return '$' + Math.round(n).toLocaleString('en-US');
-}
+    function fmtValue(v) {
+      if (Math.abs(v) >= 1000) return fmtNum.format(v);
+      return fmtNum.format(v);
+    }
 
-function fmtMoney2(n) {
-  return '$' + n.toFixed(2);
-}
+    function render() {
+      const rows = parseCsv(csvInput.value);
+      const metricsBody = document.getElementById('metricsBody');
+      const okrContainer = document.getElementById('okrContainer');
 
-function fmtPct(n) {
-  return n.toFixed(1) + '%';
-}
+      const enriched = rows.map(r => ({ ...r, progress: progress(r) }));
+      const avg = enriched.reduce((s, r) => s + r.progress, 0) / (enriched.length || 1);
+      const onTrack = enriched.filter(r => r.progress >= 90).length;
+      const risk = enriched.filter(r => r.progress >= 60 && r.progress < 90).length;
+      const offTrack = enriched.filter(r => r.progress < 60).length;
 
-function formatValue(n, type) {
-  if (type === 'money') return fmtMoney(n);
-  if (type === 'money2') return fmtMoney2(n);
-  if (type === 'pct') return fmtPct(n);
-  return fmtInt(n);
-}
+      document.getElementById('avgProgress').textContent = `${fmtPct.format(avg)}%`;
+      document.getElementById('onTrackCount').textContent = onTrack;
+      document.getElementById('riskCount').textContent = risk;
+      document.getElementById('offTrackCount').textContent = offTrack;
+      const avgBadge = document.getElementById('avgBadge');
+      avgBadge.className = `delta ${statusClass(avg)}`;
+      avgBadge.textContent = statusText(avg);
 
-function getClass(d, better) {
-  if (d === 0) return 'neutral';
-  if (better === 'up') return d > 0 ? 'good' : 'bad';
-  return d < 0 ? 'good' : 'bad';
-}
+      const grouped = {};
+      enriched.forEach(r => {
+        const key = `${r.foco}||${r.objetivo}`;
+        if (!grouped[key]) grouped[key] = { foco: r.foco, objetivo: r.objetivo, krs: [] };
+        grouped[key].krs.push(r);
+      });
 
-function cardTemplate(title, obj, year2025Label = '2025', year2024Label = '2024') {
-  const d = delta(obj.a, obj.p);
-  const cls = getClass(d, obj.better);
-  const sign = d > 0 ? '+' : '';
-  return `
-    <div class="card">
-      <div class="label">${title}</div>
-      <div class="value">${formatValue(obj.a, obj.format)}</div>
-      <div class="compare">
-        <div class="compare-box">
-          <div class="year">${year2025Label}</div>
-          <div class="num">${formatValue(obj.a, obj.format)}</div>
-        </div>
-        <div class="compare-box">
-          <div class="year">${year2024Label}</div>
-          <div class="num">${formatValue(obj.p, obj.format)}</div>
-        </div>
-      </div>
-      <div class="delta ${cls}">${sign}${fmtPct(d)} vs 2024</div>
-    </div>`;
-}
+      okrContainer.innerHTML = Object.values(grouped).map(group => {
+        const groupProgress = group.krs.reduce((s, r) => s + r.progress, 0) / group.krs.length;
+        const groupClass = statusClass(groupProgress);
+        return `
+          <div class="okr-card">
+            <div class="okr-head">
+              <div>
+                <div class="label">${group.foco}</div>
+                <h3>${group.objetivo}</h3>
+              </div>
+              <div class="focus-tag ${groupClass}">${statusText(groupProgress)} · ${fmtPct.format(groupProgress)}%</div>
+            </div>
+            <div class="progress-wrap">
+              <div class="progress-label">
+                <span>Avance del objetivo</span>
+                <span>${fmtPct.format(groupProgress)}%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width:${Math.min(groupProgress,100)}%"></div>
+              </div>
+            </div>
+            <div class="kr-grid">
+              ${group.krs.map(kr => `
+                <div class="kr-card">
+                  <div class="kr-name">${kr.kr}</div>
+                  <div class="kr-meta">
+                    <div class="kr-stat">
+                      <div class="label">Actual</div>
+                      <div class="n">${fmtValue(kr.actual)}</div>
+                    </div>
+                    <div class="kr-stat">
+                      <div class="label">Meta</div>
+                      <div class="n">${fmtValue(kr.meta)}</div>
+                    </div>
+                    <div class="kr-stat">
+                      <div class="label">Avance</div>
+                      <div class="n">${fmtPct.format(kr.progress)}%</div>
+                    </div>
+                  </div>
+                  <div class="delta ${statusClass(kr.progress)}">${statusText(kr.progress)}</div>
+                  <div class="kr-formula"><strong>Fórmula base:</strong> ${kr.formula}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
 
-document.getElementById('kg2024').textContent = fmtInt(kg2024) + ' kg';
-document.getElementById('kg2025').textContent = fmtInt(kg2025) + ' kg';
+      metricsBody.innerHTML = enriched.map(r => `
+        <tr>
+          <td>${r.foco}</td>
+          <td>${r.objetivo}</td>
+          <td>${r.kr}</td>
+          <td class="num">${fmtValue(r.actual)}</td>
+          <td class="num">${fmtValue(r.meta)}</td>
+          <td class="num">${fmtPct.format(r.progress)}%</td>
+          <td>${r.formula}</td>
+        </tr>
+      `).join('');
 
-const mainMap = [
-  ['Ventas', data.ventas],
-  ['ROE', data.roe],
-  ['ROA', data.roa],
-  ['ROI', data.roi],
-  ['EBITDA', data.ebitda],
-  ['Margen EBITDA', data.margenEbitda],
-  ['Costo de ventas', data.costoVentas],
-  ['Gasto de ventas', data.gastoVentas],
-  ['Gasto administrativo', data.gastoAdmin],
-  ['Gasto financiero', data.gastoFin]
-];
+      const worst = [...enriched].sort((a,b) => a.progress - b.progress)[0];
+      const best = [...enriched].sort((a,b) => b.progress - a.progress)[0];
+      document.getElementById('executiveInsight').textContent = `El avance promedio del set de OKRs se ubica en ${fmtPct.format(avg)}%. Actualmente hay ${onTrack} KR(s) on track, ${risk} en riesgo y ${offTrack} fuera de línea. El KR más adelantado es “${best.kr}” con ${fmtPct.format(best.progress)}% de avance, mientras que el más presionado es “${worst.kr}” con ${fmtPct.format(worst.progress)}%. Esta vista ya permite definir exactamente qué inputs y qué fórmulas deberá tener el Excel final de carga.`;
+    }
 
-document.getElementById('mainKpis').innerHTML = mainMap.map(([title, obj]) => cardTemplate(title, obj)).join('');
+    loadSampleBtn.addEventListener('click', () => {
+      csvInput.value = sampleCsv;
+      render();
+    });
 
-document.getElementById('efficiencyKpis').innerHTML = Object.values(efficiency)
-  .map(obj => cardTemplate(obj.label, obj))
-  .join('');
-</script>
+    updateBtn.addEventListener('click', render);
+
+    csvInput.value = sampleCsv;
+    render();
+  </script>
 </body>
 </html>
