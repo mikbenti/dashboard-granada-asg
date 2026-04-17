@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FFP · Estados Financieros 2025</title>
+  <title>FFP · Situación Financiera y Resultados</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
       --bg: #0a0f1c;
       --panel: #101827;
-      --panel-2: #0f172a;
       --line: rgba(255,255,255,0.08);
       --text: #e5e7eb;
       --muted: #94a3b8;
@@ -30,7 +29,7 @@
     }
 
     .container {
-      max-width: 1500px;
+      max-width: 1520px;
       margin: 0 auto;
       padding: 24px;
     }
@@ -97,7 +96,7 @@
       border: 1px solid rgba(56,189,248,0.24);
       font-weight: 800;
       text-align: center;
-      min-width: 210px;
+      min-width: 240px;
     }
 
     .grid {
@@ -128,61 +127,47 @@
       margin-bottom: 8px;
     }
 
-    .kpi-grid {
+    .hero-kpis {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
 
-    .kpi {
+    .hero-kpi, .kpi {
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 14px;
-      min-height: 120px;
+      min-height: 124px;
     }
 
-    .kpi .value {
-      font-size: 28px;
+    .hero-kpi .value, .kpi .value {
+      font-size: 30px;
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-top: 6px;
     }
 
-    .kpi .sub {
+    .sub {
       color: var(--muted);
       font-size: 13px;
       margin-top: 6px;
       line-height: 1.45;
     }
 
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .pill {
-      border-radius: 999px;
-      padding: 8px 12px;
+    .delta {
+      margin-top: 8px;
       font-size: 12px;
       font-weight: 800;
       display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      border-radius: 999px;
+      padding: 6px 10px;
     }
 
     .good { background: rgba(34,197,94,0.16); color: var(--good); }
     .warn { background: rgba(245,158,11,0.16); color: var(--warn); }
     .bad { background: rgba(239,68,68,0.16); color: var(--bad); }
     .violet { background: rgba(139,92,246,0.16); color: var(--violet); }
-
-    .insight {
-      font-size: 15px;
-      line-height: 1.65;
-      color: #dbe4ef;
-    }
 
     .section-title {
       display: flex;
@@ -203,28 +188,42 @@
       font-size: 12px;
     }
 
-    .list {
-      display: grid;
-      gap: 10px;
+    .insight {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #dbe4ef;
     }
 
-    .list-item {
+    .ratio-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .ratio-item {
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.03);
       border-radius: 14px;
-      padding: 12px 14px;
+      padding: 12px;
     }
 
-    .list-item strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 14px;
-    }
-
-    .list-item span {
+    .ratio-item .name {
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .ratio-item .val {
+      font-size: 24px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .ratio-item .vs {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
     }
 
     .table-wrap {
@@ -236,7 +235,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 980px;
+      min-width: 1100px;
     }
 
     th, td {
@@ -307,14 +306,14 @@
       margin-top: 10px;
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1180px) {
       .header { grid-template-columns: 1fr; }
       .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
-      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-kpis, .ratio-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 640px) {
-      .kpi-grid { grid-template-columns: 1fr; }
+      .hero-kpis, .ratio-grid { grid-template-columns: 1fr; }
       h1 { font-size: 28px; }
     }
   </style>
@@ -324,115 +323,100 @@
     <div class="header">
       <div>
         <div class="eyebrow">Family Farms Perú · Estados Financieros</div>
-        <h1>Presentación Ejecutiva 2025</h1>
-        <div class="subtitle">Versión web para reemplazar index.html. Estructurada para presentar de manera ejecutiva el estado de situación, notas, relacionadas, obligaciones financieras, estado de resultados, covenants, ratios y ajustes.</div>
+        <h1>Situación Financiera y Estado de Resultados</h1>
+        <div class="subtitle">Vista ejecutiva enfocada únicamente en el Estado de Situación Financiera y el Estado de Resultados. Calcula automáticamente ratios clave, incluyendo ROE y ROI, y compara el período actual contra el período anterior.</div>
         <div class="header-tags">
-          <div class="tag">Diciembre 2025</div>
-          <div class="tag">Enfoque ejecutivo</div>
-          <div class="tag">Editable en GitHub Pages</div>
+          <div class="tag">Actual vs anterior</div>
+          <div class="tag">ROE y ROI visibles</div>
+          <div class="tag">Ratios automáticos</div>
         </div>
       </div>
-      <div class="status-chip">FFP · Resumen Financiero 2025</div>
+      <div class="status-chip">FFP · Resumen Ejecutivo Comparativo</div>
     </div>
 
     <div class="grid">
+      <div class="card span-12">
+        <div class="section-title">
+          <h2>KPIs clave</h2>
+          <div class="mini-note">Período actual comparado con período anterior</div>
+        </div>
+        <div class="hero-kpis">
+          <div class="hero-kpi">
+            <div class="label">ROE</div>
+            <div id="roeValue" class="value">—</div>
+            <div class="sub">Resultado neto / patrimonio promedio</div>
+            <div id="roeDelta" class="delta violet">vs período anterior</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="label">ROI</div>
+            <div id="roiValue" class="value">—</div>
+            <div class="sub">Resultado operativo / activos totales promedio</div>
+            <div id="roiDelta" class="delta violet">vs período anterior</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="label">Resultado neto</div>
+            <div id="netIncomeValue" class="value">—</div>
+            <div class="sub">Resultado del ejercicio actual</div>
+            <div id="netIncomeDelta" class="delta violet">vs período anterior</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="label">Patrimonio</div>
+            <div id="equityValue" class="value">—</div>
+            <div class="sub">Patrimonio de cierre del período actual</div>
+            <div id="equityDelta" class="delta violet">vs período anterior</div>
+          </div>
+        </div>
+      </div>
+
       <div class="card span-8">
         <div class="label">Lectura ejecutiva</div>
         <div id="executiveInsight" class="insight"></div>
-        <div class="pill-row">
-          <div class="pill violet">Estado de situación</div>
-          <div class="pill warn">Deuda reestructurada</div>
-          <div class="pill good">Formato ejecutivo</div>
-        </div>
       </div>
 
       <div class="card span-4">
-        <div class="label">Agenda incorporada</div>
-        <div class="list">
-          <div class="list-item"><strong>1. Estado de Situación</strong><span>Bloque principal con rubros clave y lectura de estructura financiera.</span></div>
-          <div class="list-item"><strong>2. Notas a los EEFF</strong><span>CxC comerciales, otras cuentas por cobrar, existencias, obras en curso y CxP comerciales.</span></div>
-          <div class="list-item"><strong>3. Relacionadas y 4. Deuda</strong><span>Intercompany, venta de tierra y reestructuración Rabobank.</span></div>
-        </div>
-      </div>
-
-      <div class="card span-12">
-        <div class="kpi-grid">
-          <div class="kpi">
-            <div class="label">Activos totales</div>
-            <div id="kpiAssets" class="value">—</div>
-            <div class="sub">Editable desde la tabla fuente.</div>
-          </div>
-          <div class="kpi">
-            <div class="label">Pasivos totales</div>
-            <div id="kpiLiabilities" class="value">—</div>
-            <div class="sub">Incluye deuda financiera e intercompany si así lo defines.</div>
-          </div>
-          <div class="kpi">
-            <div class="label">Patrimonio</div>
-            <div id="kpiEquity" class="value">—</div>
-            <div class="sub">Activos menos pasivos.</div>
-          </div>
-          <div class="kpi">
-            <div class="label">Resultado neto</div>
-            <div id="kpiNetIncome" class="value">—</div>
-            <div class="sub">Resultado del ejercicio, editable.</div>
-          </div>
-        </div>
+        <div class="label">Bloques considerados</div>
+        <div class="sub">Este dashboard utiliza únicamente rubros del Estado de Situación Financiera y del Estado de Resultados. Los ratios se recalculan automáticamente a partir de esas cifras.</div>
       </div>
 
       <div class="card span-6">
         <div class="section-title">
-          <h2>Estado de Situación</h2>
-          <div class="mini-note">Composición principal</div>
+          <h2>Situación Financiera</h2>
+          <div class="mini-note">Actual vs anterior</div>
         </div>
         <canvas id="balanceChart"></canvas>
       </div>
 
       <div class="card span-6">
         <div class="section-title">
-          <h2>Estado de Resultado</h2>
-          <div class="mini-note">Ingresos, costos y utilidad</div>
+          <h2>Estado de Resultados</h2>
+          <div class="mini-note">Actual vs anterior</div>
         </div>
         <canvas id="resultChart"></canvas>
       </div>
 
-      <div class="card span-4">
+      <div class="card span-12">
         <div class="section-title">
-          <h2>Notas a los EEFF</h2>
-          <div class="mini-note">Rubros observados</div>
+          <h2>Ratios financieros clave</h2>
+          <div class="mini-note">Calculados automáticamente</div>
         </div>
-        <div id="notesList" class="list"></div>
-      </div>
-
-      <div class="card span-4">
-        <div class="section-title">
-          <h2>Relacionadas</h2>
-          <div class="mini-note">Intercompany y terreno</div>
-        </div>
-        <div id="relatedList" class="list"></div>
-      </div>
-
-      <div class="card span-4">
-        <div class="section-title">
-          <h2>Obligaciones y covenants</h2>
-          <div class="mini-note">Deuda y cumplimiento</div>
-        </div>
-        <div id="debtList" class="list"></div>
+        <div id="ratioGrid" class="ratio-grid"></div>
       </div>
 
       <div class="card span-12">
         <div class="section-title">
-          <h2>Tabla ejecutiva de métricas</h2>
-          <div class="mini-note">Edita y ordena los rubros que quieras mostrar</div>
+          <h2>Detalle comparativo de rubros</h2>
+          <div class="mini-note">Estado de Situación Financiera y Estado de Resultados</div>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Bloque</th>
+                <th>Estado</th>
                 <th>Rubro</th>
-                <th class="num">Valor</th>
-                <th>Comentario ejecutivo</th>
+                <th class="num">Período actual</th>
+                <th class="num">Período anterior</th>
+                <th class="num">Variación</th>
+                <th class="num">Variación %</th>
               </tr>
             </thead>
             <tbody id="metricsBody"></tbody>
@@ -444,7 +428,7 @@
         <div class="controls">
           <div>
             <div class="label" style="margin-bottom:4px;">Fuente editable</div>
-            <div class="mini-note">Pega aquí el CSV base. Este demo ya viene cargado con una estructura ejecutiva editable.</div>
+            <div class="mini-note">Pega aquí el CSV comparativo. Columnas esperadas: estado, rubro, actual, anterior.</div>
           </div>
           <div>
             <button id="loadSampleBtn">Cargar ejemplo</button>
@@ -452,43 +436,30 @@
           </div>
         </div>
         <textarea id="csvInput"></textarea>
-        <div class="footnote">Columnas esperadas: bloque, rubro, valor, comentario. Puedes alimentar aquí activos, pasivos, patrimonio, ventas, costos, deuda, covenants, ratios, ajustes y notas.</div>
+        <div class="footnote">Rubros mínimos recomendados para ratios: Activos Totales, Activo Corriente, Pasivos Totales, Pasivo Corriente, Patrimonio, Ingresos, Utilidad Operativa y Resultado Neto. El ROI aquí se calcula como utilidad operativa sobre activos promedio. Si prefieres otra definición, se puede cambiar.</div>
       </div>
     </div>
   </div>
 
   <script>
-    const sampleCsv = `bloque,rubro,valor,comentario
-Estado de Situación,Activos Totales,125000000,Base editable para activos totales
-Estado de Situación,Pasivos Totales,78000000,Base editable para pasivos totales
-Estado de Situación,Patrimonio,47000000,Patrimonio neto estimado
-Notas a los EEFF,Cuentas por cobrar comerciales,14500000,Revisar composición y aging
-Notas a los EEFF,Otras cuentas por cobrar neto,9800000,Incluye reclasificaciones relevantes
-Notas a los EEFF,Existencias,11200000,Inventarios y valorización
-Notas a los EEFF,Obras en curso,18600000,Capex en desarrollo
-Notas a los EEFF,Cuentas por pagar comerciales,13700000,Obligaciones operativas
-Relacionadas,Intercompany FFP - VYP,9200000,Seguir lectura de compensaciones y plazos
-Relacionadas,Venta de terreno compensada,6500000,Compensada al cierre del 31.12.2025
-Obligaciones Financieras,Rabobank,17200000,Nuevo term sheet con reclasificación corto-largo
-Estado de Resultado,Ingresos,104000000,Base editable de ventas
-Estado de Resultado,Costo de ventas,81500000,Estructura principal de costo
-Estado de Resultado,Utilidad operativa,12800000,Resultado operativo referencial
-Estado de Resultado,Resultado neto,7600000,Resultado del ejercicio editable
-Covenants,Leverage,2.8,Indicador referencial
-Covenants,DSCR,1.35,Indicador referencial
-Ratios,ROE,16.2,ROE porcentual editable
-Ajustes,Reclasificación costo a capex,3200000,Etapas 5-6 y módulos 12-16
-Ajustes,MO empleados a capex,850000,Distribución a costo y gasto
-Ajustes,I+D reclasificado a gasto,420000,Ajuste de presentación
-Potenciales Ajustes,Impuesto a las ganancias diferido,0,Pendiente de definir
-Potenciales Ajustes,Participación a trabajadores,0,Pendiente de definir`;
+    const sampleCsv = `estado,rubro,actual,anterior
+Situación Financiera,Activos Totales,125000000,118000000
+Situación Financiera,Activo Corriente,38500000,34200000
+Situación Financiera,Pasivos Totales,78000000,74600000
+Situación Financiera,Pasivo Corriente,26400000,31100000
+Situación Financiera,Patrimonio,47000000,43400000
+Resultados,Ingresos,104000000,97100000
+Resultados,Costo de Ventas,81500000,77400000
+Resultados,Utilidad Operativa,12800000,10900000
+Resultados,Resultado Neto,7600000,5900000`;
 
     const csvInput = document.getElementById('csvInput');
     const loadSampleBtn = document.getElementById('loadSampleBtn');
     const updateBtn = document.getElementById('updateBtn');
 
-    const fmt0 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-    const fmt1 = new Intl.NumberFormat('es-PE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const fmtMoney = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    const fmtPct = new Intl.NumberFormat('es-PE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const fmtNum = new Intl.NumberFormat('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     function parseCsv(text) {
       const lines = text.trim().split(/\r?\n/).filter(Boolean);
@@ -497,40 +468,73 @@ Potenciales Ajustes,Participación a trabajadores,0,Pendiente de definir`;
         const values = line.split(',');
         const row = {};
         headers.forEach((h, i) => row[h] = (values[i] || '').trim());
-        row.valor = Number(row.valor || 0);
+        row.actual = Number(row.actual || 0);
+        row.anterior = Number(row.anterior || 0);
         return row;
       });
     }
 
-    function getValue(rows, bloque, rubro) {
-      const found = rows.find(r => r.bloque === bloque && r.rubro === rubro);
-      return found ? found.valor : 0;
+    function getRow(rows, rubro) {
+      return rows.find(r => r.rubro === rubro) || { actual: 0, anterior: 0, estado: '' };
     }
 
-    function filterBlock(rows, block) {
-      return rows.filter(r => r.bloque === block);
+    function avg(a, b) {
+      return (a + b) / 2;
     }
 
-    function moneyOrNumber(v, percent = false) {
-      if (percent) return `${fmt1.format(v)}%`;
-      if (Math.abs(v) < 1000 && !Number.isInteger(v)) return fmt1.format(v);
-      return fmt0.format(v);
+    function safeDiv(a, b) {
+      return b ? a / b : 0;
+    }
+
+    function pctChange(actual, previous) {
+      return previous ? ((actual - previous) / previous) * 100 : 0;
+    }
+
+    function deltaClass(value, inverse = false) {
+      if (value === 0) return 'violet';
+      const positiveIsGood = !inverse;
+      const good = positiveIsGood ? value > 0 : value < 0;
+      return good ? 'good' : 'bad';
+    }
+
+    function formatRatio(name, value) {
+      if (['ROE','ROI','Margen Neto','Margen Operativo','Endeudamiento'].includes(name)) return `${fmtPct.format(value)}%`;
+      return `${fmtNum.format(value)}x`;
+    }
+
+    function setDelta(elId, actual, previous, inverse = false, suffix = '%') {
+      const delta = pctChange(actual, previous);
+      const el = document.getElementById(elId);
+      const className = deltaClass(delta, inverse);
+      el.className = `delta ${className}`;
+      const sign = delta > 0 ? '+' : '';
+      el.textContent = `${sign}${fmtPct.format(delta)}${suffix} vs período anterior`;
     }
 
     const balanceChart = new Chart(document.getElementById('balanceChart'), {
       type: 'bar',
       data: {
-        labels: ['Activos', 'Pasivos', 'Patrimonio'],
-        datasets: [{
-          data: [0,0,0],
-          backgroundColor: ['rgba(56,189,248,0.75)', 'rgba(239,68,68,0.75)', 'rgba(34,197,94,0.75)'],
-          borderRadius: 8,
-          borderWidth: 0
-        }]
+        labels: ['Activos Totales', 'Pasivos Totales', 'Patrimonio'],
+        datasets: [
+          {
+            label: 'Actual',
+            data: [0,0,0],
+            backgroundColor: 'rgba(56,189,248,0.75)',
+            borderRadius: 8,
+            borderWidth: 0
+          },
+          {
+            label: 'Anterior',
+            data: [0,0,0],
+            backgroundColor: 'rgba(139,92,246,0.55)',
+            borderRadius: 8,
+            borderWidth: 0
+          }
+        ]
       },
       options: {
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: { legend: { labels: { color: '#cbd5e1' } } },
         scales: {
           y: { ticks: { color: '#cbd5e1', callback: v => '$' + (v/1000000).toFixed(0) + 'M' }, grid: { color: 'rgba(255,255,255,0.08)' } },
           x: { ticks: { color: '#cbd5e1' }, grid: { display: false } }
@@ -541,17 +545,27 @@ Potenciales Ajustes,Participación a trabajadores,0,Pendiente de definir`;
     const resultChart = new Chart(document.getElementById('resultChart'), {
       type: 'bar',
       data: {
-        labels: ['Ingresos', 'Costo de ventas', 'Utilidad operativa', 'Resultado neto'],
-        datasets: [{
-          data: [0,0,0,0],
-          backgroundColor: ['rgba(34,197,94,0.75)', 'rgba(239,68,68,0.75)', 'rgba(245,158,11,0.75)', 'rgba(139,92,246,0.75)'],
-          borderRadius: 8,
-          borderWidth: 0
-        }]
+        labels: ['Ingresos', 'Costo de Ventas', 'Utilidad Operativa', 'Resultado Neto'],
+        datasets: [
+          {
+            label: 'Actual',
+            data: [0,0,0,0],
+            backgroundColor: 'rgba(34,197,94,0.75)',
+            borderRadius: 8,
+            borderWidth: 0
+          },
+          {
+            label: 'Anterior',
+            data: [0,0,0,0],
+            backgroundColor: 'rgba(245,158,11,0.55)',
+            borderRadius: 8,
+            borderWidth: 0
+          }
+        ]
       },
       options: {
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: { legend: { labels: { color: '#cbd5e1' } } },
         scales: {
           y: { ticks: { color: '#cbd5e1', callback: v => '$' + (v/1000000).toFixed(0) + 'M' }, grid: { color: 'rgba(255,255,255,0.08)' } },
           x: { ticks: { color: '#cbd5e1' }, grid: { display: false } }
@@ -559,78 +573,95 @@ Potenciales Ajustes,Participación a trabajadores,0,Pendiente de definir`;
       }
     });
 
-    function renderList(containerId, rows, formatter) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = rows.map(r => `
-        <div class="list-item">
-          <strong>${r.rubro}</strong>
-          <span>${formatter(r)}</span>
-        </div>
-      `).join('');
+    function renderRatios(ratios) {
+      const grid = document.getElementById('ratioGrid');
+      grid.innerHTML = ratios.map(r => {
+        const delta = pctChange(r.actual, r.previous);
+        const sign = delta > 0 ? '+' : '';
+        const cls = deltaClass(delta, r.inverse || false);
+        return `
+          <div class="ratio-item">
+            <div class="name">${r.name}</div>
+            <div class="val">${formatRatio(r.name, r.actual)}</div>
+            <div class="vs">Anterior: ${formatRatio(r.name, r.previous)}</div>
+            <div class="delta ${cls}">${sign}${fmtPct.format(delta)}% vs anterior</div>
+          </div>
+        `;
+      }).join('');
     }
 
     function render() {
       const rows = parseCsv(csvInput.value);
 
-      const assets = getValue(rows, 'Estado de Situación', 'Activos Totales');
-      const liabilities = getValue(rows, 'Estado de Situación', 'Pasivos Totales');
-      const equity = getValue(rows, 'Estado de Situación', 'Patrimonio');
-      const netIncome = getValue(rows, 'Estado de Resultado', 'Resultado neto');
-      const revenues = getValue(rows, 'Estado de Resultado', 'Ingresos');
-      const cogs = getValue(rows, 'Estado de Resultado', 'Costo de ventas');
-      const opIncome = getValue(rows, 'Estado de Resultado', 'Utilidad operativa');
-      const leverage = getValue(rows, 'Covenants', 'Leverage');
-      const dscr = getValue(rows, 'Covenants', 'DSCR');
-      const roe = getValue(rows, 'Ratios', 'ROE');
+      const activos = getRow(rows, 'Activos Totales');
+      const activoCorriente = getRow(rows, 'Activo Corriente');
+      const pasivos = getRow(rows, 'Pasivos Totales');
+      const pasivoCorriente = getRow(rows, 'Pasivo Corriente');
+      const patrimonio = getRow(rows, 'Patrimonio');
+      const ingresos = getRow(rows, 'Ingresos');
+      const costoVentas = getRow(rows, 'Costo de Ventas');
+      const utilidadOperativa = getRow(rows, 'Utilidad Operativa');
+      const resultadoNeto = getRow(rows, 'Resultado Neto');
 
-      document.getElementById('kpiAssets').textContent = moneyOrNumber(assets);
-      document.getElementById('kpiLiabilities').textContent = moneyOrNumber(liabilities);
-      document.getElementById('kpiEquity').textContent = moneyOrNumber(equity);
-      document.getElementById('kpiNetIncome').textContent = moneyOrNumber(netIncome);
+      const roeActual = safeDiv(resultadoNeto.actual, avg(patrimonio.actual, patrimonio.anterior)) * 100;
+      const roeAnterior = safeDiv(resultadoNeto.anterior, patrimonio.anterior) * 100;
+      const roiActual = safeDiv(utilidadOperativa.actual, avg(activos.actual, activos.anterior)) * 100;
+      const roiAnterior = safeDiv(utilidadOperativa.anterior, activos.anterior) * 100;
 
-      balanceChart.data.datasets[0].data = [assets, liabilities, equity];
+      const ratios = [
+        { name: 'ROE', actual: roeActual, previous: roeAnterior },
+        { name: 'ROI', actual: roiActual, previous: roiAnterior },
+        { name: 'Margen Neto', actual: safeDiv(resultadoNeto.actual, ingresos.actual) * 100, previous: safeDiv(resultadoNeto.anterior, ingresos.anterior) * 100 },
+        { name: 'Margen Operativo', actual: safeDiv(utilidadOperativa.actual, ingresos.actual) * 100, previous: safeDiv(utilidadOperativa.anterior, ingresos.anterior) * 100 },
+        { name: 'Razón Corriente', actual: safeDiv(activoCorriente.actual, pasivoCorriente.actual), previous: safeDiv(activoCorriente.anterior, pasivoCorriente.anterior) },
+        { name: 'Deuda / Patrimonio', actual: safeDiv(pasivos.actual, patrimonio.actual), previous: safeDiv(pasivos.anterior, patrimonio.anterior), inverse: true },
+        { name: 'Endeudamiento', actual: safeDiv(pasivos.actual, activos.actual) * 100, previous: safeDiv(pasivos.anterior, activos.anterior) * 100, inverse: true },
+        { name: 'Rotación de Activos', actual: safeDiv(ingresos.actual, avg(activos.actual, activos.anterior)), previous: safeDiv(ingresos.anterior, activos.anterior) }
+      ];
+
+      document.getElementById('roeValue').textContent = `${fmtPct.format(roeActual)}%`;
+      document.getElementById('roiValue').textContent = `${fmtPct.format(roiActual)}%`;
+      document.getElementById('netIncomeValue').textContent = fmtMoney.format(resultadoNeto.actual);
+      document.getElementById('equityValue').textContent = fmtMoney.format(patrimonio.actual);
+
+      setDelta('roeDelta', roeActual, roeAnterior);
+      setDelta('roiDelta', roiActual, roiAnterior);
+      setDelta('netIncomeDelta', resultadoNeto.actual, resultadoNeto.anterior);
+      setDelta('equityDelta', patrimonio.actual, patrimonio.anterior);
+
+      renderRatios(ratios);
+
+      balanceChart.data.datasets[0].data = [activos.actual, pasivos.actual, patrimonio.actual];
+      balanceChart.data.datasets[1].data = [activos.anterior, pasivos.anterior, patrimonio.anterior];
       balanceChart.update();
 
-      resultChart.data.datasets[0].data = [revenues, cogs, opIncome, netIncome];
+      resultChart.data.datasets[0].data = [ingresos.actual, costoVentas.actual, utilidadOperativa.actual, resultadoNeto.actual];
+      resultChart.data.datasets[1].data = [ingresos.anterior, costoVentas.anterior, utilidadOperativa.anterior, resultadoNeto.anterior];
       resultChart.update();
 
-      const notes = filterBlock(rows, 'Notas a los EEFF');
-      const related = filterBlock(rows, 'Relacionadas');
-      const debt = [...filterBlock(rows, 'Obligaciones Financieras'), ...filterBlock(rows, 'Covenants'), ...filterBlock(rows, 'Ratios')];
-
-      renderList('notesList', notes, r => `${moneyOrNumber(r.valor)} · ${r.comentario}`);
-      renderList('relatedList', related, r => `${moneyOrNumber(r.valor)} · ${r.comentario}`);
-      renderList('debtList', debt, r => {
-        const isPercent = r.rubro === 'ROE';
-        const isRatio = r.rubro === 'Leverage' || r.rubro === 'DSCR';
-        const formatted = isPercent ? moneyOrNumber(r.valor, true) : (isRatio ? fmt1.format(r.valor) + 'x' : moneyOrNumber(r.valor));
-        return `${formatted} · ${r.comentario}`;
-      });
-
-      const priorityRows = rows.filter(r => [
-        'Estado de Situación', 'Estado de Resultado', 'Obligaciones Financieras', 'Covenants', 'Ratios', 'Ajustes', 'Potenciales Ajustes'
-      ].includes(r.bloque));
-
-      document.getElementById('metricsBody').innerHTML = priorityRows.map(r => {
-        const isPercent = r.rubro === 'ROE';
-        const isRatio = r.rubro === 'Leverage' || r.rubro === 'DSCR';
-        const formatted = isPercent ? moneyOrNumber(r.valor, true) : (isRatio ? fmt1.format(r.valor) + 'x' : moneyOrNumber(r.valor));
+      const bodyRows = rows.map(r => {
+        const variance = r.actual - r.anterior;
+        const variancePct = pctChange(r.actual, r.anterior);
+        const sign = variancePct > 0 ? '+' : '';
         return `
           <tr>
-            <td>${r.bloque}</td>
+            <td>${r.estado}</td>
             <td>${r.rubro}</td>
-            <td class="num">${formatted}</td>
-            <td>${r.comentario}</td>
+            <td class="num">${fmtMoney.format(r.actual)}</td>
+            <td class="num">${fmtMoney.format(r.anterior)}</td>
+            <td class="num">${fmtMoney.format(variance)}</td>
+            <td class="num">${sign}${fmtPct.format(variancePct)}%</td>
           </tr>
         `;
       }).join('');
+      document.getElementById('metricsBody').innerHTML = bodyRows;
 
-      const debtText = liabilities > 0 ? `La estructura muestra pasivos por ${moneyOrNumber(liabilities)} frente a un patrimonio de ${moneyOrNumber(equity)}.` : 'Completar pasivos y patrimonio para lectura de estructura.';
-      const resultText = revenues > 0 ? `El resultado neto cargado es ${moneyOrNumber(netIncome)} sobre ingresos de ${moneyOrNumber(revenues)}.` : 'Completar el bloque de resultados para lectura de performance.';
-      const covenantText = leverage > 0 || dscr > 0 ? `Los covenants visibles son leverage ${fmt1.format(leverage)}x y DSCR ${fmt1.format(dscr)}x.` : 'Aún no se han cargado covenants.';
-      const roeText = roe ? `El ROE mostrado es ${fmt1.format(roe)}%.` : 'Aún no se ha cargado el ROE.';
+      const leverageActual = safeDiv(pasivos.actual, patrimonio.actual);
+      const currentRatioActual = safeDiv(activoCorriente.actual, pasivoCorriente.actual);
+      const netMarginActual = safeDiv(resultadoNeto.actual, ingresos.actual) * 100;
+      const opMarginActual = safeDiv(utilidadOperativa.actual, ingresos.actual) * 100;
 
-      document.getElementById('executiveInsight').textContent = `${debtText} ${resultText} ${covenantText} ${roeText} Este formato está diseñado para reemplazar una presentación lineal por una vista ejecutiva, visual y editable.`;
+      document.getElementById('executiveInsight').textContent = `El ROE actual se ubica en ${fmtPct.format(roeActual)}% y el ROI en ${fmtPct.format(roiActual)}%, ambos calculados automáticamente a partir de patrimonio, activos, resultado neto y utilidad operativa. El patrimonio de cierre asciende a ${fmtMoney.format(patrimonio.actual)} y el resultado neto a ${fmtMoney.format(resultadoNeto.actual)}. En estructura financiera, la razón corriente se ubica en ${fmtNum.format(currentRatioActual)}x y la relación deuda / patrimonio en ${fmtNum.format(leverageActual)}x. En performance, el margen operativo es ${fmtPct.format(opMarginActual)}% y el margen neto ${fmtPct.format(netMarginActual)}%.`;
     }
 
     loadSampleBtn.addEventListener('click', () => {
