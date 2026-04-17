@@ -34,7 +34,7 @@
     color:var(--ink);
     padding:24px;
   }
-  .container{max-width:1680px;margin:auto}
+  .container{max-width:1720px;margin:auto}
 
   .hero{
     background:linear-gradient(180deg, rgba(255,255,255,.68), rgba(255,255,255,.9));
@@ -46,7 +46,7 @@
   }
   .hero-top{
     display:grid;
-    grid-template-columns:220px 1fr 270px;
+    grid-template-columns:220px 1fr 300px;
     gap:18px;
     align-items:center;
   }
@@ -57,14 +57,7 @@
   }
   .title-wrap{text-align:center}
   .eyebrow{font-size:20px;color:var(--ink-2);margin-bottom:4px;font-weight:500}
-  h1{
-    margin:0;
-    font-size:68px;
-    line-height:.94;
-    letter-spacing:-0.05em;
-    color:var(--ink);
-    font-weight:900;
-  }
+  h1{margin:0;font-size:68px;line-height:.94;letter-spacing:-0.05em;color:var(--ink);font-weight:900}
   .subtitle{margin-top:12px;font-size:17px;color:var(--muted);font-weight:500}
   .meta-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
   .tag{
@@ -73,134 +66,79 @@
     background:#fff;color:var(--ink);font-size:13px;font-weight:800;
     box-shadow:0 4px 12px rgba(0,0,0,.04);
   }
+  .corp-logos{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top:6px;opacity:.88}
+  .corp-logos img{height:26px;object-fit:contain;filter:grayscale(10%)}
 
-  .legend{
-    display:flex;gap:18px;justify-content:flex-end;align-items:center;
-    margin-top:16px;flex-wrap:wrap;
-  }
+  .legend{display:flex;gap:18px;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
   .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
   .legend-chip{padding:7px 10px;border-radius:10px;font-size:13px;font-weight:900;border:1px solid rgba(0,0,0,.06)}
   .score-green{color:#3f7f22;background:#eef8df}
   .score-yellow{color:#a47500;background:#fff4cc}
   .score-red{color:#b12b1b;background:#fde1dd}
 
-  .board{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
-    gap:18px;
-    align-items:start;
+  .dashboard-section{margin-bottom:24px}
+  .section-banner{
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);
+    border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow)
   }
-  .objective-card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    height:100%;
-  }
+  .section-left{display:flex;align-items:center;gap:14px}
+  .section-left img{width:44px;height:44px;object-fit:contain}
+  .section-title{font-size:30px;font-weight:900;letter-spacing:-0.03em;color:var(--ink)}
+  .section-sub{font-size:13px;color:var(--muted);margin-top:4px;font-weight:600}
+
+  .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;align-items:start}
+  .objective-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);height:100%}
   .objective-header{
     background:linear-gradient(180deg,var(--header),var(--header-dark));
-    color:#fff;
-    padding:18px 18px 16px;
-    min-height:132px;
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    align-items:flex-start;
+    color:#fff;padding:18px 18px 16px;min-height:132px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start
   }
   .focus{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.92;font-weight:700}
   .objective-title{font-size:30px;font-weight:900;line-height:1.02;letter-spacing:-0.03em;margin-top:8px;max-width:92%}
   .objective-sub{margin-top:10px;font-size:13px;opacity:.88;line-height:1.45;max-width:92%;font-weight:500}
 
-  .score-badge{
-    min-width:98px;
-    text-align:center;
-    padding:10px 12px;
-    border-radius:14px;
-    font-size:30px;
-    font-weight:900;
-    line-height:1;
-    border:2px solid rgba(255,255,255,.22);
-    background:#fff;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.5);
+  .score-badge,.subscore,.subkr-score{
+    text-align:center;background:#fff;border:2px solid transparent;line-height:1;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)
   }
-  .score-badge small,.subscore small{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;margin-top:6px;font-weight:800}
+  .score-badge{min-width:98px;padding:10px 12px;border-radius:14px;font-size:30px;font-weight:900;border-color:rgba(255,255,255,.22)}
+  .subscore{min-width:82px;padding:10px 10px;border-radius:12px;font-size:24px;font-weight:900}
+  .subkr-score{min-width:74px;padding:8px 8px;border-radius:10px;font-size:20px;font-weight:900}
+  .score-badge small,.subscore small,.subkr-score small{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;margin-top:6px;font-weight:800}
 
   .objective-body{padding:16px;background:linear-gradient(180deg,#fff,#fbf8f2)}
-
-  .kr-shell{
-    background:#f9f6ef;
-    border:1px solid #e7e0d3;
-    border-radius:16px;
-    padding:14px;
-    margin-bottom:12px;
-  }
+  .kr-shell{background:#f9f6ef;border:1px solid #e7e0d3;border-radius:16px;padding:14px;margin-bottom:12px}
   .kr-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
   .kr-name{font-size:22px;font-weight:900;line-height:1.05;color:var(--ink)}
   .kr-note{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.45;font-weight:500}
-  .subscore{
-    min-width:82px;
-    text-align:center;
-    padding:10px 10px;
-    border-radius:12px;
-    font-size:24px;
-    font-weight:900;
-    line-height:1;
-    background:#fff;
-    border:2px solid transparent;
-  }
 
   .subgrid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
-  .subkr{
-    background:#ffffff;
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:12px;
-  }
+  .subkr{background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:12px}
   .subkr-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
   .subkr-brand{display:flex;gap:10px;align-items:center}
-  .subkr-brand img.logo{width:34px;height:34px;object-fit:contain}
-  .subkr-brand img.icon{width:22px;height:22px;object-fit:contain}
+  .subkr-brand img.icon{width:24px;height:24px;object-fit:contain;display:block}
   .subkr-title{font-size:16px;font-weight:900;line-height:1.1}
   .subkr-sub{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600}
 
-  .subkr-score{
-    min-width:74px;
-    text-align:center;
-    padding:8px 8px;
-    border-radius:10px;
-    font-size:20px;
-    font-weight:900;
-    line-height:1;
-    background:#fff;
-    border:2px solid transparent;
-  }
-  .subkr-score small{display:block;font-size:9px;letter-spacing:.08em;text-transform:uppercase;margin-top:5px;font-weight:800}
-
-  .kr-meta{margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px}
-  .box .label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
-  .box .num{font-size:18px;font-weight:900;color:var(--ink);margin-top:4px}
-
-  .summary-box{
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:12px;
-  }
-  .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+  .kr-meta,.component-grid,.summary-grid{display:grid;gap:8px;margin-top:10px}
+  .kr-meta,.summary-grid{grid-template-columns:repeat(3,1fr)}
+  .component-grid{grid-template-columns:repeat(3,1fr)}
+  .box,.component-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px}
+  .box .label,.component-box .label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .box .num,.component-box .num{font-size:18px;font-weight:900;color:var(--ink);margin-top:4px}
 
   @media (max-width:1200px){
     .hero-top{grid-template-columns:1fr;text-align:center}
     .logo-wrap,.meta-wrap{justify-content:center;align-items:center}
     .legend{justify-content:center}
+    .corp-logos{justify-content:center}
     .objective-title,.objective-sub{max-width:100%}
   }
   @media (max-width:700px){
     h1{font-size:46px}
     .objective-title{font-size:24px}
     .kr-name{font-size:18px}
-    .kr-meta,.summary-grid{grid-template-columns:1fr}
+    .kr-meta,.summary-grid,.component-grid{grid-template-columns:1fr}
+    .section-title{font-size:24px}
   }
 </style>
 </head>
@@ -220,6 +158,10 @@
         <div class="tag" id="fecha"></div>
         <div class="tag" id="lastUpdate"></div>
         <div class="tag" id="dataDate"></div>
+        <div class="corp-logos">
+          <img src="logo-family.png" alt="FFP" />
+          <img src="logo-asg.png" alt="ASG" />
+        </div>
       </div>
     </div>
     <div class="legend">
@@ -229,86 +171,186 @@
     </div>
   </div>
 
-  <div id="okrs" class="board"></div>
+  <div id="sections"></div>
 </div>
 
 <script>
-const data=[
+const sections = [
   {
-    foco:'CALIDAD',
-    objetivo:'Maximizar la captura de valor de la producción',
-    descripcion:'Captura de valor comercial entregada al mercado.',
-    krs:[
+    title:'Arándano',
+    icon:'arandano.png',
+    subtitle:'Family Farms Perú (FFP)',
+    objectives:[
       {
-        name:'IVC',
-        note:'Se desagrega por producto porque la lógica y los componentes cambian entre arándanos y granada.',
-        type:'split',
-        children:[
-          { entity:'FFP', product:'Arándano', logo:'logo-family.png', icon:'arandano.png', actual:74, meta:85 },
-          { entity:'ASG', product:'Granada', logo:'logo-asg.png', icon:'granada.png', actual:69, meta:82 }
-        ]
-      }
-    ]
-  },
-  {
-    foco:'EFICIENCIA',
-    objetivo:'Maximizar la eficiencia integral del negocio',
-    descripcion:'Eficiencia productiva y cumplimiento de producción.',
-    krs:[
-      {
-        name:'Breakeven/kg',
-        note:'Se desagrega por operación porque las metas son distintas para FFP y ASG.',
-        type:'split-breakeven',
-        children:[
-          { entity:'FFP', product:'Arándano', logo:'logo-family.png', icon:'arandano.png', actual:1.62, meta:1.45 },
-          { entity:'ASG', product:'Granada', logo:'logo-asg.png', icon:'granada.png', actual:1.28, meta:1.18 }
+        foco:'CALIDAD',
+        objetivo:'Maximizar la captura de valor de la producción',
+        descripcion:'Captura de valor comercial entregada al mercado.',
+        krs:[
+          {
+            name:'IVC',
+            note:'Índice de valor comercializable para arándanos.',
+            actual:74,
+            meta:85,
+            components:[
+              {label:'% Exportable', value:'84%'},
+              {label:'% JBO Exportable', value:'48%'},
+              {label:'% Arribos ≥ 4', value:'89%'}
+            ]
+          }
         ]
       },
       {
-        name:'ICP',
-        note:'Se desagrega por unidad operativa para no mezclar campañas y programas distintos.',
-        type:'split',
-        children:[
-          { entity:'FFP', product:'Arándano', logo:'logo-family.png', icon:'arandano.png', actual:91, meta:95 },
-          { entity:'ASG', product:'Granada', logo:'logo-asg.png', icon:'granada.png', actual:93, meta:95 }
+        foco:'EFICIENCIA',
+        objetivo:'Maximizar la eficiencia integral del negocio',
+        descripcion:'Eficiencia productiva y cumplimiento de producción.',
+        krs:[
+          {
+            name:'Breakeven/kg',
+            note:'Costo de equilibrio por kg en FFP.',
+            actual:1.62,
+            meta:1.45,
+            lowerIsBetter:true,
+            components:[
+              {label:'Egresos P&L', value:'US$ 16.2MM'},
+              {label:'Kg producidos', value:'9.95MM'},
+              {label:'Breakeven', value:'US$ 1.62'}
+            ]
+          },
+          {
+            name:'ICP',
+            note:'Cumplimiento de producción de arándanos.',
+            actual:91,
+            meta:95,
+            components:[
+              {label:'Kg producidos', value:'9.95MM'},
+              {label:'Kg programados', value:'10.93MM'},
+              {label:'ICP', value:'91%'}
+            ]
+          }
+        ]
+      },
+      {
+        foco:'TALENTO',
+        objetivo:'Maximizar la productividad de las personas',
+        descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
+        krs:[
+          {
+            name:'IP',
+            note:'Índice de productividad en FFP.',
+            actual:81,
+            meta:100,
+            components:[
+              {label:'% Kg por CAR', value:'86%'},
+              {label:'Costo target/real', value:'0.94x'},
+              {label:'IP', value:'81'}
+            ]
+          }
         ]
       }
     ]
   },
   {
-    foco:'TALENTO',
-    objetivo:'Maximizar la productividad de las personas',
-    descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
-    krs:[
+    title:'Granada',
+    icon:'granada.png',
+    subtitle:'Agrícola San Gallán (ASG)',
+    objectives:[
       {
-        name:'IP',
-        note:'Conviene separar por negocio porque la productividad y el costo persona no son equivalentes.',
-        type:'split',
-        children:[
-          { entity:'FFP', product:'Arándano', logo:'logo-family.png', icon:'arandano.png', actual:81, meta:100 },
-          { entity:'ASG', product:'Granada', logo:'logo-asg.png', icon:'granada.png', actual:76, meta:100 }
+        foco:'CALIDAD',
+        objetivo:'Maximizar la captura de valor de la producción',
+        descripcion:'Captura de valor comercial entregada al mercado.',
+        krs:[
+          {
+            name:'IVC',
+            note:'Índice de valor comercializable para granada.',
+            actual:69,
+            meta:82,
+            components:[
+              {label:'% Exportable', value:'81%'},
+              {label:'% CAT 1 + 2', value:'79%'},
+              {label:'% Arribos ≥ 4', value:'88%'}
+            ]
+          }
+        ]
+      },
+      {
+        foco:'EFICIENCIA',
+        objetivo:'Maximizar la eficiencia integral del negocio',
+        descripcion:'Eficiencia productiva y cumplimiento de producción.',
+        krs:[
+          {
+            name:'Breakeven/kg',
+            note:'Costo de equilibrio por kg en ASG.',
+            actual:1.28,
+            meta:1.18,
+            lowerIsBetter:true,
+            components:[
+              {label:'Egresos P&L', value:'US$ 7.9MM'},
+              {label:'Kg producidos', value:'6.17MM'},
+              {label:'Breakeven', value:'US$ 1.28'}
+            ]
+          },
+          {
+            name:'ICP',
+            note:'Cumplimiento de producción de granada.',
+            actual:93,
+            meta:95,
+            components:[
+              {label:'Kg producidos', value:'6.17MM'},
+              {label:'Kg programados', value:'6.63MM'},
+              {label:'ICP', value:'93%'}
+            ]
+          }
+        ]
+      },
+      {
+        foco:'TALENTO',
+        objetivo:'Maximizar la productividad de las personas',
+        descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
+        krs:[
+          {
+            name:'IP',
+            note:'Índice de productividad en ASG.',
+            actual:76,
+            meta:100,
+            components:[
+              {label:'% Kg por CAR', value:'82%'},
+              {label:'Costo target/real', value:'0.93x'},
+              {label:'IP', value:'76'}
+            ]
+          }
         ]
       }
     ]
   },
   {
-    foco:'CRECIMIENTO ESTRATÉGICO',
-    objetivo:'Maximizar la generación de nuevos flujos de negocios',
-    descripcion:'Apertura y desarrollo de oportunidades de crecimiento.',
-    krs:[
+    title:'Grupo Valle y Pampa',
+    icon:'logo-okrs.png',
+    subtitle:'Indicador corporativo',
+    objectives:[
       {
-        name:'INF',
-        note:'Indicador principal a nivel grupo Valle y Pampa. El desglose posterior puede venir por fuente o negocio, pero el KPI visible es grupal.',
-        type:'group',
-        actual:9,
-        meta:15
+        foco:'CRECIMIENTO ESTRATÉGICO',
+        objetivo:'Maximizar la generación de nuevos flujos de negocios',
+        descripcion:'Apertura y desarrollo de oportunidades de crecimiento.',
+        krs:[
+          {
+            name:'INF',
+            note:'Indicador principal a nivel grupo Valle y Pampa.',
+            actual:9,
+            meta:15,
+            components:[
+              {label:'Contrib. orgánica', value:'4.5%'},
+              {label:'Contrib. inorgánica', value:'4.5%'},
+              {label:'Contrib. total grupo', value:'100%'}
+            ]
+          }
+        ]
       }
     ]
   }
 ];
 
-function progress(a,m,name){
-  if(String(name).toLowerCase().includes('breakeven')) return (m/a)*100;
+function progress(a,m,name,lowerIsBetter=false){
+  if(lowerIsBetter || String(name).toLowerCase().includes('breakeven')) return (m/a)*100;
   return (a/m)*100;
 }
 function band(p){
@@ -324,118 +366,90 @@ function fmt(v){
   return Number.isInteger(v) ? v.toString() : v.toFixed(2);
 }
 
-function objectiveProgress(kr){
-  if(kr.type === 'group') return progress(kr.actual, kr.meta, kr.name);
-  return Math.min(...kr.children.map(c => progress(c.actual, c.meta, kr.name)));
-}
-
 function build(){
-  const container=document.getElementById('okrs');
-  container.innerHTML='';
+  const sectionsWrap = document.getElementById('sections');
+  sectionsWrap.innerHTML = '';
 
-  data.forEach(o=>{
-    const objectiveWorst = Math.min(...o.krs.map(k => objectiveProgress(k)));
+  sections.forEach(section => {
+    const sec = document.createElement('div');
+    sec.className = 'dashboard-section';
 
-    const objectiveCard=document.createElement('div');
-    objectiveCard.className='objective-card';
-
-    objectiveCard.innerHTML=`
-      <div class="objective-header">
-        <div>
-          <div class="focus">${o.foco}</div>
-          <div class="objective-title">${o.objetivo}</div>
-          <div class="objective-sub">${o.descripcion}</div>
+    sec.innerHTML = `
+      <div class="section-banner">
+        <div class="section-left">
+          <img src="${section.icon}" alt="${section.title}" />
+          <div>
+            <div class="section-title">${section.title}</div>
+            <div class="section-sub">${section.subtitle}</div>
+          </div>
         </div>
-        <div class="score-badge ${scoreClass(objectiveWorst)}">${Math.round(objectiveWorst)}<small>índice</small></div>
       </div>
-      <div class="objective-body"></div>
+      <div class="board"></div>
     `;
 
-    const body = objectiveCard.querySelector('.objective-body');
+    const board = sec.querySelector('.board');
 
-    o.krs.forEach(k=>{
-      const worstKr = objectiveProgress(k);
-      const shell = document.createElement('div');
-      shell.className='kr-shell';
+    section.objectives.forEach(o => {
+      const objectiveWorst = Math.min(...o.krs.map(k => progress(k.actual, k.meta, k.name, !!k.lowerIsBetter)));
+      const objectiveCard=document.createElement('div');
+      objectiveCard.className='objective-card';
 
-      if(k.type === 'group'){
+      objectiveCard.innerHTML=`
+        <div class="objective-header">
+          <div>
+            <div class="focus">${o.foco}</div>
+            <div class="objective-title">${o.objetivo}</div>
+            <div class="objective-sub">${o.descripcion}</div>
+          </div>
+          <div class="score-badge ${scoreClass(objectiveWorst)}">${Math.round(objectiveWorst)}<small>índice</small></div>
+        </div>
+        <div class="objective-body"></div>
+      `;
+
+      const body = objectiveCard.querySelector('.objective-body');
+
+      o.krs.forEach(k => {
+        const p = progress(k.actual, k.meta, k.name, !!k.lowerIsBetter);
+        const shell = document.createElement('div');
+        shell.className = 'kr-shell';
         shell.innerHTML = `
           <div class="kr-head">
             <div>
               <div class="kr-name">${k.name}</div>
               <div class="kr-note">${k.note}</div>
             </div>
-            <div class="subscore ${scoreClass(worstKr)}">${Math.round(worstKr)}<small>índice</small></div>
+            <div class="subscore ${scoreClass(p)}">${Math.round(p)}<small>índice</small></div>
           </div>
-          <div class="summary-box">
-            <div class="summary-grid">
-              <div class="box">
-                <div class="label">Actual</div>
-                <div class="num">${fmt(k.actual)}</div>
-              </div>
-              <div class="box">
-                <div class="label">Meta</div>
-                <div class="num">${fmt(k.meta)}</div>
-              </div>
-              <div class="box">
-                <div class="label">Avance</div>
-                <div class="num">${worstKr.toFixed(1)}%</div>
-              </div>
+          <div class="summary-grid">
+            <div class="box">
+              <div class="label">Actual</div>
+              <div class="num">${fmt(k.actual)}</div>
             </div>
+            <div class="box">
+              <div class="label">Meta</div>
+              <div class="num">${fmt(k.meta)}</div>
+            </div>
+            <div class="box">
+              <div class="label">Avance</div>
+              <div class="num">${p.toFixed(1)}%</div>
+            </div>
+          </div>
+          <div class="component-grid">
+            ${k.components.map(c => `
+              <div class="component-box">
+                <div class="label">${c.label}</div>
+                <div class="num">${c.value}</div>
+              </div>
+            `).join('')}
           </div>
         `;
-      } else {
-        shell.innerHTML = `
-          <div class="kr-head">
-            <div>
-              <div class="kr-name">${k.name}</div>
-              <div class="kr-note">${k.note}</div>
-            </div>
-            <div class="subscore ${scoreClass(worstKr)}">${Math.round(worstKr)}<small>índice</small></div>
-          </div>
-          <div class="subgrid"></div>
-        `;
+        body.appendChild(shell);
+      });
 
-        const subgrid = shell.querySelector('.subgrid');
-        k.children.forEach(c=>{
-          const p = progress(c.actual, c.meta, k.name);
-          const sub = document.createElement('div');
-          sub.className = 'subkr';
-          sub.innerHTML = `
-            <div class="subkr-head">
-              <div class="subkr-brand">
-                <img class="logo" src="${c.logo}" alt="${c.entity}" />
-                <img class="icon" src="${c.icon}" alt="${c.product}" />
-                <div>
-                  <div class="subkr-title">${c.entity}</div>
-                  <div class="subkr-sub">${c.product}</div>
-                </div>
-              </div>
-              <div class="subkr-score ${scoreClass(p)}">${Math.round(p)}<small>índice</small></div>
-            </div>
-            <div class="kr-meta">
-              <div class="box">
-                <div class="label">Actual</div>
-                <div class="num">${fmt(c.actual)}</div>
-              </div>
-              <div class="box">
-                <div class="label">Meta</div>
-                <div class="num">${fmt(c.meta)}</div>
-              </div>
-              <div class="box">
-                <div class="label">Avance</div>
-                <div class="num">${p.toFixed(1)}%</div>
-              </div>
-            </div>
-          `;
-          subgrid.appendChild(sub);
-        });
-      }
-
-      body.appendChild(shell);
+      board.appendChild(objectiveCard);
     });
 
-    container.appendChild(objectiveCard);
+    sectionsWrap.appendChild(sec);
   });
 }
 
