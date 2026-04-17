@@ -160,8 +160,22 @@
       font-size: 12px;
       font-weight: 800;
       display: inline-flex;
-      border-radius: 999px;
+      border-radius: 6px;
       padding: 6px 10px;
+    }
+
+    .status-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 108px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid var(--line);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .good { background: rgba(34,197,94,0.16); color: var(--good); }
@@ -265,7 +279,7 @@
 
     .kr-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 12px;
       margin-top: 14px;
     }
@@ -275,6 +289,9 @@
       background: rgba(255,255,255,0.025);
       border-radius: 14px;
       padding: 14px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .kr-name {
@@ -308,6 +325,8 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.5;
+      margin-top: auto;
+      padding-top: 10px;
     }
 
     .table-wrap {
@@ -388,6 +407,9 @@
       .header { grid-template-columns: 1fr; }
       .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
       .hero-kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+      .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
+      .hero-kpis { grid-template-columns: repeat(2, 1fr); }
       .kr-grid { grid-template-columns: 1fr; }
     }
 
@@ -406,6 +428,7 @@
         <h1>Dashboard Ejecutivo de OKRs</h1>
         <div class="subtitle">Primera versión estructural del dashboard organizacional. Usa los 5 KRs del documento base como esqueleto, con metas, valores actuales y fórmulas editables para luego derivar el Excel de carga exacto.</div>
         <div class="header-tags">
+          <div class="tag" id="reportDateTag">Fecha de corte</div>
           <div class="tag">5 KRs organizacionales</div>
           <div class="tag">Avance automático</div>
           <div class="tag">Semáforos</div>
@@ -490,24 +513,7 @@
         </div>
       </div>
 
-      <div class="card span-12">
-        <div class="controls">
-          <div>
-            <div class="label" style="margin-bottom:4px;">Fuente editable</div>
-            <div class="mini-note">Pega aquí el CSV base del dashboard. Columnas esperadas: foco, objetivo, kr, actual, meta, formula.</div>
-          </div>
-          <div>
-            <button id="loadSampleBtn">Cargar estructura base</button>
-            <button id="updateBtn">Actualizar dashboard</button>
-          </div>
-        </div>
-        <textarea id="csvInput"></textarea>
-        <div class="footnote">En esta fase no estamos definiendo todavía el Excel final de inputs. Primero validamos qué debe ver el dashboard. Luego, a partir de esta estructura, derivamos exactamente qué datos hay que cargar y con qué granularidad.</div>
-      </div>
-    </div>
-  </div>
-
-  <script>
+      <script>
     const sampleCsv = `foco,objetivo,kr,actual,meta,formula
 CALIDAD,Maximizar la captura de valor de la producción,Alcanzar un IVC en Arándanos y Granada,72,85,IVC = % Exportable x % JBO o CAT 1+2 x % Arribos >= 4 x 100
 EFICIENCIA,Maximizar la eficiencia integral del negocio,Alcanzar un Breakeven <= objetivo por kg,1.62,1.45,Breakeven = Total egresos del P&L / Total kilos producidos
@@ -515,9 +521,26 @@ EFICIENCIA,Maximizar la eficiencia integral del negocio,Alcanzar un ICP >= 95%,9
 TALENTO,Maximizar la productividad de las personas,Alcanzar un IP objetivo,78,100,IP = % Kg cosechados por CAR / Total Kg cosechados x Costo Persona Target / Real x 100
 CRECIMIENTO ESTRATÉGICO,Maximizar la generación de nuevos flujos de negocios,Alcanzar un INF objetivo,9,15,INF = Contribución orgánica + inorgánica / Contribución total del grupo x 100`;
 
-    const csvInput = document.getElementById('csvInput');
-    const loadSampleBtn = document.getElementById('loadSampleBtn');
-    const updateBtn = document.getElementById('updateBtn');
+    function getISOWeekInfo(date = new Date()) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+      return { week: weekNo, year: d.getUTCFullYear() };
+    }
+
+    function formatSpanishDate(date = new Date()) {
+      return new Intl.DateTimeFormat('es-PE', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      }).format(date);
+    }
+
+    const today = new Date();
+    const weekInfo = getISOWeekInfo(today);
+    document.getElementById('reportDateTag').textContent = `${formatSpanishDate(today)} · Semana ${weekInfo.week}`;
 
     const fmtPct = new Intl.NumberFormat('es-PE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     const fmtNum = new Intl.NumberFormat('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -596,7 +619,7 @@ CRECIMIENTO ESTRATÉGICO,Maximizar la generación de nuevos flujos de negocios,A
                 <div class="label">${group.foco}</div>
                 <h3>${group.objetivo}</h3>
               </div>
-              <div class="focus-tag ${groupClass}">${statusText(groupProgress)} · ${fmtPct.format(groupProgress)}%</div>
+              <div class="status-box ${groupClass}">${statusText(groupProgress)} · ${fmtPct.format(groupProgress)}%</div>
             </div>
             <div class="progress-wrap">
               <div class="progress-label">
@@ -625,7 +648,7 @@ CRECIMIENTO ESTRATÉGICO,Maximizar la generación de nuevos flujos de negocios,A
                       <div class="n">${fmtPct.format(kr.progress)}%</div>
                     </div>
                   </div>
-                  <div class="delta ${statusClass(kr.progress)}">${statusText(kr.progress)}</div>
+                  <div class="status-box ${statusClass(kr.progress)}">${statusText(kr.progress)}</div>
                   <div class="kr-formula"><strong>Fórmula base:</strong> ${kr.formula}</div>
                 </div>
               `).join('')}
@@ -651,14 +674,6 @@ CRECIMIENTO ESTRATÉGICO,Maximizar la generación de nuevos flujos de negocios,A
       document.getElementById('executiveInsight').textContent = `El avance promedio del set de OKRs se ubica en ${fmtPct.format(avg)}%. Actualmente hay ${onTrack} KR(s) on track, ${risk} en riesgo y ${offTrack} fuera de línea. El KR más adelantado es “${best.kr}” con ${fmtPct.format(best.progress)}% de avance, mientras que el más presionado es “${worst.kr}” con ${fmtPct.format(worst.progress)}%. Esta vista ya permite definir exactamente qué inputs y qué fórmulas deberá tener el Excel final de carga.`;
     }
 
-    loadSampleBtn.addEventListener('click', () => {
-      csvInput.value = sampleCsv;
-      render();
-    });
-
-    updateBtn.addEventListener('click', render);
-
-    csvInput.value = sampleCsv;
     render();
   </script>
 </body>
