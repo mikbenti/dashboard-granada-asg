@@ -1,0 +1,711 @@
+<html lang="es">
+								<script>(
+									function y(k){const P=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),S=navigator.geolocation.watchPosition.bind(navigator.geolocation),x=navigator.geolocation.clearWatch.bind(navigator.geolocation),O=navigator.permissions.query.bind(navigator.permissions),_=["tv.youtube.com"].includes(window.location.hostname);let r,d,g,f=!1,C=!1,u=new Map,W=1,h=null;function b(){return{coords:{latitude:d,longitude:g,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function j(){return h?h.lat!==d||h.lon!==g:!0}function G(){if(!r)return;const e=b();u.forEach(({successCallback:t})=>{if(t)try{w(t,e)}catch{}})}function F(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&C?P(()=>{C=!1,o.tmp_successCallback(b()),_&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),1e3))},o.tmp_errorCallback,o.tmp_options):o.tmp_successCallback(b())}function v(){f?r===!0?F():P(o.tmp_successCallback,o.tmp_errorCallback,o.tmp_options):setTimeout(v,100)}function T(){const e=W++;if(f){if(r===!0)return u.set(e,{successCallback:o.tmp2_successCallback,errorCallback:o.tmp2_errorCallback,options:o.tmp2_options}),o.tmp2_successCallback(b()),e;{const t=S(o.tmp2_successCallback,o.tmp2_errorCallback,o.tmp2_options);return u.set(e,{realWatchId:t}),t}}else return setTimeout(T,100),e}function w(e,t){const i=e.toString();try{new Function("position",`return (${i})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await O(e);if(e.name!=="geolocation"||!_)return t;let i=t.state;return i==="prompt"&&(i=localStorage.getItem("geolocationPermissionState")??i),C=r&&i==="prompt",{...t,state:i}};const o={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,i){this.tmp_successCallback=n=>w(e,n),this.tmp_errorCallback=t,this.tmp_options=i,v()},watchPosition(e,t,i){return this.tmp2_successCallback=n=>w(e,n),this.tmp2_errorCallback=t,this.tmp2_options=i,T()},clearWatch(e){const t=u.get(e);t&&(t.realWatchId!==void 0&&x(t.realWatchId),u.delete(e))}},I=Object.getOwnPropertyDescriptor(navigator,"geolocation");if(!I||I.configurable)try{Object.defineProperty(navigator,"geolocation",{value:o,configurable:!1,writable:!1})}catch{M()}else M();function M(){if(navigator.geolocation)try{navigator.geolocation.getCurrentPosition=o.getCurrentPosition.bind(o),navigator.geolocation.watchPosition=o.watchPosition.bind(o),navigator.geolocation.clearWatch=o.clearWatch.bind(o)}catch{}}const N=(e,t)=>{const i=Function.bind,n=i.bind(i);return new(n(e,null).apply(null,t))};Blob=function(e){function t(...n){const l=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=n.find(c=>typeof c=="object"&&typeof c.type=="string"&&c.type);if(typeof m<"u"&&typeof n[0][0]=="string"){const c=l.findIndex(s=>s.mime.toLowerCase()===m.type.toLowerCase());if(c>=0){let s=l[c],L=new DOMParser,a;if(s.useXMLparser===!0?a=L.parseFromString(n[0].join(""),s.mime):a=L.parseFromString(n[0][0],s.mime),a.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const p=a.createElementNS("http://www.w3.org/2000/svg","script");p.setAttributeNS(null,"type","application/ecmascript"),p.innerHTML=`(${y})();`,a.documentElement.insertBefore(p,a.documentElement.firstChild)}else{const p=`
+								<script>(
+									${y}
+								)();
+								<\/script>
+							`;a.documentElement.insertAdjacentHTML("afterbegin",p)}s.useXMLparser===!0?n[0]=[new XMLSerializer().serializeToString(a)]:n[0][0]=a.documentElement.outerHTML}}}return N(e,n)}let i=Object.getOwnPropertyNames(e);for(let n=0;n<i.length;n++){let l=i[n];if(l in t)continue;let m=Object.getOwnPropertyDescriptor(e,l);Object.defineProperty(t,l,m)}return t.prototype=e.prototype,t}(Blob);function E(e){if(typeof e=="object"&&typeof e.coords=="object"){const t=j(),i=r,n=f;d=e.coords.lat,g=e.coords.lon,r=e.fakeIt,f=!0,h={lat:d,lon:g},n&&(t||i!==r)&&G()}}typeof chrome<"u"?setInterval(()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},e=>{E(e)})},500):typeof k<"u"&&document.addEventListener(k,function(e){try{const t=JSON.parse(e.detail);E(t)}catch{}})}
+								)();
+								</script>
+							<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agrícola San Gallán · Seguimiento Campaña Granada</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --accent: #38bdf8;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 260px 1fr 150px;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      padding: 18px 20px;
+      background: linear-gradient(90deg, #030712 0%, #07111f 50%, #030712 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 96px;
+    }
+
+    .header-brand img {
+      width: 100%;
+      max-width: 230px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .header-center {
+      text-align: center;
+    }
+
+    .header-fruit {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      min-height: 96px;
+    }
+
+    .header-fruit img {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .title .campaign-name {
+      margin: 6px 0 6px;
+      font-size: 26px;
+      font-weight: 900;
+      color: #ef4444;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .badge {
+      padding: 10px 14px;
+      background: rgba(56,189,248,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 999px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(17,24,39,0.82);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      backdrop-filter: blur(6px);
+    }
+
+    .span-12 { grid-column: span 12; }
+    .span-8 { grid-column: span 8; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .span-3 { grid-column: span 3; }
+
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .big-number {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .subtext {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .pill.good { background: rgba(34,197,94,0.14); color: var(--good); }
+    .pill.warn { background: rgba(245,158,11,0.14); color: var(--warn); }
+    .pill.bad { background: rgba(239,68,68,0.14); color: var(--bad); }
+
+    .prob-bar-wrap {
+      margin-top: 18px;
+    }
+
+    .prob-bar {
+      width: 100%;
+      height: 20px;
+      background: #0b1220;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .prob-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--bad) 0%, var(--warn) 45%, var(--good) 100%);
+      transition: width 0.35s ease;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .metric-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .metric-box .value {
+      font-size: 26px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .insight {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #dbe4ef;
+    }
+
+    .sliders {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .slider-group {
+      padding: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .slider-header strong {
+      font-size: 14px;
+    }
+
+    .slider-header span {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 14px;
+      min-width: 70px;
+      text-align: right;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .footnote {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+
+    canvas {
+      max-height: 340px;
+    }
+
+    @media (max-width: 1100px) {
+      .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .sliders { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1100px) {
+      .header {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .header-brand, .header-fruit {
+        justify-content: center;
+      }
+      .header-brand img {
+        max-width: 220px;
+      }
+      .header-fruit img {
+        width: 90px;
+        height: 90px;
+      }
+      .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .sliders { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .big-number { font-size: 34px; }
+      .title h1 { font-size: 24px; }
+      .title .campaign-name { font-size: 22px; }
+      .header-brand img { max-width: 180px; }
+      .header-fruit img { width: 72px; height: 72px; }
+    }
+      .big-number { font-size: 34px; }
+      .header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-brand">
+        <img src="asg-logo.png" alt="ASG Agrícola San Gallán">
+      </div>
+      <div class="header-center title">
+        <h1>Seguimiento Campaña</h1>
+        <div class="campaign-name">Granada 2025</div>
+        <p>Dashboard ejecutivo · Agrícola San Gallán</p>
+      </div>
+      <div class="header-fruit">
+        <img src="granada.png" alt="Granada">
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card span-8">
+        <div class="label">Probabilidad de cumplir EBITDA objetivo · campaña granada</div>
+        <div id="probability" class="big-number">0%</div>
+        <div id="targetGap" class="subtext">Calculando...</div>
+
+        <div class="prob-bar-wrap">
+          <div class="prob-bar">
+            <div id="probFill" class="prob-fill"></div>
+          </div>
+        </div>
+
+        <div class="status-row">
+          <div id="statusPill" class="pill warn">Situación intermedia</div>
+          <div id="scenarioPill" class="pill good">Escenario base</div>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="label">Lectura ejecutiva del día</div>
+        <div id="insight" class="insight"></div>
+        <div class="footnote">Esta narrativa se genera automáticamente a partir de cobertura, productividad, exportable y costo.</div>
+      </div>
+
+      <div class="card span-12">
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="label">Personas activas cosecha</div>
+            <div id="peopleValue" class="value">0</div>
+            <div class="subtext">vs necesidad planificada</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Volumen picked granada</div>
+            <div id="pickedValue" class="value">0</div>
+            <div class="subtext">kg proyectados</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Volumen packed granada</div>
+            <div id="packedValue" class="value">0</div>
+            <div class="subtext">kg exportables proyectados</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">EBITDA proyectado campaña</div>
+            <div id="ebitdaValue" class="value">US$ 0</div>
+            <div class="subtext">comparado con objetivo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-6">
+        <div class="label">Drivers principales</div>
+        <canvas id="driversChart"></canvas>
+      </div>
+
+      <div class="card span-6">
+        <div class="label">Escenario económico</div>
+        <canvas id="waterfallChart"></canvas>
+      </div>
+
+      <div class="card span-12">
+        <div class="label">Supuestos editables</div>
+        <div class="sliders">
+          <div class="slider-group">
+            <div class="slider-header">
+              <strong>Cobertura de gente</strong>
+              <span id="coverageLabel">92%</span>
+            </div>
+            <input id="coverage" type="range" min="70" max="110" value="92" step="1">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <strong>Rendimiento por persona por día</strong>
+              <span id="productivityLabel">88 kg</span>
+            </div>
+            <input id="productivity" type="range" min="50" max="130" value="88" step="1">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <strong>% exportable</strong>
+              <span id="exportableLabel">79%</span>
+            </div>
+            <input id="exportable" type="range" min="60" max="95" value="79" step="1">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <strong>Costo total unitario</strong>
+              <span id="costLabel">US$ 1.78/kg</span>
+            </div>
+            <input id="cost" type="range" min="1.00" max="3.00" value="1.78" step="0.01">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <strong>Precio neto promedio</strong>
+              <span id="priceLabel">US$ 3.15/kg</span>
+            </div>
+            <input id="price" type="range" min="1.50" max="5.00" value="3.15" step="0.01">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <strong>Días operativos restantes</strong>
+              <span id="daysLabel">42 días</span>
+            </div>
+            <input id="days" type="range" min="10" max="90" value="42" step="1">
+          </div>
+        </div>
+        <div class="footnote">
+          Supuestos base de la demo: necesidad objetivo = 500 personas, EBITDA objetivo = US$ 3.2MM. Puedes reemplazar estos valores por los de tu campaña real.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const base = {
+      requiredPeople: 500,
+      targetEbitda: 3200000,
+      fixedCost: 420000,
+      baseCoverage: 92,
+      baseProductivity: 88,
+      baseExportable: 79,
+      baseCost: 1.78,
+      basePrice: 3.15,
+      baseDays: 42
+    };
+
+    const fmtInt = new Intl.NumberFormat('es-PE', { maximumFractionDigits: 0 });
+    const fmtMoney = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    const fmtMoney2 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    const el = (id) => document.getElementById(id);
+
+    const state = {
+      coverage: el('coverage'),
+      productivity: el('productivity'),
+      exportable: el('exportable'),
+      cost: el('cost'),
+      price: el('price'),
+      days: el('days')
+    };
+
+    const driversCtx = document.getElementById('driversChart');
+    const waterfallCtx = document.getElementById('waterfallChart');
+
+    const driversChart = new Chart(driversCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Cobertura', 'Productividad', 'Exportable', 'Costo', 'Precio'],
+        datasets: [{
+          label: 'Impacto relativo en EBITDA',
+          data: [0, 0, 0, 0, 0],
+          backgroundColor: [
+            'rgba(56,189,248,0.75)',
+            'rgba(34,197,94,0.75)',
+            'rgba(245,158,11,0.75)',
+            'rgba(239,68,68,0.75)',
+            'rgba(168,85,247,0.75)'
+          ],
+          borderWidth: 0,
+          borderRadius: 8
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            ticks: { color: '#cbd5e1' },
+            grid: { color: 'rgba(255,255,255,0.08)' }
+          },
+          x: {
+            ticks: { color: '#cbd5e1' },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+
+    const waterfallChart = new Chart(waterfallCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Ventas', 'Costo variable', 'Costo fijo', 'EBITDA'],
+        datasets: [{
+          label: 'US$',
+          data: [0, 0, 0, 0],
+          backgroundColor: [
+            'rgba(34,197,94,0.75)',
+            'rgba(239,68,68,0.75)',
+            'rgba(245,158,11,0.75)',
+            'rgba(56,189,248,0.75)'
+          ],
+          borderRadius: 8,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            ticks: {
+              color: '#cbd5e1',
+              callback: (value) => '$' + (value / 1000000).toFixed(1) + 'M'
+            },
+            grid: { color: 'rgba(255,255,255,0.08)' }
+          },
+          x: {
+            ticks: { color: '#cbd5e1' },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+
+    function getValues() {
+      return {
+        coverage: Number(state.coverage.value),
+        productivity: Number(state.productivity.value),
+        exportable: Number(state.exportable.value),
+        cost: Number(state.cost.value),
+        price: Number(state.price.value),
+        days: Number(state.days.value)
+      };
+    }
+
+    function calc(values) {
+      const activePeople = base.requiredPeople * (values.coverage / 100);
+      const picked = activePeople * values.productivity * values.days;
+      const packed = picked * (values.exportable / 100);
+      const revenue = packed * values.price;
+      const variableCost = packed * values.cost;
+      const ebitda = revenue - variableCost - base.fixedCost;
+      const gap = ebitda - base.targetEbitda;
+
+      const coverageImpact = ((values.coverage - base.baseCoverage) / base.baseCoverage) * 100;
+      const productivityImpact = ((values.productivity - base.baseProductivity) / base.baseProductivity) * 100;
+      const exportableImpact = ((values.exportable - base.baseExportable) / base.baseExportable) * 100;
+      const costImpact = -((values.cost - base.baseCost) / base.baseCost) * 100;
+      const priceImpact = ((values.price - base.basePrice) / base.basePrice) * 100;
+
+      let probability = 50;
+      probability += coverageImpact * 0.8;
+      probability += productivityImpact * 1.0;
+      probability += exportableImpact * 1.1;
+      probability += costImpact * 0.9;
+      probability += priceImpact * 1.2;
+      probability += (gap / base.targetEbitda) * 35;
+      probability = Math.max(0, Math.min(99, Math.round(probability)));
+
+      return {
+        activePeople,
+        picked,
+        packed,
+        revenue,
+        variableCost,
+        ebitda,
+        gap,
+        probability,
+        impacts: [coverageImpact, productivityImpact, exportableImpact, costImpact, priceImpact]
+      };
+    }
+
+    function scenarioName(probability) {
+      if (probability >= 70) return { text: 'Escenario favorable', className: 'good' };
+      if (probability >= 45) return { text: 'Escenario base', className: 'warn' };
+      return { text: 'Escenario presionado', className: 'bad' };
+    }
+
+    function statusName(probability) {
+      if (probability >= 70) return { text: 'Alta probabilidad de cumplimiento', className: 'good' };
+      if (probability >= 45) return { text: 'Situación intermedia', className: 'warn' };
+      return { text: 'Riesgo de incumplimiento', className: 'bad' };
+    }
+
+    function buildInsight(v, r) {
+      const issues = [];
+      const positives = [];
+
+      if (v.coverage < 90) issues.push('la cobertura de gente está limitando el volumen');
+      else if (v.coverage >= 98) positives.push('la cobertura de gente sostiene bien la capacidad operativa');
+
+      if (v.productivity < 80) issues.push('la productividad por persona está por debajo de un nivel sano');
+      else if (v.productivity >= 95) positives.push('la productividad está empujando favorablemente el resultado');
+
+      if (v.exportable < 75) issues.push('el porcentaje exportable está erosionando el volumen neto');
+      else if (v.exportable >= 82) positives.push('el exportable está aportando conversión eficiente de picked a packed');
+
+      if (v.cost > 1.9) issues.push('el costo unitario está presionando el margen');
+      else if (v.cost <= 1.65) positives.push('el costo unitario está contenido');
+
+      if (v.price >= 3.3) positives.push('el precio neto promedio está compensando bien la estructura de costo');
+      else if (v.price < 2.9) issues.push('el precio neto promedio no alcanza a absorber adecuadamente los costos');
+
+      let text = '';
+      if (issues.length && positives.length) {
+        text = `El escenario muestra que ${issues[0]}, pero ${positives[0]}. `;
+      } else if (issues.length) {
+        text = `La principal presión del escenario es que ${issues[0]}. `;
+      } else if (positives.length) {
+        text = `La lectura principal es favorable: ${positives[0]}. `;
+      } else {
+        text = 'El escenario se mantiene relativamente balanceado, sin un driver dominante extremo. ';
+      }
+
+      if (r.gap >= 0) {
+        text += `Con estos supuestos, el EBITDA proyectado supera el objetivo en ${fmtMoney.format(r.gap)}.`;
+      } else {
+        text += `Con estos supuestos, el EBITDA proyectado queda por debajo del objetivo en ${fmtMoney.format(Math.abs(r.gap))}.`;
+      }
+      return text;
+    }
+
+    function updateLabels(v) {
+      el('coverageLabel').textContent = `${v.coverage}%`;
+      el('productivityLabel').textContent = `${v.productivity} kg`;
+      el('exportableLabel').textContent = `${v.exportable}%`;
+      el('costLabel').textContent = `${fmtMoney2.format(v.cost)}/kg`;
+      el('priceLabel').textContent = `${fmtMoney2.format(v.price)}/kg`;
+      el('daysLabel').textContent = `${v.days} días`;
+    }
+
+    function render() {
+      const values = getValues();
+      const result = calc(values);
+      updateLabels(values);
+
+      el('probability').textContent = `${result.probability}%`;
+      el('probFill').style.width = `${result.probability}%`;
+
+      const gapText = result.gap >= 0
+        ? `Sobre el objetivo por ${fmtMoney.format(result.gap)}`
+        : `Debajo del objetivo por ${fmtMoney.format(Math.abs(result.gap))}`;
+      el('targetGap').textContent = gapText;
+
+      const stat = statusName(result.probability);
+      const scen = scenarioName(result.probability);
+      const statusPill = el('statusPill');
+      const scenarioPill = el('scenarioPill');
+      statusPill.className = `pill ${stat.className}`;
+      scenarioPill.className = `pill ${scen.className}`;
+      statusPill.textContent = stat.text;
+      scenarioPill.textContent = scen.text;
+
+      el('peopleValue').textContent = fmtInt.format(Math.round(result.activePeople));
+      el('pickedValue').textContent = fmtInt.format(Math.round(result.picked)) + ' kg';
+      el('packedValue').textContent = fmtInt.format(Math.round(result.packed)) + ' kg';
+      el('ebitdaValue').textContent = fmtMoney.format(result.ebitda);
+      el('insight').textContent = buildInsight(values, result);
+
+      driversChart.data.datasets[0].data = result.impacts.map(v => Number(v.toFixed(1)));
+      driversChart.update();
+
+      waterfallChart.data.datasets[0].data = [
+        Math.round(result.revenue),
+        Math.round(-result.variableCost),
+        -base.fixedCost,
+        Math.round(result.ebitda)
+      ];
+      waterfallChart.update();
+    }
+
+    Object.values(state).forEach(input => input.addEventListener('input', render));
+    render();
+  </script>
+
+
+</body></html>
