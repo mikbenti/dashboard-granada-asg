@@ -3,472 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V&P · OKRs 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>V&P OKRs</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --bg:#f4f0e8;
-    --paper:#faf7f1;
-    --card:#fffdfa;
-    --ink:#0d5c4a;
-    --ink-2:#0b4f40;
-    --muted:#6d7c73;
-    --line:#d8ddd5;
-    --accent:#8fbf3d;
-    --accent-soft:#dbe9b7;
-    --header:#0d614c;
-    --header-dark:#0a5240;
-    --green:#76b041;
-    --yellow:#facc15;
-    --red:#d6412b;
-    --shadow:0 10px 28px rgba(0,0,0,.06);
-  }
+body{
+  font-family: 'Montserrat', sans-serif;
+  background:#f4f0e8;
+  margin:0;
+  padding:20px;
+  color:#0d5c4a;
+}
 
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:'Montserrat', Arial, sans-serif;
-    background:var(--bg);
-    color:var(--ink);
-    padding:24px;
-  }
-  .container{max-width:1720px;margin:auto}
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
 
-  .hero{
-    background:linear-gradient(180deg, rgba(255,255,255,.68), rgba(255,255,255,.9));
-    border:1px solid var(--line);
-    border-radius:24px;
-    padding:24px;
-    margin-bottom:20px;
-    box-shadow:var(--shadow);
-  }
-  .hero-top{
-    display:grid;
-    grid-template-columns:220px 1fr 300px;
-    gap:18px;
-    align-items:center;
-  }
-  .logo-wrap{display:flex;align-items:center;justify-content:flex-start}
-  .logo-wrap img{
-    width:150px;height:150px;object-fit:contain;
-    filter: brightness(0) saturate(100%) invert(47%) sepia(55%) saturate(536%) hue-rotate(49deg) brightness(95%) contrast(89%);
-  }
-  .title-wrap{text-align:center}
-  .eyebrow{font-size:20px;color:var(--ink-2);margin-bottom:4px;font-weight:500}
-  h1{margin:0;font-size:68px;line-height:.94;letter-spacing:-0.05em;color:var(--ink);font-weight:900}
-  .subtitle{margin-top:12px;font-size:17px;color:var(--muted);font-weight:500}
-  .meta-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-  .tag{
-    display:inline-flex;align-items:center;justify-content:center;
-    padding:10px 14px;border:1px solid var(--line);border-radius:12px;
-    background:#fff;color:var(--ink);font-size:13px;font-weight:800;
-    box-shadow:0 4px 12px rgba(0,0,0,.04);
-  }
-  .corp-logos{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top:6px;opacity:.88}
-  .corp-logos img{height:26px;object-fit:contain;filter:grayscale(10%)}
+h1{
+  font-size:48px;
+  margin:0;
+}
 
-  .legend{display:flex;gap:18px;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
-  .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
-  .legend-chip{padding:7px 10px;border-radius:10px;font-size:13px;font-weight:900;border:1px solid rgba(0,0,0,.06)}
-  .score-green{color:#3f7f22;background:#eef8df}
-  .score-yellow{color:#a47500;background:#fff4cc}
-  .score-red{color:#b12b1b;background:#fde1dd}
+.logos img{
+  height:40px;
+  margin-left:10px;
+}
 
-  .dashboard-section{margin-bottom:24px}
-  .section-banner{
-    display:flex;justify-content:space-between;align-items:center;gap:16px;
-    margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);
-    border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow)
-  }
-  .section-left{display:flex;align-items:center;gap:14px}
-  .section-left img{width:44px;height:44px;object-fit:contain}
-  .section-title{font-size:30px;font-weight:900;letter-spacing:-0.03em;color:var(--ink)}
-  .section-sub{font-size:13px;color:var(--muted);margin-top:4px;font-weight:600}
+.section{
+  background:#fff;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+}
 
-  .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;align-items:start}
-  .objective-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);height:100%}
-  .objective-header{
-    background:linear-gradient(180deg,var(--header),var(--header-dark));
-    color:#fff;padding:18px 18px 16px;min-height:132px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start
-  }
-  .focus{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.92;font-weight:700}
-  .objective-title{font-size:30px;font-weight:900;line-height:1.02;letter-spacing:-0.03em;margin-top:8px;max-width:92%}
-  .objective-sub{margin-top:10px;font-size:13px;opacity:.88;line-height:1.45;max-width:92%;font-weight:500}
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:26px;
+  font-weight:900;
+}
 
-  .score-badge,.subscore,.subkr-score{
-    text-align:center;background:#fff;border:2px solid transparent;line-height:1;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)
-  }
-  .score-badge{min-width:98px;padding:10px 12px;border-radius:14px;font-size:30px;font-weight:900;border-color:rgba(255,255,255,.22)}
-  .subscore{min-width:82px;padding:10px 10px;border-radius:12px;font-size:24px;font-weight:900}
-  .subkr-score{min-width:74px;padding:8px 8px;border-radius:10px;font-size:20px;font-weight:900}
-  .score-badge small,.subscore small,.subkr-score small{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;margin-top:6px;font-weight:800}
+.section-title img{
+  width:60px;
+}
 
-  .objective-body{padding:16px;background:linear-gradient(180deg,#fff,#fbf8f2)}
-  .kr-shell{background:#f9f6ef;border:1px solid #e7e0d3;border-radius:16px;padding:14px;margin-bottom:12px}
-  .kr-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
-  .kr-name{font-size:22px;font-weight:900;line-height:1.05;color:var(--ink)}
-  .kr-note{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.45;font-weight:500}
+.section-title img.blueberry{
+  width:80px; /* más grande */
+}
 
-  .subgrid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
-  .subkr{background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:12px}
-  .subkr-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-  .subkr-brand{display:flex;gap:10px;align-items:center}
-  .subkr-brand img.icon{width:24px;height:24px;object-fit:contain;display:block}
-  .subkr-title{font-size:16px;font-weight:900;line-height:1.1}
-  .subkr-sub{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:15px;
+  margin-top:15px;
+}
 
-  .kr-meta,.component-grid,.summary-grid{display:grid;gap:8px;margin-top:10px}
-  .kr-meta,.summary-grid{grid-template-columns:repeat(3,1fr)}
-  .component-grid{grid-template-columns:repeat(3,1fr)}
-  .box,.component-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px}
-  .box .label,.component-box .label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
-  .box .num,.component-box .num{font-size:18px;font-weight:900;color:var(--ink);margin-top:4px}
+.card{
+  background:#fafafa;
+  border-radius:12px;
+  padding:15px;
+}
 
-  @media (max-width:1200px){
-    .hero-top{grid-template-columns:1fr;text-align:center}
-    .logo-wrap,.meta-wrap{justify-content:center;align-items:center}
-    .legend{justify-content:center}
-    .corp-logos{justify-content:center}
-    .objective-title,.objective-sub{max-width:100%}
-  }
-  @media (max-width:700px){
-    h1{font-size:46px}
-    .objective-title{font-size:24px}
-    .kr-name{font-size:18px}
-    .kr-meta,.summary-grid,.component-grid{grid-template-columns:1fr}
-    .section-title{font-size:24px}
-  }
+.kpi{
+  font-size:28px;
+  font-weight:900;
+}
+
+.meta{
+  font-size:12px;
+  color:#777;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+}
+
+details{
+  margin-top:10px;
+}
+
+summary{
+  cursor:pointer;
+  font-weight:700;
+}
+
+.green{color:#2e7d32;}
+.yellow{color:#c69200;}
+.red{color:#c62828;}
+
 </style>
 </head>
-<body>
-<div class="container">
-  <div class="hero">
-    <div class="hero-top">
-      <div class="logo-wrap">
-        <img src="logo-okrs.png" alt="Cultivamos futuro" />
-      </div>
-      <div class="title-wrap">
-        <div class="eyebrow">Valle y Pampa · OKRs 2026</div>
-        <h1>ORGANIZACIONALES</h1>
-        <div class="subtitle">Dashboard ejecutivo de objetivos y key results</div>
-      </div>
-      <div class="meta-wrap">
-        <div class="tag" id="fecha"></div>
-        <div class="tag" id="lastUpdate"></div>
-        <div class="tag" id="dataDate"></div>
-        <div class="corp-logos">
-          <img src="logo-family.png" alt="FFP" />
-          <img src="logo-asg.png" alt="ASG" />
-        </div>
-      </div>
-    </div>
-    <div class="legend">
-      <div class="legend-item"><span class="legend-chip score-green">90+</span> Favorable</div>
-      <div class="legend-item"><span class="legend-chip score-yellow">60-89</span> Atención</div>
-      <div class="legend-item"><span class="legend-chip score-red">&lt;60</span> Presionado</div>
-    </div>
-  </div>
 
-  <div id="sections"></div>
+<body>
+
+<div class="header">
+  <h1>OKRs 2026</h1>
+  <div class="logos">
+    <img src="logo-asg.png">
+    <img src="logo-family.png">
+  </div>
 </div>
 
-<script>
-const sections = [
-  {
-    title:'Arándano',
-    icon:'arandano.png',
-    subtitle:'Family Farms Perú (FFP)',
-    objectives:[
-      {
-        foco:'CALIDAD',
-        objetivo:'Maximizar la captura de valor de la producción',
-        descripcion:'Captura de valor comercial entregada al mercado.',
-        krs:[
-          {
-            name:'IVC',
-            note:'Índice de valor comercializable para arándanos.',
-            actual:74,
-            meta:85,
-            components:[
-              {label:'% Exportable', value:'84%'},
-              {label:'% JBO Exportable', value:'48%'},
-              {label:'% Arribos ≥ 4', value:'89%'}
-            ]
-          }
-        ]
-      },
-      {
-        foco:'EFICIENCIA',
-        objetivo:'Maximizar la eficiencia integral del negocio',
-        descripcion:'Eficiencia productiva y cumplimiento de producción.',
-        krs:[
-          {
-            name:'Breakeven/kg',
-            note:'Costo de equilibrio por kg en FFP.',
-            actual:1.62,
-            meta:1.45,
-            lowerIsBetter:true,
-            components:[
-              {label:'Egresos P&L', value:'US$ 16.2MM'},
-              {label:'Kg producidos', value:'9.95MM'},
-              {label:'Breakeven', value:'US$ 1.62'}
-            ]
-          },
-          {
-            name:'ICP',
-            note:'Cumplimiento de producción de arándanos.',
-            actual:91,
-            meta:95,
-            components:[
-              {label:'Kg producidos', value:'9.95MM'},
-              {label:'Kg programados', value:'10.93MM'},
-              {label:'ICP', value:'91%'}
-            ]
-          }
-        ]
-      },
-      {
-        foco:'TALENTO',
-        objetivo:'Maximizar la productividad de las personas',
-        descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
-        krs:[
-          {
-            name:'IP',
-            note:'Índice de productividad en FFP.',
-            actual:81,
-            meta:100,
-            components:[
-              {label:'% Kg por CAR', value:'86%'},
-              {label:'Costo target/real', value:'0.94x'},
-              {label:'IP', value:'81'}
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    title:'Granada',
-    icon:'granada.png',
-    subtitle:'Agrícola San Gallán (ASG)',
-    objectives:[
-      {
-        foco:'CALIDAD',
-        objetivo:'Maximizar la captura de valor de la producción',
-        descripcion:'Captura de valor comercial entregada al mercado.',
-        krs:[
-          {
-            name:'IVC',
-            note:'Índice de valor comercializable para granada.',
-            actual:69,
-            meta:82,
-            components:[
-              {label:'% Exportable', value:'81%'},
-              {label:'% CAT 1 + 2', value:'79%'},
-              {label:'% Arribos ≥ 4', value:'88%'}
-            ]
-          }
-        ]
-      },
-      {
-        foco:'EFICIENCIA',
-        objetivo:'Maximizar la eficiencia integral del negocio',
-        descripcion:'Eficiencia productiva y cumplimiento de producción.',
-        krs:[
-          {
-            name:'Breakeven/kg',
-            note:'Costo de equilibrio por kg en ASG.',
-            actual:1.28,
-            meta:1.18,
-            lowerIsBetter:true,
-            components:[
-              {label:'Egresos P&L', value:'US$ 7.9MM'},
-              {label:'Kg producidos', value:'6.17MM'},
-              {label:'Breakeven', value:'US$ 1.28'}
-            ]
-          },
-          {
-            name:'ICP',
-            note:'Cumplimiento de producción de granada.',
-            actual:93,
-            meta:95,
-            components:[
-              {label:'Kg producidos', value:'6.17MM'},
-              {label:'Kg programados', value:'6.63MM'},
-              {label:'ICP', value:'93%'}
-            ]
-          }
-        ]
-      },
-      {
-        foco:'TALENTO',
-        objetivo:'Maximizar la productividad de las personas',
-        descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
-        krs:[
-          {
-            name:'IP',
-            note:'Índice de productividad en ASG.',
-            actual:76,
-            meta:100,
-            components:[
-              {label:'% Kg por CAR', value:'82%'},
-              {label:'Costo target/real', value:'0.93x'},
-              {label:'IP', value:'76'}
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    title:'Grupo Valle y Pampa',
-    icon:'logo-okrs.png',
-    subtitle:'Indicador corporativo',
-    objectives:[
-      {
-        foco:'CRECIMIENTO ESTRATÉGICO',
-        objetivo:'Maximizar la generación de nuevos flujos de negocios',
-        descripcion:'Apertura y desarrollo de oportunidades de crecimiento.',
-        krs:[
-          {
-            name:'INF',
-            note:'Indicador principal a nivel grupo Valle y Pampa.',
-            actual:9,
-            meta:15,
-            components:[
-              {label:'Contrib. orgánica', value:'4.5%'},
-              {label:'Contrib. inorgánica', value:'4.5%'},
-              {label:'Contrib. total grupo', value:'100%'}
-            ]
-          }
-        ]
-      }
-    ]
-  }
-];
+<!-- GRANADA -->
+<div class="section">
+  <div class="section-title">
+    <img src="granada.png">
+    GRANADA
+  </div>
 
-function progress(a,m,name,lowerIsBetter=false){
-  if(lowerIsBetter || String(name).toLowerCase().includes('breakeven')) return (m/a)*100;
-  return (a/m)*100;
-}
-function band(p){
-  if(p>=90) return 'green';
-  if(p>=60) return 'yellow';
-  return 'red';
-}
-function scoreClass(p){
-  const b = band(p);
-  return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
-}
-function fmt(v){
-  return Number.isInteger(v) ? v.toString() : v.toFixed(2);
-}
+  <div class="grid">
 
-function build(){
-  const sectionsWrap = document.getElementById('sections');
-  sectionsWrap.innerHTML = '';
+    <div class="card">
+      <div class="kpi yellow">72</div>
+      <div class="meta">IVC</div>
 
-  sections.forEach(section => {
-    const sec = document.createElement('div');
-    sec.className = 'dashboard-section';
-
-    sec.innerHTML = `
-      <div class="section-banner">
-        <div class="section-left">
-          <img src="${section.icon}" alt="${section.title}" />
-          <div>
-            <div class="section-title">${section.title}</div>
-            <div class="section-sub">${section.subtitle}</div>
-          </div>
-        </div>
+      <div class="row">
+        <div>Meta: 80</div>
+        <div>Real: 72</div>
+        <div>-8</div>
       </div>
-      <div class="board"></div>
-    `;
 
-    const board = sec.querySelector('.board');
+      <details>
+        <summary>Ver detalle</summary>
+        % Exportable: 81%<br>
+        CAT 1+2: 79%<br>
+        Arribos ≥4: 88%
+      </details>
+    </div>
 
-    section.objectives.forEach(o => {
-      const objectiveWorst = Math.min(...o.krs.map(k => progress(k.actual, k.meta, k.name, !!k.lowerIsBetter)));
-      const objectiveCard=document.createElement('div');
-      objectiveCard.className='objective-card';
+  </div>
+</div>
 
-      objectiveCard.innerHTML=`
-        <div class="objective-header">
-          <div>
-            <div class="focus">${o.foco}</div>
-            <div class="objective-title">${o.objetivo}</div>
-            <div class="objective-sub">${o.descripcion}</div>
-          </div>
-          <div class="score-badge ${scoreClass(objectiveWorst)}">${Math.round(objectiveWorst)}<small>índice</small></div>
-        </div>
-        <div class="objective-body"></div>
-      `;
+<!-- ARANDANO -->
+<div class="section">
+  <div class="section-title">
+    <img class="blueberry" src="arandano.png">
+    ARÁNDANO
+  </div>
 
-      const body = objectiveCard.querySelector('.objective-body');
+  <div class="grid">
 
-      o.krs.forEach(k => {
-        const p = progress(k.actual, k.meta, k.name, !!k.lowerIsBetter);
-        const shell = document.createElement('div');
-        shell.className = 'kr-shell';
-        shell.innerHTML = `
-          <div class="kr-head">
-            <div>
-              <div class="kr-name">${k.name}</div>
-              <div class="kr-note">${k.note}</div>
-            </div>
-            <div class="subscore ${scoreClass(p)}">${Math.round(p)}<small>índice</small></div>
-          </div>
-          <div class="summary-grid">
-            <div class="box">
-              <div class="label">Actual</div>
-              <div class="num">${fmt(k.actual)}</div>
-            </div>
-            <div class="box">
-              <div class="label">Meta</div>
-              <div class="num">${fmt(k.meta)}</div>
-            </div>
-            <div class="box">
-              <div class="label">Avance</div>
-              <div class="num">${p.toFixed(1)}%</div>
-            </div>
-          </div>
-          <div class="component-grid">
-            ${k.components.map(c => `
-              <div class="component-box">
-                <div class="label">${c.label}</div>
-                <div class="num">${c.value}</div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-        body.appendChild(shell);
-      });
+    <div class="card">
+      <div class="kpi green">76</div>
+      <div class="meta">IVC</div>
 
-      board.appendChild(objectiveCard);
-    });
+      <div class="row">
+        <div>Meta: 80</div>
+        <div>Real: 76</div>
+        <div>-4</div>
+      </div>
 
-    sectionsWrap.appendChild(sec);
-  });
-}
+      <details>
+        <summary>Ver detalle</summary>
+        % Exportable: 84%<br>
+        JBO: 48%<br>
+        Arribos ≥4: 89%
+      </details>
+    </div>
 
-function semanaISO(d=new Date()){
-  const date=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
-  const dayNum=date.getUTCDay()||7;
-  date.setUTCDate(date.getUTCDate()+4-dayNum);
-  const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
-  const week=Math.ceil((((date-yearStart)/86400000)+1)/7);
-  return week;
-}
+  </div>
+</div>
 
-const hoy=new Date();
-document.getElementById('fecha').textContent=`${hoy.toLocaleDateString('es-PE')} · Semana ${semanaISO(hoy)}`;
-document.getElementById('lastUpdate').textContent=`Actualizado: ${hoy.toLocaleString('es-PE')}`;
-const dataDate = new Date();
-document.getElementById('dataDate').textContent=`Información al: ${dataDate.toLocaleDateString('es-PE')}`;
+<!-- NUEVOS NEGOCIOS -->
+<div class="section">
+  <div class="section-title">
+    NUEVOS FLUJOS DE NEGOCIO
+  </div>
 
-build();
-</script>
+  <div class="grid">
+
+    <div class="card">
+      <div class="kpi yellow">72</div>
+      <div class="meta">INF</div>
+
+      <div class="row">
+        <div>Meta: 85</div>
+        <div>Real: 72</div>
+        <div>-13</div>
+      </div>
+
+      <details>
+        <summary>Ver detalle</summary>
+        Orgánico: 4.5%<br>
+        Inorgánico: 4.5%<br>
+        Total grupo: 100%
+      </details>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
