@@ -177,8 +177,7 @@
         <div class="tag" id="fecha"></div>
       </div>
     </div>
-    <div class="legend">
-      <div class="legend-item"><span class="legend-chip score-green"></span></div>
+    
       <div class="legend-item"><span class="legend-chip score-yellow"></span></div>
       <div class="legend-item"><span class="legend-chip score-red"></span></div>
     </div>
@@ -559,7 +558,10 @@ function semanaISO(d=new Date()){
 }
 
 const hoy=new Date();
-document.getElementById('fecha').textContent=`Información al ${hoy.toLocaleDateString('es-PE')} · Semana ${semanaISO(hoy)}`;
+const f = hoy.toLocaleDateString('es-PE');
+const s = semanaISO(hoy);
+document.getElementById('fecha').innerHTML = `
+  <div style="font-weight:500; font-size:12px;">Ult;
 
 build();
 </script>
