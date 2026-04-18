@@ -135,16 +135,16 @@
   .chev{transition:transform .2s ease}
   details[open] .chev{transform:rotate(180deg)}
   .details-body{padding-top:10px}
-  .component-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .component-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}
-  .component-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-  .component-title{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800;line-height:1.3}
-  .component-score{min-width:54px;padding:6px 6px;border-radius:10px;font-size:16px;font-weight:900;line-height:1;text-align:center}
-  .component-score small{display:block;font-size:8px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;font-weight:800}
+  .component-grid{display:grid;grid-template-columns:1fr;gap:8px}
+  .component-row{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .component-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .component-title{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800;line-height:1.3}
+  .component-score{min-width:48px;padding:5px 6px;border-radius:10px;font-size:14px;font-weight:900;line-height:1;text-align:center}
+  .component-score small{display:block;font-size:7px;letter-spacing:.06em;text-transform:uppercase;margin-top:3px;font-weight:800}
   .component-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
-  .component-mini{background:#faf8f3;border:1px solid var(--line);border-radius:8px;padding:6px}
+  .component-mini{background:#faf8f3;border:1px solid var(--line);border-radius:8px;padding:6px 8px}
   .component-mini .mini-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
-  .component-mini .mini-num{font-size:14px;font-weight:900;color:var(--ink);margin-top:3px}
+  .component-mini .mini-num{font-size:13px;font-weight:800;color:var(--ink);margin-top:3px}
 
   @media (max-width:1200px){
     .hero-top{grid-template-columns:1fr;text-align:center}
@@ -512,8 +512,8 @@ function build(){
             <div class="details-body">
               <div class="component-grid">
                 ${k.components.map(c => `
-                  <div class="component-card">
-                    <div class="component-head">
+                  <div class="component-row">
+                    <div class="component-top">
                       <div class="component-title">${c.label}</div>
                       <div class="component-score ${componentBand(c)}">${componentIndex(c)}<small>índice</small></div>
                     </div>
