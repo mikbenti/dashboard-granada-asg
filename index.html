@@ -178,7 +178,10 @@
       </div>
     </div>
     <div class="legend">
-      <div class="legend-item"><span class="legend-chip score-green">90+</span></div>
+      <div class="legend-item"><span class="legend-chip score-green"></span></div>
+      <div class="legend-item"><span class="legend-chip score-yellow"></span></div>
+      <div class="legend-item"><span class="legend-chip score-red"></span></div>
+    </div>
       <div class="legend-item"><span class="legend-chip score-yellow">60-89</span></div>
       <div class="legend-item"><span class="legend-chip score-red">&lt;60</span></div>
     </div>
@@ -511,7 +514,7 @@ function build(){
             </summary>
             <div class="details-body">
               <div class="component-grid">
-                ${k.components.map(c => `
+                ${k.components.filter(c => c.label.toLowerCase() !== k.name.toLowerCase()).map(c => `
                   <div class="component-row">
                     <div class="component-top">
                       <div class="component-title">${c.label}</div>
