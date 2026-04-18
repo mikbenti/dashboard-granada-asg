@@ -155,14 +155,12 @@
         <img src="logo-okrs.png" alt="Cultivamos futuro" />
       </div>
       <div class="title-wrap">
-        <div class="eyebrow">Valle y Pampa · OKRs 2026</div>
-        <h1>ORGANIZACIONALES</h1>
-        <div class="subtitle">Dashboard ejecutivo de objetivos y key results</div>
+        <div class="eyebrow">Valle y Pampa · 2026</div>
+        <h1>Dashboard Indicadores Estratégicos</h1>
+        <div class="subtitle">Monitoreo de objetivos y resultados clave</div>
       </div>
       <div class="meta-wrap">
         <div class="tag" id="fecha"></div>
-        <div class="tag" id="lastUpdate"></div>
-        <div class="tag" id="dataDate"></div>
       </div>
     </div>
     <div class="legend">
@@ -492,9 +490,7 @@ function semanaISO(d=new Date()){
 
 const hoy=new Date();
 document.getElementById('fecha').textContent=`${hoy.toLocaleDateString('es-PE')} · Semana ${semanaISO(hoy)}`;
-document.getElementById('lastUpdate').textContent=`Actualizado: ${hoy.toLocaleString('es-PE')}`;
-const dataDate = new Date();
-document.getElementById('dataDate').textContent=`Información al: ${dataDate.toLocaleDateString('es-PE')}`;
+
 
 build();
 </script>
