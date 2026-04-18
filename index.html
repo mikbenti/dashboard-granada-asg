@@ -376,15 +376,47 @@ const sections = [
 ];
 
 function progress(a,m,name,lowerIsBetter=false){
-  if(lowerIsBetter || String(name).toLowerCase().includes('breakeven')) return (m/a)*100;
+  const n = String(name).toLowerCase();
+
+  // Breakeven: menor es mejor
+  if(lowerIsBetter || n.includes('breakeven')) return (m/a)*100;
+
+  // ICP: lógica de umbral (>=95 bien)
+  if(n.includes('icp')){
+    return (a/m)*100; // mantenemos cálculo, pero color se maneja aparte
+  }
+
+  // Default: mayor es mejor
   return (a/m)*100;
+}
+
+function customBand(name, actual, meta){
+  const n = String(name).toLowerCase();
+
+  // ICP con threshold
+  if(n.includes('icp')){
+    if(actual >= 95) return 'green';
+    if(actual >= 90) return 'yellow';
+    return 'red';
+  }
+
+  // Default
+  const p = progress(actual, meta, name);
+  if(p >= 90) return 'green';
+  if(p >= 60) return 'yellow';
+  return 'red';
+}
+
+function scoreClass(p, name, actual, meta){
+  const b = customBand(name, actual, meta);
+  return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
 }
 function band(p){
   if(p>=90) return 'green';
   if(p>=60) return 'yellow';
   return 'red';
 }
-function scoreClass(p){
+function scoreClass(p, k.name, k.actual, k.meta){
   const b = band(p);
   return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
 }
@@ -428,7 +460,7 @@ function build(){
             <div class="objective-title">${o.objetivo}</div>
             <div class="objective-sub">${o.descripcion}</div>
           </div>
-          <div class="score-badge ${scoreClass(objectiveWorst)}">${Math.round(objectiveWorst)}<small>índice</small></div>
+          <div class="score-badge ${scoreClass(objectiveWorst, '', objectiveWorst, 100)}">${Math.round(objectiveWorst)}<small>índice</small></div>
         </div>
         <div class="objective-body"></div>
       `;
@@ -445,7 +477,7 @@ function build(){
               <div class="kr-name">${k.name}</div>
               <div class="kr-note">${k.note}</div>
             </div>
-            <div class="subscore ${scoreClass(p)}">${Math.round(p)}<small>índice</small></div>
+            <div class="subscore ${scoreClass(p, k.name, k.actual, k.meta)}">${Math.round(p)}<small>índice</small></div>
           </div>
           <div class="summary-grid">
             <div class="box">
