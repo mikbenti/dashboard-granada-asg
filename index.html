@@ -40,39 +40,86 @@
   }
   .hero-top{
     display:grid;
-    grid-template-columns:220px 1fr 220px;
+    grid-template-columns:220px 1fr 260px;
     gap:18px;
     align-items:center;
   }
   .logo-wrap{display:flex;align-items:center;justify-content:flex-start}
   .logo-wrap > img{
-    width:150px;height:150px;object-fit:contain;
+    width:150px;
+    height:150px;
+    object-fit:contain;
     filter: brightness(0) saturate(100%) invert(47%) sepia(55%) saturate(536%) hue-rotate(49deg) brightness(95%) contrast(89%);
   }
   .title-wrap{text-align:center}
   .eyebrow{font-size:20px;color:var(--ink-2);margin-bottom:4px;font-weight:500}
-  h1{margin:0;font-size:48px;line-height:1;letter-spacing:-0.03em;color:var(--ink);font-weight:800;text-transform:uppercase}
+  h1{
+    margin:0;
+    font-size:48px;
+    line-height:1;
+    letter-spacing:-0.03em;
+    color:var(--ink);
+    font-weight:800;
+    text-transform:uppercase;
+  }
   .subtitle{margin-top:12px;font-size:17px;color:var(--muted);font-weight:500}
   .meta-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
   .tag{
-    display:inline-flex;align-items:center;justify-content:center;
-    padding:10px 14px;border:1px solid var(--line);border-radius:12px;
-    background:#fff;color:var(--ink);font-size:13px;font-weight:800;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    padding:12px 16px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:#fff;
+    color:var(--ink);
     box-shadow:0 4px 12px rgba(0,0,0,.04);
+    min-width:230px;
+  }
+  .tag-label{
+    font-size:14px;
+    font-weight:500;
+    color:var(--ink);
+    line-height:1.1;
+  }
+  .tag-date{
+    font-size:16px;
+    font-weight:800;
+    color:var(--ink);
+    line-height:1.2;
+    margin-top:6px;
   }
 
-  .legend{display:flex;gap:18px;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
-  .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
-  .legend-chip{padding:7px 10px;border-radius:10px;font-size:13px;font-weight:900;border:1px solid rgba(0,0,0,.06)}
+  .legend{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:14px;
+    margin-top:14px;
+  }
+  .legend-chip{
+    width:38px;
+    height:26px;
+    border-radius:12px;
+    display:inline-block;
+  }
   .score-green{color:#103f0d;background:#57ff1f;border:3px solid #1f5e10}
   .score-yellow{color:#7a5a00;background:#fff200;border:3px solid #a67c00}
   .score-red{color:#5a0b0f;background:#ff3b30;border:3px solid #7a0f14}
 
   .dashboard-section{margin-bottom:24px}
   .section-banner{
-    display:flex;justify-content:space-between;align-items:center;gap:16px;
-    margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);
-    border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow)
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    margin-bottom:14px;
+    padding:14px 18px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:rgba(255,255,255,.75);
+    box-shadow:var(--shadow)
   }
   .section-left{display:flex;align-items:center;gap:14px}
   .section-left img{width:54px;height:54px;object-fit:contain}
@@ -87,7 +134,13 @@
   .objective-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);height:100%}
   .objective-header{
     background:linear-gradient(180deg,var(--header),var(--header-dark));
-    color:#fff;padding:18px 18px 16px;min-height:132px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start
+    color:#fff;
+    padding:18px 18px 16px;
+    min-height:132px;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:flex-start
   }
   .focus{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.92;font-weight:700}
   .objective-title{
@@ -110,8 +163,8 @@
     border:3px solid transparent;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
   }
-  .score-badge{min-width:98px;padding:10px 12px;border-radius:14px;font-size:30px;font-weight:900;border-color:rgba(255,255,255,.22)}
-  .subscore{min-width:82px;padding:10px 10px;border-radius:12px;font-size:24px;font-weight:900}
+  .score-badge{min-width:98px;padding:10px 12px;font-size:30px}
+  .subscore{min-width:82px;padding:10px 10px;font-size:24px}
   .score-badge small,.subscore small{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;margin-top:6px;font-weight:800}
 
   .objective-body{padding:16px;background:linear-gradient(180deg,#fff,#fbf8f2)}
@@ -121,25 +174,35 @@
   .kr-note{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.45;font-weight:500}
 
   .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-  .box,.component-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px}
-  .box .label,.component-box .label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
-  .box .num,.component-box .num{font-size:18px;font-weight:900;color:var(--ink);margin-top:4px}
+  .box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px}
+  .box .label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .box .num{font-size:18px;font-weight:900;color:var(--ink);margin-top:4px}
 
   details.kr-details{margin-top:10px}
   details.kr-details summary{
-    list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
-    padding:12px 14px;border:1px solid #d8ddd5;border-radius:12px;background:#ffffff;font-weight:800;color:var(--ink)
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 14px;
+    border:1px solid #d8ddd5;
+    border-radius:12px;
+    background:#ffffff;
+    font-weight:800;
+    color:var(--ink)
   }
   details.kr-details summary::-webkit-details-marker{display:none}
   .summary-right{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:700}
   .chev{transition:transform .2s ease}
   details[open] .chev{transform:rotate(180deg)}
   .details-body{padding-top:10px}
+
   .component-grid{display:grid;grid-template-columns:1fr;gap:8px}
   .component-row{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
   .component-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .component-title{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800;line-height:1.3}
-  .component-score{min-width:48px;padding:5px 6px;border-radius:10px;font-size:14px;font-weight:900;line-height:1;text-align:center}
+  .component-score{min-width:48px;padding:5px 6px;border-radius:10px;font-size:14px;font-weight:900;line-height:1;text-align:center;border:3px solid transparent}
   .component-score small{display:block;font-size:7px;letter-spacing:.06em;text-transform:uppercase;margin-top:3px;font-weight:800}
   .component-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
   .component-mini{background:#faf8f3;border:1px solid var(--line);border-radius:8px;padding:6px 8px}
@@ -151,12 +214,13 @@
     .logo-wrap,.meta-wrap{justify-content:center;align-items:center}
     .legend{justify-content:center}
     .objective-title,.objective-sub{max-width:100%}
+    .tag{align-items:center}
   }
   @media (max-width:700px){
     h1{font-size:38px}
     .objective-title{font-size:18px}
     .kr-name{font-size:18px}
-    .summary-grid,.component-grid{grid-template-columns:1fr}
+    .summary-grid,.component-metrics{grid-template-columns:1fr}
     .section-title{font-size:24px}
   }
 </style>
@@ -174,15 +238,16 @@
         <div class="subtitle">Monitoreo de objetivos y resultados clave</div>
       </div>
       <div class="meta-wrap">
-        <div class="tag" id="fecha"></div>
+        <div class="tag">
+          <div class="tag-label">Ultima Actualización</div>
+          <div class="tag-date" id="fecha"></div>
+        </div>
       </div>
     </div>
-    
-      <div class="legend-item"><span class="legend-chip score-yellow"></span></div>
-      <div class="legend-item"><span class="legend-chip score-red"></span></div>
-    </div>
-      <div class="legend-item"><span class="legend-chip score-yellow">60-89</span></div>
-      <div class="legend-item"><span class="legend-chip score-red">&lt;60</span></div>
+    <div class="legend">
+      <span class="legend-chip score-green"></span>
+      <span class="legend-chip score-yellow"></span>
+      <span class="legend-chip score-red"></span>
     </div>
   </div>
 
@@ -243,8 +308,7 @@ const sections = [
             meta:95,
             components:[
               {label:'Kg producidos', actual:'6.17MM', meta:'6.63MM', comparison:'-0.46MM'},
-              {label:'Kg programados', actual:'6.63MM', meta:'6.63MM', comparison:'0'},
-              {label:'ICP', actual:93, meta:95, comparison:'-2 pts', isICP:true}
+              {label:'Kg programados', actual:'6.63MM', meta:'6.63MM', comparison:'0'}
             ],
             comparison:'-2 pts vs meta'
           }
@@ -262,8 +326,8 @@ const sections = [
             meta:100,
             components:[
               {label:'% Kg por CAR', actual:82, meta:90, comparison:'-8 pts'},
-              {label:'Costo target/real', actual:0.93, meta:1.00, comparison:'-0.07', lowerIsBetter:false},
-              {label:'IP', actual:76, meta:100, comparison:'-24 pts'}
+              {label:'Costo target/real', actual:0.93, meta:1.00, comparison:'-0.07'},
+              {label:'Costo persona', actual:0.93, meta:1.00, comparison:'-0.07', lowerIsBetter:true}
             ],
             comparison:'-24 pts vs meta'
           }
@@ -323,8 +387,7 @@ const sections = [
             meta:95,
             components:[
               {label:'Kg producidos', actual:'9.95MM', meta:'10.93MM', comparison:'-0.98MM'},
-              {label:'Kg programados', actual:'10.93MM', meta:'10.93MM', comparison:'0'},
-              {label:'ICP', actual:91, meta:95, comparison:'-4 pts', isICP:true}
+              {label:'Kg programados', actual:'10.93MM', meta:'10.93MM', comparison:'0'}
             ],
             comparison:'-4 pts vs meta'
           }
@@ -342,8 +405,8 @@ const sections = [
             meta:100,
             components:[
               {label:'% Kg por CAR', actual:86, meta:92, comparison:'-6 pts'},
-              {label:'Costo target/real', actual:0.94, meta:1.00, comparison:'-0.06', lowerIsBetter:false},
-              {label:'IP', actual:81, meta:100, comparison:'-19 pts'}
+              {label:'Costo target/real', actual:0.94, meta:1.00, comparison:'-0.06'},
+              {label:'Costo persona', actual:0.94, meta:1.00, comparison:'-0.06', lowerIsBetter:true}
             ],
             comparison:'-19 pts vs meta'
           }
@@ -383,6 +446,7 @@ const sections = [
 ];
 
 function progress(actual, meta, name, lowerIsBetter=false){
+  if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
   if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) {
     return actual > 0 ? (meta / actual) * 100 : 0;
   }
@@ -412,25 +476,14 @@ function fmt(v){
   return Number.isInteger(v) ? v.toString() : v.toFixed(2);
 }
 
-function componentBand(c){
-  if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return 'score-yellow';
-  if (c.isICP) {
-    if (c.actual >= 95) return 'score-green';
-    if (c.actual >= 90) return 'score-yellow';
-    return 'score-red';
-  }
-  const lowerIsBetter = !!c.lowerIsBetter;
-  const p = lowerIsBetter ? (c.meta / c.actual) * 100 : (c.actual / c.meta) * 100;
-  if (p >= 90) return 'score-green';
-  if (p >= 60) return 'score-yellow';
-  return 'score-red';
-}
-
 function componentIndex(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return '—';
-  const lowerIsBetter = !!c.lowerIsBetter;
-  const p = lowerIsBetter ? (c.meta / c.actual) * 100 : (c.actual / c.meta) * 100;
-  return Math.round(p);
+  return Math.round(progress(c.actual, c.meta, c.label, !!c.lowerIsBetter));
+}
+
+function componentScoreClass(c){
+  if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return 'score-yellow';
+  return scoreClass(c.label, c.actual, c.meta, !!c.lowerIsBetter);
 }
 
 function build(){
@@ -513,11 +566,11 @@ function build(){
             </summary>
             <div class="details-body">
               <div class="component-grid">
-                ${k.components.filter(c => c.label.toLowerCase() !== k.name.toLowerCase()).map(c => `
+                ${k.components.map(c => `
                   <div class="component-row">
                     <div class="component-top">
                       <div class="component-title">${c.label}</div>
-                      <div class="component-score ${componentBand(c)}">${componentIndex(c)}<small>índice</small></div>
+                      <div class="component-score ${componentScoreClass(c)}">${componentIndex(c)}<small>índice</small></div>
                     </div>
                     <div class="component-metrics">
                       <div class="component-mini">
@@ -558,10 +611,7 @@ function semanaISO(d=new Date()){
 }
 
 const hoy=new Date();
-const f = hoy.toLocaleDateString('es-PE');
-const s = semanaISO(hoy);
-document.getElementById('fecha').innerHTML = `
-  <div style="font-weight:500; font-size:12px;">Ult;
+document.getElementById('fecha').textContent=`${hoy.toLocaleDateString('es-PE')} | Semana ${semanaISO(hoy)}`;
 
 build();
 </script>
