@@ -69,11 +69,8 @@
     box-shadow:0 4px 12px rgba(0,0,0,.04);
   }
   .corp-logos{display:flex;gap:16px;justify-content:flex-end;align-items:center;margin-top:6px;opacity:.95}
-  .corp-logos img{height:34px;object-fit:contain;background:transparent}
-  .corp-logos img.asg{filter: brightness(0) saturate(100%) invert(27%) sepia(44%) saturate(863%) hue-rotate(126deg) brightness(91%) contrast(93%)}
-  .corp-logos img.family{filter:none}
-
-  .legend{display:flex;gap:18px;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
+  
+  .corp-logos img.asg{filter: brightness(0) saturate(100%) invert(27%) sx;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
   .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
   .legend-chip{padding:7px 10px;border-radius:10px;font-size:13px;font-weight:900;border:1px solid rgba(0,0,0,.06)}
   .score-green{color:#3f7f22;background:#eef8df}
@@ -88,7 +85,7 @@
   }
   .section-left{display:flex;align-items:center;gap:14px}
   .section-left img{width:54px;height:54px;object-fit:contain}
-  .section-left img.blueberry-icon{width:68px;height:68px}
+  .section-left img.blueberry-icon{width:95px;height:95px}
   .section-title{font-size:30px;font-weight:900;letter-spacing:-0.03em;color:var(--ink)}
   .section-sub{font-size:13px;color:var(--muted);margin-top:4px;font-weight:600}
 
@@ -123,12 +120,7 @@
   details.kr-details{margin-top:10px}
   details.kr-details summary{
     list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
-    padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:800;color:var(--ink)
-  }
-  details.kr-details summary::-webkit-details-marker{display:none}
-  .summary-right{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:700}
-  .chev{transition:transform .2s ease}
-  details[open] .chev{transform:rotate(180deg)}
+    padding:12px 14px;border:1px solid #d8ddd5;border-radius:12px;background:#ffffff;fon  details[open] .chev{transform:rotate(180deg)}
   .details-body{padding-top:10px}
   .component-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
