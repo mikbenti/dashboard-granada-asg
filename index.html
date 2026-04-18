@@ -48,12 +48,12 @@
   }
   .hero-top{
     display:grid;
-    grid-template-columns:220px 1fr 340px;
+    grid-template-columns:220px 1fr 220px;
     gap:18px;
     align-items:center;
   }
   .logo-wrap{display:flex;align-items:center;justify-content:flex-start}
-  .logo-wrap img{
+  .logo-wrap > img{
     width:150px;height:150px;object-fit:contain;
     filter: brightness(0) saturate(100%) invert(47%) sepia(55%) saturate(536%) hue-rotate(49deg) brightness(95%) contrast(89%);
   }
@@ -68,9 +68,11 @@
     background:#fff;color:var(--ink);font-size:13px;font-weight:800;
     box-shadow:0 4px 12px rgba(0,0,0,.04);
   }
-  .corp-logos{display:flex;gap:16px;justify-content:flex-end;align-items:center;margin-top:6px;opacity:.95}
-  
-  .corp-logos img.asg{filter: brightness(0) saturate(100%) invert(27%) sx;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
+  .section-company-logo{height:28px;width:auto;object-fit:contain;background:transparent;opacity:.95}
+  .section-company-logo.asg{filter: brightness(0) saturate(100%) invert(27%) sepia(44%) saturate(863%) hue-rotate(126deg) brightness(91%) contrast(93%)}
+  .section-company-logo.family{filter:none}
+
+  .legend{display:flex;gap:18px;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
   .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
   .legend-chip{padding:7px 10px;border-radius:10px;font-size:13px;font-weight:900;border:1px solid rgba(0,0,0,.06)}
   .score-green{color:#3f7f22;background:#eef8df}
@@ -120,7 +122,12 @@
   details.kr-details{margin-top:10px}
   details.kr-details summary{
     list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
-    padding:12px 14px;border:1px solid #d8ddd5;border-radius:12px;background:#ffffff;fon  details[open] .chev{transform:rotate(180deg)}
+    padding:12px 14px;border:1px solid #d8ddd5;border-radius:12px;background:#ffffff;font-weight:800;color:var(--ink)
+  }
+  details.kr-details summary::-webkit-details-marker{display:none}
+  .summary-right{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:700}
+  .chev{transition:transform .2s ease}
+  details[open] .chev{transform:rotate(180deg)}
   .details-body{padding-top:10px}
   .component-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
@@ -156,10 +163,6 @@
         <div class="tag" id="fecha"></div>
         <div class="tag" id="lastUpdate"></div>
         <div class="tag" id="dataDate"></div>
-        <div class="corp-logos">
-          <img class="asg" src="logo-asg.png" alt="ASG" />
-          <img class="family" src="logo-family.png" alt="Family Farms" />
-        </div>
       </div>
     </div>
     <div class="legend">
@@ -179,6 +182,8 @@ const sections = [
     icon:'granada.png',
     iconClass:'',
     subtitle:'Agrícola San Gallán (ASG)',
+    companyLogo:'logo-asg.png',
+    companyClass:'asg',
     objectives:[
       {
         foco:'CALIDAD',
@@ -257,6 +262,8 @@ const sections = [
     icon:'arandano.png',
     iconClass:'blueberry-icon',
     subtitle:'Family Farms Perú (FFP)',
+    companyLogo:'logo-family.png',
+    companyClass:'family',
     objectives:[
       {
         foco:'CALIDAD',
@@ -335,6 +342,8 @@ const sections = [
     icon:'logo-okrs.png',
     iconClass:'',
     subtitle:'Índice consolidado',
+    companyLogo:'',
+    companyClass:'',
     objectives:[
       {
         foco:'CRECIMIENTO ESTRATÉGICO',
@@ -393,6 +402,7 @@ function build(){
             <div class="section-sub">${section.subtitle}</div>
           </div>
         </div>
+        ${section.companyLogo ? `<img class="section-company-logo ${section.companyClass || ''}" src="${section.companyLogo}" alt="${section.subtitle}" />` : `<div></div>`}
       </div>
       <div class="board"></div>
     `;
