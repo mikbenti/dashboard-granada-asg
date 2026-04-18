@@ -10,21 +10,13 @@
 <style>
   :root{
     --bg:#f4f0e8;
-    --paper:#faf7f1;
     --card:#fffdfa;
     --ink:#0d5c4a;
     --ink-2:#0b4f40;
     --muted:#6d7c73;
     --line:#d8ddd5;
-    --accent:#8fbf3d;
-    --accent-soft:#dbe9b7;
     --header:#0d614c;
     --header-dark:#0a5240;
-    --green:#76b041;
-    --yellow:#facc15;
-    --red:#d6412b;
-    --blue:#173f8a;
-    --leaf:#8fbf3d;
     --shadow:0 10px 28px rgba(0,0,0,.06);
   }
 
@@ -68,9 +60,6 @@
     background:#fff;color:var(--ink);font-size:13px;font-weight:800;
     box-shadow:0 4px 12px rgba(0,0,0,.04);
   }
-  .section-company-logo{height:34px;width:auto;object-fit:contain;background:transparent;opacity:1;display:block}
-  .section-company-logo.asg{filter: brightness(0) saturate(100%) invert(27%) sepia(44%) saturate(863%) hue-rotate(126deg) brightness(91%) contrast(93%)}
-  .section-company-logo.family{filter:none;opacity:1}
 
   .legend{display:flex;gap:18px;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
   .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
@@ -90,6 +79,9 @@
   .section-left img.blueberry-icon{width:95px;height:95px}
   .section-title{font-size:30px;font-weight:900;letter-spacing:-0.03em;color:var(--ink)}
   .section-sub{font-size:13px;color:var(--muted);margin-top:4px;font-weight:600}
+  .section-company-logo{height:34px;width:auto;object-fit:contain;background:transparent;opacity:1;display:block}
+  .section-company-logo.asg{filter: brightness(0) saturate(100%) invert(27%) sepia(44%) saturate(863%) hue-rotate(126deg) brightness(91%) contrast(93%)}
+  .section-company-logo.family{filter:none;opacity:1}
 
   .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;align-items:start}
   .objective-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);height:100%}
@@ -99,15 +91,15 @@
   }
   .focus{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.92;font-weight:700}
   .objective-title{
-  font-size:20px;
-  font-weight:700;
-  text-transform:uppercase;
-  line-height:1.1;
-  letter-spacing:0.02em;
-  margin-top:8px;
-  max-width:92%;
-  color:#ffffff;
-}
+    font-size:20px;
+    font-weight:700;
+    text-transform:uppercase;
+    line-height:1.1;
+    letter-spacing:0.02em;
+    margin-top:8px;
+    max-width:92%;
+    color:#ffffff;
+  }
   .objective-sub{margin-top:10px;font-size:13px;opacity:.88;line-height:1.45;max-width:92%;font-weight:500}
 
   .score-badge,.subscore{
@@ -144,12 +136,11 @@
     .hero-top{grid-template-columns:1fr;text-align:center}
     .logo-wrap,.meta-wrap{justify-content:center;align-items:center}
     .legend{justify-content:center}
-    .corp-logos{justify-content:center}
     .objective-title,.objective-sub{max-width:100%}
   }
   @media (max-width:700px){
-    h1{font-size:46px}
-    .objective-title{font-size:24px}
+    h1{font-size:38px}
+    .objective-title{font-size:18px}
     .kr-name{font-size:18px}
     .summary-grid,.component-grid{grid-template-columns:1fr}
     .section-title{font-size:24px}
@@ -161,7 +152,7 @@
   <div class="hero">
     <div class="hero-top">
       <div class="logo-wrap">
-        <img src="logo-okrs.png" alt="Cultivamos futuro" />
+        <img src="logo-okrs.png" alt="Cultivamos futuro">
       </div>
       <div class="title-wrap">
         <div class="eyebrow">Valle y Pampa · 2026</div>
@@ -375,51 +366,31 @@ const sections = [
   }
 ];
 
-function progress(a,m,name,lowerIsBetter=false){
-  const n = String(name).toLowerCase();
-
-  // Breakeven: menor es mejor
-  if(lowerIsBetter || n.includes('breakeven')) return (m/a)*100;
-
-  // ICP: lógica de umbral (>=95 bien)
-  if(n.includes('icp')){
-    return (a/m)*100; // mantenemos cálculo, pero color se maneja aparte
+function progress(actual, meta, name, lowerIsBetter=false){
+  if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) {
+    return actual > 0 ? (meta / actual) * 100 : 0;
   }
-
-  // Default: mayor es mejor
-  return (a/m)*100;
+  return meta > 0 ? (actual / meta) * 100 : 0;
 }
 
-function customBand(name, actual, meta){
+function band(name, actual, meta, lowerIsBetter=false){
   const n = String(name).toLowerCase();
-
-  // ICP con threshold
-  if(n.includes('icp')){
-    if(actual >= 95) return 'green';
-    if(actual >= 90) return 'yellow';
+  if (n.includes('icp')) {
+    if (actual >= 95) return 'green';
+    if (actual >= 90) return 'yellow';
     return 'red';
   }
-
-  // Default
-  const p = progress(actual, meta, name);
-  if(p >= 90) return 'green';
-  if(p >= 60) return 'yellow';
+  const p = progress(actual, meta, name, lowerIsBetter);
+  if (p >= 90) return 'green';
+  if (p >= 60) return 'yellow';
   return 'red';
 }
 
-function scoreClass(p, name, actual, meta){
-  const b = customBand(name, actual, meta);
+function scoreClass(name, actual, meta, lowerIsBetter=false){
+  const b = band(name, actual, meta, lowerIsBetter);
   return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
 }
-function band(p){
-  if(p>=90) return 'green';
-  if(p>=60) return 'yellow';
-  return 'red';
-}
-function scoreClass(p, k.name, k.actual, k.meta){
-  const b = band(p);
-  return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
-}
+
 function fmt(v){
   return Number.isInteger(v) ? v.toString() : v.toFixed(2);
 }
@@ -449,10 +420,12 @@ function build(){
     const board = sec.querySelector('.board');
 
     section.objectives.forEach(o => {
-      const objectiveWorst = Math.min(...o.krs.map(k => progress(k.actual, k.meta, k.name, !!k.lowerIsBetter)));
+      const objectiveBands = o.krs.map(k => band(k.name, k.actual, k.meta, !!k.lowerIsBetter));
+      const objectiveColor = objectiveBands.includes('red') ? 'score-red' : objectiveBands.includes('yellow') ? 'score-yellow' : 'score-green';
+      const objectiveIndex = Math.min(...o.krs.map(k => progress(k.actual, k.meta, k.name, !!k.lowerIsBetter)));
+
       const objectiveCard=document.createElement('div');
       objectiveCard.className='objective-card';
-
       objectiveCard.innerHTML=`
         <div class="objective-header">
           <div>
@@ -460,7 +433,7 @@ function build(){
             <div class="objective-title">${o.objetivo}</div>
             <div class="objective-sub">${o.descripcion}</div>
           </div>
-          <div class="score-badge ${scoreClass(objectiveWorst, '', objectiveWorst, 100)}">${Math.round(objectiveWorst)}<small>índice</small></div>
+          <div class="score-badge ${objectiveColor}">${Math.round(objectiveIndex)}<small>índice</small></div>
         </div>
         <div class="objective-body"></div>
       `;
@@ -469,6 +442,8 @@ function build(){
 
       o.krs.forEach(k => {
         const p = progress(k.actual, k.meta, k.name, !!k.lowerIsBetter);
+        const colorClass = scoreClass(k.name, k.actual, k.meta, !!k.lowerIsBetter);
+
         const shell = document.createElement('div');
         shell.className = 'kr-shell';
         shell.innerHTML = `
@@ -477,7 +452,7 @@ function build(){
               <div class="kr-name">${k.name}</div>
               <div class="kr-note">${k.note}</div>
             </div>
-            <div class="subscore ${scoreClass(p, k.name, k.actual, k.meta)}">${Math.round(p)}<small>índice</small></div>
+            <div class="subscore ${colorClass}">${Math.round(p)}<small>índice</small></div>
           </div>
           <div class="summary-grid">
             <div class="box">
@@ -525,13 +500,11 @@ function semanaISO(d=new Date()){
   const dayNum=date.getUTCDay()||7;
   date.setUTCDate(date.getUTCDate()+4-dayNum);
   const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
-  const week=Math.ceil((((date-yearStart)/86400000)+1)/7);
-  return week;
+  return Math.ceil((((date-yearStart)/86400000)+1)/7);
 }
 
 const hoy=new Date();
-document.getElementById('fecha').textContent=`${hoy.toLocaleDateString('es-PE')} · Semana ${semanaISO(hoy)}`;
-
+document.getElementById('fecha').textContent=`Información al ${hoy.toLocaleDateString('es-PE')} · Semana ${semanaISO(hoy)}`;
 
 build();
 </script>
