@@ -64,9 +64,9 @@
   .legend{display:flex;gap:18px;justify-content:flex-end;align-items:center;margin-top:16px;flex-wrap:wrap}
   .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
   .legend-chip{padding:7px 10px;border-radius:10px;font-size:13px;font-weight:900;border:1px solid rgba(0,0,0,.06)}
-  .score-green{color:#103f0d;background:#57ff1f;border:2px solid #1f5e10}
-  .score-yellow{color:#7a5600;background:#fff200;border:2px solid #a06f00}
-  .score-red{color:#6e0f1b;background:#ff4a3d;border:2px solid #76111e}
+  .score-green{color:#103f0d;background:#57ff1f;border:3px solid #1f5e10}
+  .score-yellow{color:#7a5a00;background:#fff200;border:3px solid #a67c00}
+  .score-red{color:#5a0b0f;background:#ff3b30;border:3px solid #7a0f14}
 
   .dashboard-section{margin-bottom:24px}
   .section-banner{
@@ -104,9 +104,11 @@
 
   .score-badge,.subscore{
     text-align:center;
-    background:#fff;
     line-height:1;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
+    border-radius:14px;
+    font-weight:900;
+    border:3px solid transparent;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
   }
   .score-badge{min-width:98px;padding:10px 12px;border-radius:14px;font-size:30px;font-weight:900;border-color:rgba(255,255,255,.22)}
   .subscore{min-width:82px;padding:10px 10px;border-radius:12px;font-size:24px;font-weight:900}
