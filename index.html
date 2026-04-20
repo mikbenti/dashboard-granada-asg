@@ -21,22 +21,10 @@
   }
 
   *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:'Montserrat', Arial, sans-serif;
-    background:var(--bg);
-    color:var(--ink);
-    padding:24px;
-  }
+  body{margin:0;font-family:'Montserrat', Arial, sans-serif;background:var(--bg);color:var(--ink);padding:24px}
   .container{max-width:1720px;margin:auto}
-  .hero{
-    background:linear-gradient(180deg, rgba(255,255,255,.68), rgba(255,255,255,.9));
-    border:1px solid var(--line);
-    border-radius:24px;
-    padding:24px;
-    margin-bottom:20px;
-    box-shadow:var(--shadow);
-  }
+
+  .hero{background:linear-gradient(180deg, rgba(255,255,255,.68), rgba(255,255,255,.9));border:1px solid var(--line);border-radius:24px;padding:24px;margin-bottom:20px;box-shadow:var(--shadow)}
   .hero-top{display:grid;grid-template-columns:220px 1fr 260px;gap:18px;align-items:center}
   .logo-wrap{display:flex;align-items:center;justify-content:flex-start}
   .logo-wrap > img{width:150px;height:150px;object-fit:contain;filter: brightness(0) saturate(100%) invert(47%) sepia(55%) saturate(536%) hue-rotate(49deg) brightness(95%) contrast(89%)}
@@ -50,26 +38,16 @@
   .tag-date{font-size:16px;font-weight:800;color:var(--ink);line-height:1.2;margin-top:6px}
   .legend{display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-top:14px}
   .legend-chip{width:38px;height:26px;border-radius:12px;display:inline-block}
+
+  .controls{display:flex;gap:12px;margin-bottom:18px}
+  .controls select{appearance:none;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:600 14px 'Montserrat',sans-serif;min-width:220px;box-shadow:0 4px 12px rgba(0,0,0,.04)}
+
   .score-green{color:#103f0d;background:#57ff1f;border:3px solid #1f5e10}
   .score-yellow{color:#7a5a00;background:#fff200;border:3px solid #a67c00}
   .score-red{color:#5a0b0f;background:#ff3b30;border:3px solid #7a0f14}
 
   .dashboard-section{margin-bottom:24px}
-  .section-banner{
-    height:70px;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    margin-bottom:14px;
-    padding:10px 18px;
-    border:1px solid var(--line);
-    border-radius:18px;
-    background:rgba(255,255,255,.75);
-    box-shadow:var(--shadow);
-  }
-    max-width:380px;display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow)}
+  .section-banner{max-width:380px;height:70px;overflow:hidden;display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px;padding:10px 18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow)}
   .section-left{display:flex;align-items:center;gap:18px}
   .section-left img{height:90px;width:auto;object-fit:contain}
   .section-left img.blueberry-icon{height:90px;width:auto;transform:scale(2);transform-origin:left center}
@@ -108,6 +86,7 @@
   .chev{transition:transform .2s ease}
   details[open] .chev{transform:rotate(180deg)}
   .details-body{padding-top:10px}
+
   .component-grid{display:grid;grid-template-columns:1fr;gap:8px}
   .component-row{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
   .component-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -128,6 +107,7 @@
     .objective-title{font-size:18px}
     .kr-name{font-size:18px}
     .summary-grid,.component-metrics{grid-template-columns:1fr}
+    .controls{flex-direction:column}
   }
 </style>
 </head>
@@ -155,197 +135,192 @@
     </div>
   </div>
 
-  <div style="display:flex; gap:12px; margin-bottom:16px;">
-  <select id="empresaSelect"></select>
-  <select id="productoSelect"></select>
-</div>
-<div id="sections"></div>
+  <div class="controls">
+    <select id="empresaSelect"></select>
+    <select id="productoSelect"></select>
+  </div>
+
+  <div id="sections"></div>
 </div>
 
 <script>
 const data = {
-  'ASG': {
-    'Granada': 
-  {
-    title:'Agrícola San Gallán (ASG)',
-    icon:'logo-asg.png',
-    iconClass:'',
-    subtitle:'granada',
-    objectives:[
+  ASG: {
+    Granada: [
       {
-        foco:'CALIDAD',
-        objetivo:'Maximizar la captura de valor de la producción',
-        descripcion:'Captura de valor comercial entregada al mercado.',
-        krs:[
+        title:'Agrícola San Gallán (ASG)',
+        icon:'logo-asg.png',
+        iconClass:'',
+        subtitle:'granada',
+        objectives:[
           {
-            name:'IVC',
-            note:'Índice de valor comercializable para granada.',
-            actual:52.94,
-            meta:59.82,
-            components:[
-              {label:'% Exportable', actual:81, meta:78.2, comparison:'+2.8 pp'},
-              {label:'% CAT 1 + 2 s/exportable', actual:79, meta:90, comparison:'-11.0 pp'},
-              {label:'% Arribos ≥ 4', actual:88, meta:85, comparison:'+3.0 pp'}
-            ],
-            comparison:'-6.88 | -11.5%'
-          }
-        ]
-      },
-      {
-        foco:'EFICIENCIA',
-        objetivo:'Maximizar la eficiencia integral del negocio',
-        descripcion:'Eficiencia productiva y cumplimiento de producción.',
-        krs:[
-          {
-            name:'Breakeven/kg',
-            note:'Costo de equilibrio por kg en ASG.',
-            actual:1.28,
-            meta:1.18,
-            lowerIsBetter:true,
-            components:[
-              {label:'Egresos P&L', actual:'US$ 7.9MM', meta:'US$ 7.4MM', comparison:'+0.5MM'},
-              {label:'Kg producidos', actual:'6.17MM', meta:'6.63MM', comparison:'-0.46MM'},
-              {label:'Breakeven', actual:1.28, meta:1.18, comparison:'+0.10', lowerIsBetter:true}
-            ],
-            comparison:'1.28 | +8%'
+            foco:'CALIDAD',
+            objetivo:'Maximizar la captura de valor de la producción',
+            descripcion:'Captura de valor comercial entregada al mercado.',
+            krs:[
+              {
+                name:'IVC',
+                note:'Índice de valor comercializable para granada.',
+                actual:52.94,
+                meta:59.82,
+                components:[
+                  {label:'% Exportable', actual:81, meta:78.2, comparison:'+2.8 pp'},
+                  {label:'% CAT 1 + 2 s/exportable', actual:79, meta:90, comparison:'-11.0 pp'},
+                  {label:'% Arribos ≥ 4', actual:88, meta:85, comparison:'+3.0 pp'}
+                ],
+                comparison:'-6.88 | -11.5%'
+              }
+            ]
           },
           {
-            name:'ICP',
-            note:'Cumplimiento de producción de granada.',
-            actual:93,
-            meta:95,
-            components:[
-              {label:'Kg producidos vs programa', actual:93, meta:95, comparison:'-2 pp', isICP:true}
-            ],
-            comparison:'93% | -2 pp'
-          }
-        ]
-      },
-      {
-        foco:'TALENTO',
-        objetivo:'Maximizar la productividad de las personas',
-        descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
-        krs:[
+            foco:'EFICIENCIA',
+            objetivo:'Maximizar la eficiencia integral del negocio',
+            descripcion:'Eficiencia productiva y cumplimiento de producción.',
+            krs:[
+              {
+                name:'Breakeven/kg',
+                note:'Costo de equilibrio por kg en ASG.',
+                actual:1.28,
+                meta:1.18,
+                lowerIsBetter:true,
+                components:[
+                  {label:'Egresos P&L', actual:'US$ 7.9MM', meta:'US$ 7.4MM', comparison:'+0.5MM'},
+                  {label:'Kg producidos', actual:'6.17MM', meta:'6.63MM', comparison:'-0.46MM'},
+                  {label:'Breakeven', actual:1.28, meta:1.18, comparison:'+0.10', lowerIsBetter:true}
+                ],
+                comparison:'1.28 | +8%'
+              },
+              {
+                name:'ICP',
+                note:'Cumplimiento de producción de granada.',
+                actual:93,
+                meta:95,
+                components:[
+                  {label:'Kg producidos vs programa', actual:93, meta:95, comparison:'-2 pp', isICP:true}
+                ],
+                comparison:'93% | -2 pp'
+              }
+            ]
+          },
           {
-            name:'IP',
-            note:'Índice de productividad en ASG.',
-            actual:76,
-            meta:100,
-            components:[
-              {label:'% Kg por CAR', actual:82, meta:90, comparison:'-8 pts'},
-              {label:'Costo persona', actual:0.93, meta:1.00, comparison:'-0.07', lowerIsBetter:true}
-            ],
-            comparison:'76 | -24%'
+            foco:'TALENTO',
+            objetivo:'Maximizar la productividad de las personas',
+            descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
+            krs:[
+              {
+                name:'IP',
+                note:'Índice de productividad en ASG.',
+                actual:76,
+                meta:100,
+                components:[
+                  {label:'% Kg por CAR', actual:82, meta:90, comparison:'-8 pts'},
+                  {label:'Costo persona', actual:0.93, meta:1.00, comparison:'-0.07', lowerIsBetter:true}
+                ],
+                comparison:'76 | -24%'
+              }
+            ]
           }
         ]
       }
     ]
   },
-  {
-    title:'Family Farms Perú (FFP)',
-    icon:'logo-family.png',
-    iconClass:'blueberry-icon',
-    subtitle:'arándano',
-    objectives:[
+  FFP: {
+    Arandano: [
       {
-        foco:'CALIDAD',
-        objetivo:'Maximizar la captura de valor de la producción',
-        descripcion:'Captura de valor comercial entregada al mercado.',
-        krs:[
+        title:'Family Farms Perú (FFP)',
+        icon:'logo-family.png',
+        iconClass:'blueberry-icon',
+        subtitle:'arándano',
+        objectives:[
           {
-            name:'IVC',
-            note:'Índice de valor comercializable para arándanos.',
-            actual:35.95,
-            meta:41.65,
-            components:[
-              {label:'% Exportable', actual:84, meta:85, comparison:'-1.0 pp'},
-              {label:'% JBO s/total producido', actual:48, meta:30, comparison:'+18.0 pp'},
-              {label:'% Arribos ≥ 4', actual:89, meta:70, comparison:'+19.0 pp'}
-            ],
-            comparison:'-5.70 | -13.7%'
-          }
-        ]
-      },
-      {
-        foco:'EFICIENCIA',
-        objetivo:'Maximizar la eficiencia integral del negocio',
-        descripcion:'Eficiencia productiva y cumplimiento de producción.',
-        krs:[
-          {
-            name:'Breakeven/kg',
-            note:'Costo de equilibrio por kg en FFP.',
-            actual:1.62,
-            meta:1.45,
-            lowerIsBetter:true,
-            components:[
-              {label:'Egresos P&L', actual:'US$ 16.2MM', meta:'US$ 15.6MM', comparison:'+0.6MM'},
-              {label:'Kg producidos', actual:'9.95MM', meta:'10.93MM', comparison:'-0.98MM'},
-              {label:'Breakeven', actual:1.62, meta:1.45, comparison:'+0.17', lowerIsBetter:true}
-            ],
-            comparison:'1.62 | +12%'
+            foco:'CALIDAD',
+            objetivo:'Maximizar la captura de valor de la producción',
+            descripcion:'Captura de valor comercial entregada al mercado.',
+            krs:[
+              {
+                name:'IVC',
+                note:'Índice de valor comercializable para arándanos.',
+                actual:35.95,
+                meta:41.65,
+                components:[
+                  {label:'% Exportable', actual:84, meta:85, comparison:'-1.0 pp'},
+                  {label:'% JBO s/total producido', actual:48, meta:30, comparison:'+18.0 pp'},
+                  {label:'% Arribos ≥ 4', actual:89, meta:70, comparison:'+19.0 pp'}
+                ],
+                comparison:'-5.70 | -13.7%'
+              }
+            ]
           },
           {
-            name:'ICP',
-            note:'Cumplimiento de producción de arándanos.',
-            actual:91,
-            meta:95,
-            components:[
-              {label:'Kg producidos vs programa', actual:91, meta:95, comparison:'-4 pp', isICP:true}
-            ],
-            comparison:'91% | -4 pp'
-          }
-        ]
-      },
-      {
-        foco:'TALENTO',
-        objetivo:'Maximizar la productividad de las personas',
-        descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
-        krs:[
+            foco:'EFICIENCIA',
+            objetivo:'Maximizar la eficiencia integral del negocio',
+            descripcion:'Eficiencia productiva y cumplimiento de producción.',
+            krs:[
+              {
+                name:'Breakeven/kg',
+                note:'Costo de equilibrio por kg en FFP.',
+                actual:1.62,
+                meta:1.45,
+                lowerIsBetter:true,
+                components:[
+                  {label:'Egresos P&L', actual:'US$ 16.2MM', meta:'US$ 15.6MM', comparison:'+0.6MM'},
+                  {label:'Kg producidos', actual:'9.95MM', meta:'10.93MM', comparison:'-0.98MM'},
+                  {label:'Breakeven', actual:1.62, meta:1.45, comparison:'+0.17', lowerIsBetter:true}
+                ],
+                comparison:'1.62 | +12%'
+              },
+              {
+                name:'ICP',
+                note:'Cumplimiento de producción de arándanos.',
+                actual:91,
+                meta:95,
+                components:[
+                  {label:'Kg producidos vs programa', actual:91, meta:95, comparison:'-4 pp', isICP:true}
+                ],
+                comparison:'91% | -4 pp'
+              }
+            ]
+          },
           {
-            name:'IP',
-            note:'Índice de productividad en FFP.',
-            actual:81,
-            meta:100,
-            components:[
-              {label:'% Kg por CAR', actual:86, meta:92, comparison:'-6 pts'},
-              {label:'Costo persona', actual:0.94, meta:1.00, comparison:'-0.06', lowerIsBetter:true}
-            ],
-            comparison:'81 | -19%'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    title:'Nuevos Flujos de Negocios',
-    icon:'logo-okrs.png',
-    iconClass:'',
-    subtitle:'',
-    objectives:[
-      {
-        foco:'CRECIMIENTO ESTRATÉGICO',
-        objetivo:'Maximizar la generación de nuevos flujos de negocios',
-        descripcion:'Apertura y desarrollo de oportunidades de crecimiento.',
-        krs:[
-          {
-            name:'INF',
-            note:'Indicador consolidado que representa a ambos negocios.',
-            actual:9,
-            meta:15,
-            components:[
-              {label:'Contrib. orgánica', actual:4.5, meta:7.5, comparison:'-3.0 pts'},
-              {label:'Contrib. inorgánica', actual:4.5, meta:7.5, comparison:'-3.0 pts'}
-            ],
-            comparison:'9 | -40%'
+            foco:'TALENTO',
+            objetivo:'Maximizar la productividad de las personas',
+            descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
+            krs:[
+              {
+                name:'IP',
+                note:'Índice de productividad en FFP.',
+                actual:81,
+                meta:100,
+                components:[
+                  {label:'% Kg por CAR', actual:86, meta:92, comparison:'-6 pts'},
+                  {label:'Costo persona', actual:0.94, meta:1.00, comparison:'-0.06', lowerIsBetter:true}
+                ],
+                comparison:'81 | -19%'
+              }
+            ]
           }
         ]
       }
     ]
   }
-    }
-  },
-  'FFP': {
-    'Arandano': 
+};
+
+function populateSelectors(){
+  const empresaSel = document.getElementById('empresaSelect');
+  const productoSel = document.getElementById('productoSelect');
+
+  empresaSel.innerHTML = Object.keys(data).map(e => `<option value="${e}">${e}</option>`).join('');
+
+  function updateProductos(){
+    const empresa = empresaSel.value;
+    productoSel.innerHTML = Object.keys(data[empresa]).map(p => `<option value="${p}">${p}</option>`).join('');
+    build();
+  }
+
+  empresaSel.addEventListener('change', updateProductos);
+  productoSel.addEventListener('change', build);
+  updateProductos();
+}
 
 function progress(actual, meta, name, lowerIsBetter=false){
   if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
@@ -422,30 +397,12 @@ function krComputedScoreClass(k){
   return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
 }
 
-function populateSelectors(){
-  const empresaSel = document.getElementById('empresaSelect');
-  const productoSel = document.getElementById('productoSelect');
-
-  empresaSel.innerHTML = Object.keys(data).map(e => `<option value="${e}">${e}</option>`).join('');
-
-  function updateProductos(){
-    const empresa = empresaSel.value;
-    productoSel.innerHTML = Object.keys(data[empresa]).map(p => `<option value="${p}">${p}</option>`).join('');
-    populateSelectors();
-  }
-
-  empresaSel.addEventListener('change', updateProductos);
-  productoSel.addEventListener('change', build);
-
-  updateProductos();
-}
-
 function build(){
-  const sectionsWrap = document.getElementById('sections');
-  sectionsWrap.innerHTML = '';
   const empresa = document.getElementById('empresaSelect').value;
   const producto = document.getElementById('productoSelect').value;
   const sections = data[empresa][producto];
+  const sectionsWrap = document.getElementById('sections');
+  sectionsWrap.innerHTML = '';
 
   sections.forEach(section => {
     const fruitImg = section.subtitle ? `<img src="${section.subtitle === 'granada' ? 'granada.png' : 'arandano.png'}" style="height:72px;width:auto;object-fit:contain;"/>` : '';
@@ -538,10 +495,8 @@ function build(){
         `;
         body.appendChild(shell);
       });
-
       board.appendChild(objectiveCard);
     });
-
     sectionsWrap.appendChild(sec);
   });
 }
@@ -553,9 +508,10 @@ function semanaISO(d=new Date()){
   const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
   return Math.ceil((((date-yearStart)/86400000)+1)/7);
 }
+
 const hoy = new Date();
 document.getElementById('fecha').textContent = `${hoy.toLocaleDateString('es-PE')} | Semana ${semanaISO(hoy)}`;
-build();
+populateSelectors();
 </script>
 </body>
 </html>
