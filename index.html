@@ -93,14 +93,11 @@
     margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);
     border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow);
   }
-  .section-left{display:flex;align-items:center;gap:14px}
-  .section-left img{width:54px;height:54px;object-fit:contain}
-  .section-left img.blueberry-icon{width:95px;height:95px}
-  .section-title{font-size:30px;font-weight:900;letter-spacing:-0.03em;color:var(--ink)}
-  .section-sub{font-size:13px;color:var(--muted);margin-top:4px;font-weight:600}
-  .section-company-logo{height:34px;width:auto;object-fit:contain;background:transparent;opacity:1;display:block}
-  .section-company-logo.asg{filter: brightness(0) saturate(100%) invert(27%) sepia(44%) saturate(863%) hue-rotate(126deg) brightness(91%) contrast(93%)}
-  .section-company-logo.family{filter:none;opacity:1}
+  .section-left{display:flex;align-items:center;gap:18px}
+  .section-left img{height:72px;width:auto;object-fit:contain}
+  .section-left img.blueberry-icon{height:72px;width:auto}
+  .section-title{font-size:0;line-height:0}
+  .section-product{font-size:18px;color:var(--muted);font-weight:600;text-align:right;white-space:nowrap}
 
   .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;align-items:start}
   .objective-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);height:100%}
@@ -108,9 +105,9 @@
     background:linear-gradient(180deg,var(--header),var(--header-dark));
     color:#fff;padding:18px 18px 16px;min-height:132px;display:block;
   }
-  .focus{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.92;font-weight:700}
-  .objective-title{font-size:20px;font-weight:700;text-transform:uppercase;line-height:1.1;letter-spacing:0.02em;margin-top:8px;max-width:92%;color:#ffffff}
-  .objective-sub{margin-top:10px;font-size:13px;opacity:.88;line-height:1.45;max-width:92%;font-weight:500}
+  .focus{font-size:18px;letter-spacing:.08em;text-transform:uppercase;opacity:.98;font-weight:800;text-align:center;display:block}
+  .objective-title{font-size:20px;font-weight:700;text-transform:uppercase;line-height:1.1;letter-spacing:0.02em;margin-top:10px;max-width:100%;color:#ffffff;text-align:center}
+  .objective-sub{margin-top:12px;font-size:11px;opacity:.9;line-height:1.45;max-width:100%;font-weight:400;text-align:center}
 
   .subscore,.component-score{
     text-align:center;
@@ -202,11 +199,11 @@
 const sections = [
   {
     title:'Agrícola San Gallán (ASG)',
-    icon:'granada.png',
+    icon:'logo-asg.png',
     iconClass:'',
     subtitle:'Producto: Granada',
-    companyLogo:'logo-asg.png',
-    companyClass:'asg',
+    companyLogo:'',
+    companyClass:'',
     objectives:[
       {
         foco:'CALIDAD',
@@ -279,11 +276,11 @@ const sections = [
   },
   {
     title:'Family Farms Perú (FFP)',
-    icon:'arandano.png',
+    icon:'logo-family.png',
     iconClass:'blueberry-icon',
     subtitle:'Producto: Arándano',
-    companyLogo:'logo-family.png',
-    companyClass:'family',
+    companyLogo:'',
+    companyClass:'',
     objectives:[
       {
         foco:'CALIDAD',
@@ -474,10 +471,9 @@ function build(){
           <img class="${section.iconClass}" src="${section.icon}" alt="${section.title}" />
           <div>
             <div class="section-title">${section.title}</div>
-            <div class="section-sub">${section.subtitle}</div>
           </div>
         </div>
-        ${section.companyLogo ? `<img class="section-company-logo ${section.companyClass || ''}" src="${section.companyLogo}" alt="${section.subtitle}" />` : `<div></div>`}
+        <div class="section-product">${section.subtitle}</div>
       </div>
       <div class="board"></div>
     `;
