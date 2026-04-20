@@ -5,14 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{
   --bg:#0b0f14;
   --panel:#111827;
+  --panel-2:#0f172a;
   --line:#1f2937;
   --text:#e5e7eb;
   --muted:#6b7280;
   --blue:#3b82f6;
+  --cyan:#22d3ee;
   --green:#22c55e;
   --yellow:#facc15;
   --red:#ef4444;
@@ -24,174 +27,510 @@ body{
   background:var(--bg);
   color:var(--text);
   font-family:'Montserrat',sans-serif;
-  padding:12px;
+  padding:14px;
 }
+.container{max-width:1680px;margin:auto}
 
-.container{max-width:1600px;margin:auto}
-
-/* TOP BAR */
 .topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:10px;
+  gap:12px;
+  margin-bottom:12px;
 }
-
-.title{
-  font-size:16px;
-  font-weight:700;
-  letter-spacing:.05em;
-}
-
-.controls{
-  display:flex;
-  gap:8px;
-}
-
+.title-wrap{display:flex;flex-direction:column;gap:4px}
+.title{font-size:18px;font-weight:800;letter-spacing:.04em}
+.subtitle{font-size:11px;color:var(--muted)}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 select{
   background:#000;
   border:1px solid var(--line);
   color:var(--text);
-  padding:6px 10px;
+  padding:8px 10px;
   font-size:12px;
+  border-radius:6px;
 }
+.updated{font-size:11px;color:var(--muted)}
 
-/* GRID */
-.board{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:8px;
-}
-
-.panel{
-  background:var(--panel);
-  border:1px solid var(--line);
-  padding:8px;
-}
-
-.panel-title{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-
-.kr{
-  border-top:1px solid var(--line);
-  padding-top:6px;
-  margin-top:6px;
-}
-
-.kr-head{
+.section-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:12px;
+  margin-bottom:10px;
 }
-
-.kr-name{
-  font-size:12px;
-  font-weight:700;
-}
-
-.score{
-  font-size:11px;
-  padding:2px 6px;
-  border-radius:3px;
-  font-weight:700;
-}
-
-.green{background:var(--green);color:#000}
-.yellow{background:var(--yellow);color:#000}
-.red{background:var(--red)}
-
-.row{
+.section-brand{
   display:flex;
-  justify-content:space-between;
-  font-size:11px;
+  align-items:center;
+  gap:12px;
+  min-height:54px;
+}
+.section-brand img.logo{height:64px;width:auto;object-fit:contain}
+.section-brand img.product{height:34px;width:auto;object-fit:contain}
+.section-brand .name{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.legend{display:flex;gap:6px;align-items:center}
+.legend-chip{width:20px;height:12px;border-radius:999px;display:inline-block}
+
+.board{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:8px;
+  margin-bottom:12px;
+}
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+}
+.panel-head{
+  background:var(--panel-2);
+  border-bottom:1px solid var(--line);
+  padding:8px 10px;
+}
+.panel-title{
+  font-size:13px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.panel-sub{
+  font-size:10px;
+  color:var(--muted);
   margin-top:3px;
 }
+.panel-body{padding:8px}
 
-.bar{
-  height:4px;
-  background:#000;
-  margin-top:4px;
-  position:relative;
+.kr{
+  border-top:1px solid var(--line);
+  padding-top:8px;
+  margin-top:8px;
 }
-
-.fill{
-  height:100%;
-  background:var(--blue);
+.kr:first-child{border-top:none;padding-top:0;margin-top:0}
+.kr-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:8px;
 }
+.kr-name{font-size:13px;font-weight:800}
+.kr-note{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.35}
+.score{
+  font-size:12px;
+  padding:4px 7px;
+  border-radius:4px;
+  font-weight:800;
+  min-width:58px;
+  text-align:center;
+}
+.green{background:var(--green);color:#000}
+.yellow{background:var(--yellow);color:#000}
+.red{background:var(--red);color:#fff}
 
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin-top:6px;
+}
+.stat{
+  background:#0b1220;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:6px;
+}
+.stat-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.stat-value{font-size:11px;font-weight:800;margin-top:3px}
+.compare{display:flex;align-items:center;gap:5px}
+.delta-up{color:var(--green)}
+.delta-down{color:var(--red)}
+.delta-flat{color:var(--yellow)}
+.bar{height:4px;background:#000;border:1px solid var(--line);border-radius:999px;margin-top:6px;overflow:hidden}
+.fill{height:100%;background:var(--blue)}
+
+.details{margin-top:6px}
+summary{
+  cursor:pointer;
+  font-size:10px;
+  color:var(--muted);
+  list-style:none;
+}
+summary::-webkit-details-marker{display:none}
+.components{display:grid;gap:6px;margin-top:6px}
+.component{
+  background:#0b1220;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:6px;
+}
+.component-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.component-name{font-size:10px;font-weight:700;color:#cbd5e1}
+.component-score{font-size:10px;padding:3px 5px;border-radius:4px;font-weight:800}
+.component-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:5px}
+.component-mini{font-size:9px;color:var(--muted)}
+.component-mini b{display:block;color:var(--text);font-size:10px;margin-top:2px}
+
+.charts{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+}
+.chart-panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:8px 10px 10px;
+}
+.chart-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:10px;
+  margin-bottom:6px;
+}
+.chart-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.chart-sub{font-size:10px;color:var(--muted)}
+.chart-wrap{height:220px}
+
+@media (max-width:900px){
+  .topbar,.section-head{flex-direction:column;align-items:flex-start}
+  .controls{width:100%}
+  select{flex:1}
+  .stats,.component-stats{grid-template-columns:1fr}
+  .chart-wrap{height:190px}
+}
 </style>
 </head>
 <body>
 <div class="container">
 
 <div class="topbar">
-  <div class="title">DASHBOARD OPERATIVO</div>
+  <div class="title-wrap">
+    <div class="title">DASHBOARD OPERATIVO</div>
+    <div class="subtitle">Indicadores estratégicos y curvas de campaña</div>
+  </div>
   <div class="controls">
     <select id="empresaSelect"></select>
     <select id="productoSelect"></select>
+    <div class="updated" id="updatedAt"></div>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="section-brand" id="sectionBrand"></div>
+  <div class="legend">
+    <span class="legend-chip green"></span>
+    <span class="legend-chip yellow"></span>
+    <span class="legend-chip red"></span>
   </div>
 </div>
 
 <div id="board" class="board"></div>
 
+<div class="charts">
+  <div class="chart-panel">
+    <div class="chart-head">
+      <div>
+        <div class="chart-title">Producción ejecutada vs programada</div>
+        <div class="chart-sub">Kg por semana y curva acumulada</div>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="chartProduccion"></canvas></div>
+  </div>
+  <div class="chart-panel">
+    <div class="chart-head">
+      <div>
+        <div class="chart-title">% de cosecha por AR</div>
+        <div class="chart-sub">Semanal y acumulado</div>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="chartAR"></canvas></div>
+  </div>
+  <div class="chart-panel">
+    <div class="chart-head">
+      <div>
+        <div class="chart-title" id="qualityTitle">Calidad en el tiempo</div>
+        <div class="chart-sub" id="qualitySubtitle">Semanal y acumulado</div>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="chartCalidad"></canvas></div>
+  </div>
+</div>
+
 </div>
 
 <script>
-
 const data = {
-  ASG:{Granada:[{foco:'CALIDAD',krs:[{name:'IVC',actual:52,meta:60},{name:'ICP',actual:93,meta:95}]}]},
-  FFP:{Arandano:[{foco:'EFICIENCIA',krs:[{name:'BREAKEVEN',actual:1.6,meta:1.4},{name:'ICP',actual:91,meta:95}]}]}
+  ASG:{
+    Granada:{
+      brand:{name:'Agrícola San Gallán (ASG)',logo:'logo-asg.png',productImg:'granada.png'},
+      objectives:[
+        {foco:'CALIDAD',desc:'Captura de valor comercial entregada al mercado.',krs:[
+          {name:'IVC',note:'Índice de valor comercializable para granada.',actual:52.94,meta:59.82,comparison:'-6.88 | -11.5%',components:[
+            {label:'% Exportable',actual:81,meta:78.2,comparison:'+2.8 pp'},
+            {label:'% CAT 1 + 2 s/exportable',actual:79,meta:90,comparison:'-11.0 pp'},
+            {label:'% Arribos ≥ 4',actual:88,meta:85,comparison:'+3.0 pp'}
+          ]}
+        ]},
+        {foco:'EFICIENCIA',desc:'Eficiencia productiva y cumplimiento de producción.',krs:[
+          {name:'Breakeven/kg',note:'Costo de equilibrio por kg en ASG.',actual:1.28,meta:1.18,lowerIsBetter:true,comparison:'1.28 | +8%',components:[
+            {label:'Egresos P&L',actual:'US$ 7.9MM',meta:'US$ 7.4MM',comparison:'+0.5MM'},
+            {label:'Kg producidos',actual:'6.17MM',meta:'6.63MM',comparison:'-0.46MM'},
+            {label:'Breakeven',actual:1.28,meta:1.18,comparison:'+0.10',lowerIsBetter:true}
+          ]},
+          {name:'ICP',note:'Cumplimiento de producción de granada.',actual:93,meta:95,comparison:'93% | -2 pp',components:[
+            {label:'Kg producidos vs programa',actual:93,meta:95,comparison:'-2 pp',isICP:true}
+          ]}
+        ]},
+        {foco:'TALENTO',desc:'Productividad de personas y condiciones para su mejor desempeño.',krs:[
+          {name:'IP',note:'Índice de productividad en ASG.',actual:76,meta:100,comparison:'76 | -24%',components:[
+            {label:'% Kg por CAR',actual:82,meta:90,comparison:'-8 pts'},
+            {label:'Costo persona',actual:0.93,meta:1.00,comparison:'-0.07',lowerIsBetter:true}
+          ]}
+        ]}
+      ],
+      series:{
+        semanas:['W31','W32','W33','W34','W35','W36','W37','W38'],
+        produccion:{programado:[120,180,250,340,460,520,610,700],ejecutado:[100,170,230,300,430,505,590,660],programadoAc:[120,300,550,890,1350,1870,2480,3180],ejecutadoAc:[100,270,500,800,1230,1735,2325,2985]},
+        ar:{semanal:[62,64,66,68,70,73,75,77],acumulado:[62,63,64,65,66,67,68,69]},
+        calidad:{titulo:'% CAT 1 + CAT 2',subtitulo:'Semanal y acumulado exportable',semanal:[84,83,85,82,81,80,79,79],acumulado:[84,83.5,84,83.5,83,82.5,82,81.8]}
+      }
+    }
+  },
+  FFP:{
+    Arandano:{
+      brand:{name:'Family Farms Perú (FFP)',logo:'logo-family.png',productImg:'arandano.png',logoClass:'family'},
+      objectives:[
+        {foco:'CALIDAD',desc:'Captura de valor comercial entregada al mercado.',krs:[
+          {name:'IVC',note:'Índice de valor comercializable para arándanos.',actual:35.95,meta:41.65,comparison:'-5.70 | -13.7%',components:[
+            {label:'% Exportable',actual:84,meta:85,comparison:'-1.0 pp'},
+            {label:'% JBO s/total producido',actual:48,meta:30,comparison:'+18.0 pp'},
+            {label:'% Arribos ≥ 4',actual:89,meta:70,comparison:'+19.0 pp'}
+          ]}
+        ]},
+        {foco:'EFICIENCIA',desc:'Eficiencia productiva y cumplimiento de producción.',krs:[
+          {name:'Breakeven/kg',note:'Costo de equilibrio por kg en FFP.',actual:1.62,meta:1.45,lowerIsBetter:true,comparison:'1.62 | +12%',components:[
+            {label:'Egresos P&L',actual:'US$ 16.2MM',meta:'US$ 15.6MM',comparison:'+0.6MM'},
+            {label:'Kg producidos',actual:'9.95MM',meta:'10.93MM',comparison:'-0.98MM'},
+            {label:'Breakeven',actual:1.62,meta:1.45,comparison:'+0.17',lowerIsBetter:true}
+          ]},
+          {name:'ICP',note:'Cumplimiento de producción de arándanos.',actual:91,meta:95,comparison:'91% | -4 pp',components:[
+            {label:'Kg producidos vs programa',actual:91,meta:95,comparison:'-4 pp',isICP:true}
+          ]}
+        ]},
+        {foco:'TALENTO',desc:'Productividad de personas y condiciones para su mejor desempeño.',krs:[
+          {name:'IP',note:'Índice de productividad en FFP.',actual:81,meta:100,comparison:'81 | -19%',components:[
+            {label:'% Kg por CAR',actual:86,meta:92,comparison:'-6 pts'},
+            {label:'Costo persona',actual:0.94,meta:1.00,comparison:'-0.06',lowerIsBetter:true}
+          ]}
+        ]}
+      ],
+      series:{
+        semanas:['W39','W40','W41','W42','W43','W44','W45','W46'],
+        produccion:{programado:[180,320,470,620,760,890,980,1100],ejecutado:[160,290,430,580,730,840,950,1030],programadoAc:[180,500,970,1590,2350,3240,4220,5320],ejecutadoAc:[160,450,880,1460,2190,3030,3980,5010]},
+        ar:{semanal:[58,61,64,68,71,73,76,79],acumulado:[58,59,61,63,65,67,69,71]},
+        calidad:{titulo:'% Jumbo',subtitulo:'Semanal y acumulado sobre total producido',semanal:[24,27,29,31,30,32,31,30],acumulado:[24,25,26,27,28,28.5,28.8,29]}
+      }
+    }
+  }
 };
 
-function populate(){
-  const e=document.getElementById('empresaSelect');
-  const p=document.getElementById('productoSelect');
-  e.innerHTML=Object.keys(data).map(x=>`<option>${x}</option>`);
-  e.onchange=()=>update();
-  p.onchange=()=>build();
-  update();
-  function update(){
-    p.innerHTML=Object.keys(data[e.value]).map(x=>`<option>${x}</option>`);
+let prodChart, arChart, calidadChart;
+
+function populateSelectors(){
+  const empresaSel=document.getElementById('empresaSelect');
+  const productoSel=document.getElementById('productoSelect');
+  empresaSel.innerHTML=Object.keys(data).map(v=>`<option value="${v}">${v}</option>`).join('');
+  function updateProductos(){
+    const empresa=empresaSel.value;
+    productoSel.innerHTML=Object.keys(data[empresa]).map(v=>`<option value="${v}">${v}</option>`).join('');
     build();
   }
+  empresaSel.addEventListener('change',updateProductos);
+  productoSel.addEventListener('change',build);
+  updateProductos();
+}
+
+function progress(actual, meta, name, lowerIsBetter=false){
+  if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
+  if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) return actual > 0 ? (meta / actual) * 100 : 0;
+  return meta > 0 ? (actual / meta) * 100 : 0;
+}
+function band(name, actual, meta, lowerIsBetter=false){
+  const n=String(name).toLowerCase();
+  if(n.includes('icp')){ if(actual>=95) return 'green'; if(actual>=90) return 'yellow'; return 'red'; }
+  if(n.includes('ivc')){ const d=meta>0?((actual-meta)/meta)*100:0; if(d>=-5) return 'green'; if(d>=-10) return 'yellow'; return 'red'; }
+  const p=progress(actual,meta,name,lowerIsBetter);
+  if(p>=90) return 'green'; if(p>=60) return 'yellow'; return 'red';
+}
+function scoreClass(name, actual, meta, lowerIsBetter=false){
+  const b=band(name,actual,meta,lowerIsBetter); return b==='green'?'green':b==='yellow'?'yellow':'red';
+}
+function fmt(v){ if(typeof v==='string') return v; return Number.isInteger(v)?v.toString():v.toFixed(2); }
+function componentIndex(c){ if(typeof c.actual!=='number'||typeof c.meta!=='number') return '—'; return Math.round(progress(c.actual,c.meta,c.label,!!c.lowerIsBetter))+'%'; }
+function componentProgressValue(c){ if(typeof c.actual!=='number'||typeof c.meta!=='number') return null; return progress(c.actual,c.meta,c.label,!!c.lowerIsBetter); }
+function componentScoreClass(c){ if(typeof c.actual!=='number'||typeof c.meta!=='number') return 'yellow'; return scoreClass(c.label,c.actual,c.meta,!!c.lowerIsBetter); }
+function krComputedProgress(k){
+  if(String(k.name).toLowerCase().includes('ivc')){
+    const vals=(k.components||[]).map(componentProgressValue).filter(v=>typeof v==='number'&&!Number.isNaN(v));
+    if(vals.length) return vals.reduce((a,b)=>a+b,0)/vals.length;
+  }
+  const nums=(k.components||[]).filter(c=>typeof c.actual==='number'&&typeof c.meta==='number');
+  if(nums.length){ const vals=nums.map(componentProgressValue).filter(v=>typeof v==='number'&&!Number.isNaN(v)); if(vals.length) return vals.reduce((a,b)=>a+b,0)/vals.length; }
+  return progress(k.actual,k.meta,k.name,!!k.lowerIsBetter);
+}
+function krComputedBand(k){
+  if(String(k.name).toLowerCase().includes('ivc')) return band(k.name,k.actual,k.meta,!!k.lowerIsBetter);
+  const nums=(k.components||[]).filter(c=>typeof c.actual==='number'&&typeof c.meta==='number');
+  if(nums.length){ const bands=nums.map(c=>band(c.label,c.actual,c.meta,!!c.lowerIsBetter)); if(bands.includes('red')) return 'red'; if(bands.includes('yellow')) return 'yellow'; return 'green'; }
+  return band(k.name,k.actual,k.meta,!!k.lowerIsBetter);
+}
+function deltaArrow(text=''){ if(text.includes('+')) return '<span class="delta-up">↗</span>'; if(text.includes('-')) return '<span class="delta-down">↘</span>'; return '<span class="delta-flat">→</span>'; }
+
+function chartOptions(){
+  return {
+    responsive:true,
+    maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{labels:{color:'#cbd5e1',boxWidth:10,font:{size:10}}}},
+    scales:{
+      x:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(148,163,184,.08)'}},
+      y:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(148,163,184,.08)'}}
+    }
+  };
+}
+
+function renderCharts(series){
+  if(prodChart) prodChart.destroy();
+  if(arChart) arChart.destroy();
+  if(calidadChart) calidadChart.destroy();
+
+  document.getElementById('qualityTitle').textContent = series.calidad.titulo;
+  document.getElementById('qualitySubtitle').textContent = series.calidad.subtitulo;
+
+  prodChart = new Chart(document.getElementById('chartProduccion'), {
+    type:'line',
+    data:{
+      labels:series.semanas,
+      datasets:[
+        {label:'Programado', data:series.produccion.programado, borderColor:'#3b82f6', backgroundColor:'transparent', tension:.25},
+        {label:'Ejecutado', data:series.produccion.ejecutado, borderColor:'#22d3ee', backgroundColor:'transparent', tension:.25},
+        {label:'Prog. acum.', data:series.produccion.programadoAc, borderColor:'#facc15', borderDash:[5,4], backgroundColor:'transparent', tension:.25},
+        {label:'Ejec. acum.', data:series.produccion.ejecutadoAc, borderColor:'#22c55e', borderDash:[5,4], backgroundColor:'transparent', tension:.25}
+      ]
+    },
+    options:chartOptions()
+  });
+
+  arChart = new Chart(document.getElementById('chartAR'), {
+    type:'line',
+    data:{
+      labels:series.semanas,
+      datasets:[
+        {label:'AR semanal', data:series.ar.semanal, borderColor:'#22d3ee', backgroundColor:'transparent', tension:.25},
+        {label:'AR acumulado', data:series.ar.acumulado, borderColor:'#22c55e', backgroundColor:'transparent', tension:.25}
+      ]
+    },
+    options:chartOptions()
+  });
+
+  calidadChart = new Chart(document.getElementById('chartCalidad'), {
+    type:'line',
+    data:{
+      labels:series.semanas,
+      datasets:[
+        {label:'Semanal', data:series.calidad.semanal, borderColor:'#facc15', backgroundColor:'transparent', tension:.25},
+        {label:'Acumulado', data:series.calidad.acumulado, borderColor:'#ef4444', backgroundColor:'transparent', tension:.25}
+      ]
+    },
+    options:chartOptions()
+  });
 }
 
 function build(){
-  const e=document.getElementById('empresaSelect').value;
-  const p=document.getElementById('productoSelect').value;
+  const empresa=document.getElementById('empresaSelect').value;
+  const producto=document.getElementById('productoSelect').value;
+  const view=data[empresa][producto];
   const board=document.getElementById('board');
+  const brand=document.getElementById('sectionBrand');
   board.innerHTML='';
 
-  data[e][p].forEach(o=>{
+  brand.innerHTML = `
+    <img class="logo ${view.brand.logoClass || ''}" src="${view.brand.logo}" alt="${view.brand.name}">
+    <div class="name">${view.brand.name}</div>
+    <img class="product" src="${view.brand.productImg}" alt="${producto}">
+  `;
+
+  view.objectives.forEach(o=>{
     const panel=document.createElement('div');
     panel.className='panel';
-    panel.innerHTML=`<div class='panel-title'>${o.foco}</div>`;
+    panel.innerHTML=`<div class="panel-head"><div class="panel-title">${o.foco}</div><div class="panel-sub">${o.objetivo}</div></div><div class="panel-body"></div>`;
+    const body=panel.querySelector('.panel-body');
 
     o.krs.forEach(k=>{
-      const pct=Math.round((k.actual/k.meta)*100);
-      const color=pct>=90?'green':pct>=70?'yellow':'red';
-
-      panel.innerHTML+=`
-      <div class='kr'>
-        <div class='kr-head'>
-          <div class='kr-name'>${k.name}</div>
-          <div class='score ${color}'>${pct}%</div>
+      const pct=Math.round(krComputedProgress(k));
+      const color=krComputedBand(k);
+      const barWidth=Math.max(6,Math.min(100,pct));
+      const kr=document.createElement('div');
+      kr.className='kr';
+      kr.innerHTML=`
+        <div class="kr-head">
+          <div>
+            <div class="kr-name">${k.name}</div>
+            <div class="kr-note">${k.note}</div>
+          </div>
+          <div class="score ${color}">${pct}%</div>
         </div>
-        <div class='row'><span>Real</span><span>${k.actual}</span></div>
-        <div class='row'><span>Meta</span><span>${k.meta}</span></div>
-        <div class='bar'><div class='fill' style='width:${pct}%'></div></div>
-      </div>`;
+        <div class="stats">
+          <div class="stat"><div class="stat-label">Meta</div><div class="stat-value">${k.name.toLowerCase().includes('icp')?'≥95%':fmt(k.meta)}</div></div>
+          <div class="stat"><div class="stat-label">Real</div><div class="stat-value">${fmt(k.actual)}${k.name.toLowerCase().includes('icp')?'%':''}</div></div>
+          <div class="stat"><div class="stat-label">Comparación</div><div class="stat-value compare">${deltaArrow(k.comparison)}<span>${k.comparison}</span></div></div>
+        </div>
+        <div class="bar"><div class="fill" style="width:${barWidth}%"></div></div>
+        <details class="details">
+          <summary>Ver detalle</summary>
+          <div class="components">
+            ${k.components.map(c=>{
+              const cp=componentProgressValue(c);
+              const cPct=typeof cp==='number'?Math.round(cp):'—';
+              const cColor=componentScoreClass(c);
+              const cWidth=typeof cp==='number'?Math.max(6,Math.min(100,cPct)):50;
+              return `
+                <div class="component">
+                  <div class="component-top">
+                    <div class="component-name">${c.label}</div>
+                    <div class="component-score ${cColor}">${componentIndex(c)}</div>
+                  </div>
+                  <div class="component-stats">
+                    <div class="component-mini">Meta<b>${fmt(c.meta ?? '—')}${c.isICP?'%':''}</b></div>
+                    <div class="component-mini">Real<b>${fmt(c.actual ?? '—')}${c.isICP?'%':''}</b></div>
+                    <div class="component-mini">Comp.<b>${c.comparison ?? '—'}</b></div>
+                  </div>
+                  <div class="bar"><div class="fill" style="width:${cWidth}%"></div></div>
+                </div>`;
+            }).join('')}
+          </div>
+        </details>
+      `;
+      body.appendChild(kr);
     });
 
     board.appendChild(panel);
   });
+
+  renderCharts(view.series);
 }
 
-populate();
+function semanaISO(d=new Date()){
+  const date=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  const dayNum=date.getUTCDay()||7;
+  date.setUTCDate(date.getUTCDate()+4-dayNum);
+  const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
+  return Math.ceil((((date-yearStart)/86400000)+1)/7);
+}
 
+document.getElementById('updatedAt').textContent=`${new Date().toLocaleDateString('es-PE')} | Semana ${semanaISO(new Date())}`;
+populateSelectors();
 </script>
 </body>
 </html>
