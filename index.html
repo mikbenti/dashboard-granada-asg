@@ -3,648 +3,195 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>V&P · Dashboard Indicadores Estratégicos</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#f3f5f7;
-    --card:#ffffff;
-    --ink:#1f2937;
-    --muted:#6b7280;
-    --line:#e5e7eb;
-    --accent:#111827;
-    --accent-soft:#374151;
-    --shadow:0 2px 8px rgba(0,0,0,.05);
-    --green:#22c55e;
-    --green-line:#166534;
-    --yellow:#facc15;
-    --yellow-line:#a16207;
-    --red:#ef4444;
-    --red-line:#7f1d1d;
-    --blue:#3b82f6;
-  }
+:root{
+  --bg:#0b0f14;
+  --panel:#111827;
+  --line:#1f2937;
+  --text:#e5e7eb;
+  --muted:#6b7280;
+  --blue:#3b82f6;
+  --green:#22c55e;
+  --yellow:#facc15;
+  --red:#ef4444;
+}
 
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;
-    font-family:'Montserrat', Arial, sans-serif;
-    background:radial-gradient(circle at top left, #f7fcf8 0%, var(--bg) 45%, #e9f0ec 100%);
-    color:var(--ink);
-    padding:18px;
-  }
-  .container{max-width:1720px;margin:auto}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Montserrat',sans-serif;
+  padding:12px;
+}
 
-  .hero{
-    background:#ffffff;
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:10px 14px;
-    margin-bottom:10px;
-    box-shadow:none;
-  }
-  }
-  .hero::after{
-    content:'';
-    position:absolute;
-    inset:auto -90px -90px auto;
-    width:230px;
-    height:230px;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(22,160,133,.12), rgba(22,160,133,0));
-    pointer-events:none;
-  }
-  .hero-top{
-    display:grid;
-    grid-template-columns:170px 1fr 240px;
-    gap:14px;
-    align-items:center;
-  }
-  .logo-wrap{display:flex;align-items:center;justify-content:flex-start;height:100%}
-  .logo-wrap > img{width:118px;height:118px;object-fit:contain;filter: brightness(0) saturate(100%) invert(28%) sepia(34%) saturate(852%) hue-rotate(124deg) brightness(90%) contrast(92%)}
-  .title-wrap{text-align:center}
-  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
-  h1{margin:2px 0 0;font-size:20px;line-height:1;font-weight:800;letter-spacing:-0.01em;color:var(--ink);text-transform:none}
-  .subtitle{margin-top:8px;font-size:13px;color:var(--muted);font-weight:500}
-  .meta-wrap{display:flex;justify-content:flex-end}
-  .tag{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:center;
-    padding:12px 14px;
-    border:1px solid var(--line);
-    border-radius:16px;
-    background:linear-gradient(180deg,#fff,#f6faf8);
-    box-shadow:0 6px 18px rgba(10,50,35,.06);
-    min-width:220px;
-  }
-  .tag-label{font-size:12px;font-weight:500;color:var(--muted);line-height:1.1}
-  .tag-date{font-size:15px;font-weight:800;color:var(--ink);line-height:1.2;margin-top:6px}
-  .legend{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px}
-  .legend-chip{width:28px;height:18px;border-radius:999px;display:inline-block}
+.container{max-width:1600px;margin:auto}
 
-  .controls{
-    display:grid;
-    grid-template-columns:240px 240px 1fr;
-    gap:10px;
-    margin:0 0 14px;
-  }
-  .controls select{
-    padding:8px 10px;
-    border:1px solid var(--line);
-    border-radius:6px;
-    background:#fff;
-    color:var(--ink);
-    font:600 12px 'Montserrat',sans-serif;
-    box-shadow:none;
-  }
-  .view-pill{
-    justify-self:end;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 12px;
-    border:1px solid var(--line);
-    border-radius:14px;
-    background:linear-gradient(180deg,#fff,#f6faf8);
-    color:var(--muted);
-    font-size:12px;
-    font-weight:700;
-  }
-  .pulse-dot{width:9px;height:9px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 0 rgba(22,160,133,.45);animation:pulse 1.8s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,160,133,.4)}70%{box-shadow:0 0 0 10px rgba(22,160,133,0)}100%{box-shadow:0 0 0 0 rgba(22,160,133,0)}}
+/* TOP BAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
 
-  .score-green{color:#103f0d;background:var(--green);border:2px solid var(--green-line)}
-  .score-yellow{color:#7a5a00;background:var(--yellow);border:2px solid var(--yellow-line)}
-  .score-red{color:#5a0b0f;background:var(--red);border:2px solid var(--red-line)}
+.title{
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.05em;
+}
 
-  .dashboard-section{margin-bottom:16px}
-  .section-banner{
-    max-width:420px;
-    min-height:72px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:16px;
-    margin-bottom:12px;
-    padding:10px 16px;
-    border:1px solid var(--line);
-    border-radius:18px;
-    background:linear-gradient(135deg,#ffffff,#f5faf7);
-    box-shadow:var(--shadow);
-  }
-  .section-left{display:flex;align-items:center;gap:16px;min-width:0}
-  .section-left img{height:84px;width:auto;object-fit:contain}
-  .section-left img.blueberry-icon{height:84px;width:auto;transform:scale(1.8);transform-origin:left center}
-  .section-title{font-size:0;line-height:0}
-  .section-product{display:flex;align-items:center;justify-content:center;height:100%;flex:0 0 auto}
-  .section-product img{height:48px;width:auto;object-fit:contain}
+.controls{
+  display:flex;
+  gap:8px;
+}
 
-  .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;align-items:start}
-  .objective-card{
-    background:#ffffff;
-    border:1px solid var(--line);
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:none;
-  }
-  }
-  .objective-header{
-    background:#111827;
-    color:#fff;
-    padding:8px 10px;
-    min-height:auto;
-  }
-  }
-  .objective-header::after{
-    content:'';
-    position:absolute;
-    right:-30px;
-    top:-30px;
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(255,255,255,.16), rgba(255,255,255,0));
-  }
-  .focus{font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;text-align:left}
-  .objective-title{font-size:12px;font-weight:700;text-transform:none;line-height:1.2;margin-top:4px;color:#fff;text-align:left}
-  .objective-sub{margin-top:4px;font-size:10px;opacity:.8;line-height:1.3;font-weight:400;text-align:left}
+select{
+  background:#000;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:6px 10px;
+  font-size:12px;
+}
 
-  .objective-body{padding:12px;background:linear-gradient(180deg,#fff,#fbfdfc)}
-  .kr-shell{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px;margin-bottom:6px}
-  .kr-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}
-  .kr-name{font-size:14px;font-weight:800;color:var(--ink)}
-  .kr-note{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
-  .subscore,.component-score{text-align:center;line-height:1;border-radius:14px;font-weight:900;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
-  .subscore{min-width:54px;padding:6px 6px;font-size:14px}
-  .component-score{min-width:50px;padding:5px 6px;border-radius:10px;font-size:13px}
-  .subscore small,.component-score small{display:block;text-transform:uppercase;font-weight:800}
-  .subscore small{font-size:9px;letter-spacing:.10em;margin-top:5px}
-  .component-score small{font-size:7px;letter-spacing:.06em;margin-top:3px}
-  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+/* GRID */
+.board{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:8px;
+}
 
-  .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:4px}
-  .box{background:#f9fafb;border:1px solid var(--line);border-radius:6px;padding:5px 6px}
-  .box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent-2),rgba(22,160,133,.1))}
-  .box .label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
-  .box .num{font-size:11px;font-weight:800;color:var(--ink);margin-top:2px}
-  .compare-box .num{display:flex;align-items:center;gap:6px}
-  .delta-up,.delta-down,.delta-flat{display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}
-  .delta-up{color:#178f3c;animation:wiggleUp 1.4s ease-in-out infinite}
-  .delta-down{color:#c62828;animation:wiggleDown 1.4s ease-in-out infinite}
-  .delta-flat{color:#8a7a00}
-  @keyframes wiggleUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
-  @keyframes wiggleDown{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  padding:8px;
+}
 
-  details.kr-details{margin-top:8px}
-  details.kr-details summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#ffffff;font-weight:800;color:var(--ink);font-size:12px}
-  details.kr-details summary::-webkit-details-marker{display:none}
-  .summary-right{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;font-weight:700}
-  .chev{transition:transform .2s ease}
-  details[open] .chev{transform:rotate(180deg)}
-  .details-body{padding-top:8px}
+.panel-title{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
 
-  .component-grid{display:grid;grid-template-columns:1fr;gap:8px}
-  .component-row{background:#f9fafb;border:1px solid var(--line);border-radius:6px;padding:6px}
-  .component-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .component-title{font-size:10px;text-transform:none;color:var(--muted);font-weight:600}
-  .component-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
-  .component-mini{background:#f7faf8;border:1px solid var(--line);border-radius:8px;padding:6px 7px}
-  .component-mini .mini-label{font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
-  .component-mini .mini-num{font-size:12px;font-weight:800;color:var(--ink);margin-top:3px}
-  .progress-track{height:4px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:4px}
-  .progress-fill{height:100%;background:var(--blue);border-radius:999px;transition:width .3s ease}
+.kr{
+  border-top:1px solid var(--line);
+  padding-top:6px;
+  margin-top:6px;
+}
 
-  @media (max-width:1200px){
-    .hero-top{grid-template-columns:1fr;text-align:center}
-    .logo-wrap,.meta-wrap{justify-content:center;align-items:center}
-    .legend{justify-content:center}
-    .tag{align-items:center}
-    .controls{grid-template-columns:1fr 1fr}
-    .view-pill{grid-column:1 / -1;justify-self:stretch;justify-content:center}
-  }
-  @media (max-width:700px){
-    h1{font-size:30px}
-    .objective-title{font-size:16px}
-    .kr-name{font-size:17px}
-    .summary-grid,.component-metrics,.controls{grid-template-columns:1fr}
-    .section-left img.blueberry-icon{transform:scale(1.3)}
-  }
+.kr-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.kr-name{
+  font-size:12px;
+  font-weight:700;
+}
+
+.score{
+  font-size:11px;
+  padding:2px 6px;
+  border-radius:3px;
+  font-weight:700;
+}
+
+.green{background:var(--green);color:#000}
+.yellow{background:var(--yellow);color:#000}
+.red{background:var(--red)}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.bar{
+  height:4px;
+  background:#000;
+  margin-top:4px;
+  position:relative;
+}
+
+.fill{
+  height:100%;
+  background:var(--blue);
+}
+
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="hero">
-    <div class="hero-top">
-      <div class="logo-wrap"><img src="logo-okrs.png" alt="Cultivamos futuro"></div>
-      <div class="title-wrap">
-        <div class="eyebrow">Valle y Pampa · 2026</div>
-        <h1>Dashboard Indicadores Estratégicos</h1>
-        <div class="subtitle">Monitoreo de objetivos y resultados clave</div>
-      </div>
-      <div class="meta-wrap">
-        <div class="tag">
-          <div class="tag-label">Ultima Actualización</div>
-          <div class="tag-date" id="fecha"></div>
-        </div>
-      </div>
-    </div>
-    <div class="legend">
-      <span class="legend-chip score-green"></span>
-      <span class="legend-chip score-yellow"></span>
-      <span class="legend-chip score-red"></span>
-    </div>
-  </div>
 
+<div class="topbar">
+  <div class="title">DASHBOARD OPERATIVO</div>
   <div class="controls">
     <select id="empresaSelect"></select>
     <select id="productoSelect"></select>
-    <div class="view-pill"><span class="pulse-dot"></span> Vista comprimida · dinámica</div>
   </div>
+</div>
 
-  <div id="sections"></div>
+<div id="board" class="board"></div>
+
 </div>
 
 <script>
+
 const data = {
-  ASG: {
-    Granada: [
-      {
-        title:'Agrícola San Gallán (ASG)',
-        icon:'logo-asg.png',
-        iconClass:'',
-        subtitle:'granada',
-        objectives:[
-          {
-            foco:'CALIDAD',
-            objetivo:'Maximizar la captura de valor de la producción',
-            descripcion:'Captura de valor comercial entregada al mercado.',
-            krs:[
-              {
-                name:'IVC',
-                note:'Índice de valor comercializable para granada.',
-                actual:52.94,
-                meta:59.82,
-                components:[
-                  {label:'% Exportable', actual:81, meta:78.2, comparison:'+2.8 pp'},
-                  {label:'% CAT 1 + 2 s/exportable', actual:79, meta:90, comparison:'-11.0 pp'},
-                  {label:'% Arribos ≥ 4', actual:88, meta:85, comparison:'+3.0 pp'}
-                ],
-                comparison:'-6.88 | -11.5%'
-              }
-            ]
-          },
-          {
-            foco:'EFICIENCIA',
-            objetivo:'Maximizar la eficiencia integral del negocio',
-            descripcion:'Eficiencia productiva y cumplimiento de producción.',
-            krs:[
-              {
-                name:'Breakeven/kg',
-                note:'Costo de equilibrio por kg en ASG.',
-                actual:1.28,
-                meta:1.18,
-                lowerIsBetter:true,
-                components:[
-                  {label:'Egresos P&L', actual:'US$ 7.9MM', meta:'US$ 7.4MM', comparison:'+0.5MM'},
-                  {label:'Kg producidos', actual:'6.17MM', meta:'6.63MM', comparison:'-0.46MM'},
-                  {label:'Breakeven', actual:1.28, meta:1.18, comparison:'+0.10', lowerIsBetter:true}
-                ],
-                comparison:'1.28 | +8%'
-              },
-              {
-                name:'ICP',
-                note:'Cumplimiento de producción de granada.',
-                actual:93,
-                meta:95,
-                components:[
-                  {label:'Kg producidos vs programa', actual:93, meta:95, comparison:'-2 pp', isICP:true}
-                ],
-                comparison:'93% | -2 pp'
-              }
-            ]
-          },
-          {
-            foco:'TALENTO',
-            objetivo:'Maximizar la productividad de las personas',
-            descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
-            krs:[
-              {
-                name:'IP',
-                note:'Índice de productividad en ASG.',
-                actual:76,
-                meta:100,
-                components:[
-                  {label:'% Kg por CAR', actual:82, meta:90, comparison:'-8 pts'},
-                  {label:'Costo persona', actual:0.93, meta:1.00, comparison:'-0.07', lowerIsBetter:true}
-                ],
-                comparison:'76 | -24%'
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  FFP: {
-    Arandano: [
-      {
-        title:'Family Farms Perú (FFP)',
-        icon:'logo-family.png',
-        iconClass:'blueberry-icon',
-        subtitle:'arándano',
-        objectives:[
-          {
-            foco:'CALIDAD',
-            objetivo:'Maximizar la captura de valor de la producción',
-            descripcion:'Captura de valor comercial entregada al mercado.',
-            krs:[
-              {
-                name:'IVC',
-                note:'Índice de valor comercializable para arándanos.',
-                actual:35.95,
-                meta:41.65,
-                components:[
-                  {label:'% Exportable', actual:84, meta:85, comparison:'-1.0 pp'},
-                  {label:'% JBO s/total producido', actual:48, meta:30, comparison:'+18.0 pp'},
-                  {label:'% Arribos ≥ 4', actual:89, meta:70, comparison:'+19.0 pp'}
-                ],
-                comparison:'-5.70 | -13.7%'
-              }
-            ]
-          },
-          {
-            foco:'EFICIENCIA',
-            objetivo:'Maximizar la eficiencia integral del negocio',
-            descripcion:'Eficiencia productiva y cumplimiento de producción.',
-            krs:[
-              {
-                name:'Breakeven/kg',
-                note:'Costo de equilibrio por kg en FFP.',
-                actual:1.62,
-                meta:1.45,
-                lowerIsBetter:true,
-                components:[
-                  {label:'Egresos P&L', actual:'US$ 16.2MM', meta:'US$ 15.6MM', comparison:'+0.6MM'},
-                  {label:'Kg producidos', actual:'9.95MM', meta:'10.93MM', comparison:'-0.98MM'},
-                  {label:'Breakeven', actual:1.62, meta:1.45, comparison:'+0.17', lowerIsBetter:true}
-                ],
-                comparison:'1.62 | +12%'
-              },
-              {
-                name:'ICP',
-                note:'Cumplimiento de producción de arándanos.',
-                actual:91,
-                meta:95,
-                components:[
-                  {label:'Kg producidos vs programa', actual:91, meta:95, comparison:'-4 pp', isICP:true}
-                ],
-                comparison:'91% | -4 pp'
-              }
-            ]
-          },
-          {
-            foco:'TALENTO',
-            objetivo:'Maximizar la productividad de las personas',
-            descripcion:'Productividad de personas y condiciones para su mejor desempeño.',
-            krs:[
-              {
-                name:'IP',
-                note:'Índice de productividad en FFP.',
-                actual:81,
-                meta:100,
-                components:[
-                  {label:'% Kg por CAR', actual:86, meta:92, comparison:'-6 pts'},
-                  {label:'Costo persona', actual:0.94, meta:1.00, comparison:'-0.06', lowerIsBetter:true}
-                ],
-                comparison:'81 | -19%'
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  ASG:{Granada:[{foco:'CALIDAD',krs:[{name:'IVC',actual:52,meta:60},{name:'ICP',actual:93,meta:95}]}]},
+  FFP:{Arandano:[{foco:'EFICIENCIA',krs:[{name:'BREAKEVEN',actual:1.6,meta:1.4},{name:'ICP',actual:91,meta:95}]}]}
 };
 
-function populateSelectors(){
-  const empresaSel = document.getElementById('empresaSelect');
-  const productoSel = document.getElementById('productoSelect');
-  empresaSel.innerHTML = Object.keys(data).map(e => `<option value="${e}">${e}</option>`).join('');
-  function updateProductos(){
-    const empresa = empresaSel.value;
-    productoSel.innerHTML = Object.keys(data[empresa]).map(p => `<option value="${p}">${p}</option>`).join('');
+function populate(){
+  const e=document.getElementById('empresaSelect');
+  const p=document.getElementById('productoSelect');
+  e.innerHTML=Object.keys(data).map(x=>`<option>${x}</option>`);
+  e.onchange=()=>update();
+  p.onchange=()=>build();
+  update();
+  function update(){
+    p.innerHTML=Object.keys(data[e.value]).map(x=>`<option>${x}</option>`);
     build();
   }
-  empresaSel.addEventListener('change', updateProductos);
-  productoSel.addEventListener('change', build);
-  updateProductos();
-}
-
-function progress(actual, meta, name, lowerIsBetter=false){
-  if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
-  if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) return actual > 0 ? (meta / actual) * 100 : 0;
-  return meta > 0 ? (actual / meta) * 100 : 0;
-}
-function band(name, actual, meta, lowerIsBetter=false){
-  const n = String(name).toLowerCase();
-  if (n.includes('icp')) {
-    if (actual >= 95) return 'green';
-    if (actual >= 90) return 'yellow';
-    return 'red';
-  }
-  if (n.includes('ivc')) {
-    const deviationPct = meta > 0 ? ((actual - meta) / meta) * 100 : 0;
-    if (deviationPct >= -5) return 'green';
-    if (deviationPct >= -10) return 'yellow';
-    return 'red';
-  }
-  const p = progress(actual, meta, name, lowerIsBetter);
-  if (p >= 90) return 'green';
-  if (p >= 60) return 'yellow';
-  return 'red';
-}
-function scoreClass(name, actual, meta, lowerIsBetter=false){
-  const b = band(name, actual, meta, lowerIsBetter);
-  return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
-}
-function fmt(v){
-  if (typeof v === 'string') return v;
-  return Number.isInteger(v) ? v.toString() : v.toFixed(2);
-}
-function componentIndex(c){
-  if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return '—';
-  return Math.round(progress(c.actual, c.meta, c.label, !!c.lowerIsBetter)) + '%';
-}
-function componentBandValue(c){
-  if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return 'yellow';
-  return band(c.label, c.actual, c.meta, !!c.lowerIsBetter);
-}
-function componentScoreClass(c){
-  if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return 'score-yellow';
-  return scoreClass(c.label, c.actual, c.meta, !!c.lowerIsBetter);
-}
-function componentProgressValue(c){
-  if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return null;
-  return progress(c.actual, c.meta, c.label, !!c.lowerIsBetter);
-}
-function krComputedProgress(k){
-  if (String(k.name).toLowerCase().includes('ivc')) {
-    const vals = (k.components || []).map(componentProgressValue).filter(v => typeof v === 'number' && !Number.isNaN(v));
-    if (vals.length) return vals.reduce((a,b)=>a+b,0) / vals.length;
-  }
-  const numericComponents = (k.components || []).filter(c => typeof c.actual === 'number' && typeof c.meta === 'number');
-  if (numericComponents.length > 0) {
-    const vals = numericComponents.map(componentProgressValue).filter(v => typeof v === 'number' && !Number.isNaN(v));
-    if (vals.length > 0) return vals.reduce((a,b)=>a+b,0) / vals.length;
-  }
-  return progress(k.actual, k.meta, k.name, !!k.lowerIsBetter);
-}
-function krComputedBand(k){
-  if (String(k.name).toLowerCase().includes('ivc')) return band(k.name, k.actual, k.meta, !!k.lowerIsBetter);
-  const numericComponents = (k.components || []).filter(c => typeof c.actual === 'number' && typeof c.meta === 'number');
-  if (numericComponents.length > 0) {
-    const bands = numericComponents.map(componentBandValue);
-    if (bands.includes('red')) return 'red';
-    if (bands.includes('yellow')) return 'yellow';
-    return 'green';
-  }
-  return band(k.name, k.actual, k.meta, !!k.lowerIsBetter);
-}
-function krComputedScoreClass(k){
-  const b = krComputedBand(k);
-  return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
-}
-function deltaArrow(text=''){
-  if (text.includes('+')) return '<span class="delta-up">↗</span>';
-  if (text.includes('-')) return '<span class="delta-down">↘</span>';
-  return '<span class="delta-flat">→</span>';
 }
 
 function build(){
-  const empresa = document.getElementById('empresaSelect').value;
-  const producto = document.getElementById('productoSelect').value;
-  const sections = data[empresa][producto];
-  const sectionsWrap = document.getElementById('sections');
-  sectionsWrap.innerHTML = '';
+  const e=document.getElementById('empresaSelect').value;
+  const p=document.getElementById('productoSelect').value;
+  const board=document.getElementById('board');
+  board.innerHTML='';
 
-  sections.forEach(section => {
-    const fruitImg = section.subtitle ? `<img src="${section.subtitle === 'granada' ? 'granada.png' : 'arandano.png'}" style="height:72px;width:auto;object-fit:contain;"/>` : '';
-    const sec = document.createElement('div');
-    sec.className = 'dashboard-section';
-    sec.innerHTML = `
-      <div class="section-banner">
-        <div class="section-left">
-          <img class="${section.iconClass}" src="${section.icon}" alt="${section.title}" />
-          <div><div class="section-title">${section.title}</div></div>
+  data[e][p].forEach(o=>{
+    const panel=document.createElement('div');
+    panel.className='panel';
+    panel.innerHTML=`<div class='panel-title'>${o.foco}</div>`;
+
+    o.krs.forEach(k=>{
+      const pct=Math.round((k.actual/k.meta)*100);
+      const color=pct>=90?'green':pct>=70?'yellow':'red';
+
+      panel.innerHTML+=`
+      <div class='kr'>
+        <div class='kr-head'>
+          <div class='kr-name'>${k.name}</div>
+          <div class='score ${color}'>${pct}%</div>
         </div>
-        <div class="section-product">${fruitImg}</div>
-      </div>
-      <div class="board"></div>
-    `;
-    const board = sec.querySelector('.board');
-
-    section.objectives.forEach(o => {
-      const objectiveCard=document.createElement('div');
-      objectiveCard.className='objective-card';
-      objectiveCard.innerHTML=`
-        <div class="objective-header">
-          <div class="focus">${o.foco}</div>
-          <div class="objective-title">${o.objetivo}</div>
-          <div class="objective-sub">${o.descripcion}</div>
-        </div>
-        <div class="objective-body"></div>
-      `;
-      const body = objectiveCard.querySelector('.objective-body');
-
-      o.krs.forEach(k => {
-        const p = krComputedProgress(k);
-        const colorClass = krComputedScoreClass(k);
-        const barWidth = Math.max(8, Math.min(100, Math.round(p)));
-        const shell = document.createElement('div');
-        shell.className = 'kr-shell';
-        shell.innerHTML = `
-          <div class="kr-head">
-            <div>
-              <div class="kr-name">${k.name}</div>
-              <div class="kr-note">${k.note}</div>
-            </div>
-            <div class="subscore ${colorClass}">${Math.round(p)}%<small>cumpl.</small></div>
-          </div>
-          <div class="summary-grid">
-            <div class="box">
-              <div class="label">Meta</div>
-              <div class="num">${k.name.toLowerCase().includes('icp') ? '≥95%' : fmt(k.meta)}</div>
-            </div>
-            <div class="box">
-              <div class="label">Real</div>
-              <div class="num">${fmt(k.actual)}${k.name.toLowerCase().includes('icp') ? '%' : ''}</div>
-            </div>
-            <div class="box compare-box">
-              <div class="label">Comparación</div>
-              <div class="num">${deltaArrow(k.comparison)}<span>${k.comparison}</span></div>
-            </div>
-          </div>
-          <div class="progress-track"><div class="progress-fill" style="width:${barWidth}%;"></div></div>
-          <details class="kr-details">
-            <summary>
-              <span>Ver detalle</span>
-              <span class="summary-right">Componentes <span class="chev">⌄</span></span>
-            </summary>
-            <div class="details-body">
-              <div class="component-grid">
-                ${k.components.map(c => {
-                  const cp = componentProgressValue(c);
-                  const cWidth = typeof cp === 'number' ? Math.max(8, Math.min(100, Math.round(cp))) : 50;
-                  return `
-                  <div class="component-row">
-                    <div class="component-top">
-                      <div class="component-title">${c.label}</div>
-                      <div class="component-score ${componentScoreClass(c)}">${componentIndex(c)}<small>cumpl.</small></div>
-                    </div>
-                    <div class="component-metrics">
-                      <div class="component-mini">
-                        <div class="mini-label">Meta</div>
-                        <div class="mini-num">${fmt(c.meta ?? '—')}${c.isICP ? '%' : ''}</div>
-                      </div>
-                      <div class="component-mini">
-                        <div class="mini-label">Real</div>
-                        <div class="mini-num">${fmt(c.actual ?? '—')}${c.isICP ? '%' : ''}</div>
-                      </div>
-                      <div class="component-mini">
-                        <div class="mini-label">Comparación</div>
-                        <div class="mini-num">${c.comparison ?? '—'}</div>
-                      </div>
-                    </div>
-                    <div class="progress-track"><div class="progress-fill" style="width:${cWidth}%;"></div></div>
-                  </div>`;
-                }).join('')}
-              </div>
-            </div>
-          </details>
-        `;
-        body.appendChild(shell);
-      });
-      board.appendChild(objectiveCard);
+        <div class='row'><span>Real</span><span>${k.actual}</span></div>
+        <div class='row'><span>Meta</span><span>${k.meta}</span></div>
+        <div class='bar'><div class='fill' style='width:${pct}%'></div></div>
+      </div>`;
     });
-    sectionsWrap.appendChild(sec);
+
+    board.appendChild(panel);
   });
 }
 
-function semanaISO(d=new Date()){
-  const date=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
-  const dayNum=date.getUTCDay()||7;
-  date.setUTCDate(date.getUTCDate()+4-dayNum);
-  const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
-  return Math.ceil((((date-yearStart)/86400000)+1)/7);
-}
+populate();
 
-const hoy = new Date();
-document.getElementById('fecha').textContent = `${hoy.toLocaleDateString('es-PE')} | Semana ${semanaISO(hoy)}`;
-populateSelectors();
 </script>
 </body>
 </html>
