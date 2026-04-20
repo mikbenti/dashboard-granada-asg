@@ -29,7 +29,6 @@
     padding:24px;
   }
   .container{max-width:1720px;margin:auto}
-
   .hero{
     background:linear-gradient(180deg, rgba(255,255,255,.68), rgba(255,255,255,.9));
     border:1px solid var(--line);
@@ -38,62 +37,25 @@
     margin-bottom:20px;
     box-shadow:var(--shadow);
   }
-  .hero-top{
-    display:grid;
-    grid-template-columns:220px 1fr 260px;
-    gap:18px;
-    align-items:center;
-  }
+  .hero-top{display:grid;grid-template-columns:220px 1fr 260px;gap:18px;align-items:center}
   .logo-wrap{display:flex;align-items:center;justify-content:flex-start}
-  .logo-wrap > img{
-    width:150px;
-    height:150px;
-    object-fit:contain;
-    filter: brightness(0) saturate(100%) invert(47%) sepia(55%) saturate(536%) hue-rotate(49deg) brightness(95%) contrast(89%);
-  }
+  .logo-wrap > img{width:150px;height:150px;object-fit:contain;filter: brightness(0) saturate(100%) invert(47%) sepia(55%) saturate(536%) hue-rotate(49deg) brightness(95%) contrast(89%)}
   .title-wrap{text-align:center}
   .eyebrow{font-size:20px;color:var(--ink-2);margin-bottom:4px;font-weight:500}
-  h1{
-    margin:0;
-    font-size:48px;
-    line-height:1;
-    letter-spacing:-0.03em;
-    color:var(--ink);
-    font-weight:800;
-    text-transform:uppercase;
-  }
+  h1{margin:0;font-size:48px;line-height:1;letter-spacing:-0.03em;color:var(--ink);font-weight:800;text-transform:uppercase}
   .subtitle{margin-top:12px;font-size:17px;color:var(--muted);font-weight:500}
   .meta-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-  .tag{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:center;
-    padding:12px 16px;
-    border:1px solid var(--line);
-    border-radius:16px;
-    background:#fff;
-    color:var(--ink);
-    box-shadow:0 4px 12px rgba(0,0,0,.04);
-    min-width:250px;
-  }
+  .tag{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:12px 16px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);box-shadow:0 4px 12px rgba(0,0,0,.04);min-width:250px}
   .tag-label{font-size:14px;font-weight:500;color:var(--ink);line-height:1.1}
   .tag-date{font-size:16px;font-weight:800;color:var(--ink);line-height:1.2;margin-top:6px}
-
   .legend{display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-top:14px}
   .legend-chip{width:38px;height:26px;border-radius:12px;display:inline-block}
-
   .score-green{color:#103f0d;background:#57ff1f;border:3px solid #1f5e10}
   .score-yellow{color:#7a5a00;background:#fff200;border:3px solid #a67c00}
   .score-red{color:#5a0b0f;background:#ff3b30;border:3px solid #7a0f14}
 
   .dashboard-section{margin-bottom:24px}
-  .section-banner{
-    display:flex;justify-content:space-between;align-items:center;gap:16px;
-    margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);
-    border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow);
-    height:110px;
-  }
+  .section-banner{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow)}
   .section-left{display:flex;align-items:center;gap:18px}
   .section-left img{height:90px;width:auto;object-fit:contain}
   .section-left img.blueberry-icon{height:180px;width:auto}
@@ -102,21 +64,12 @@
 
   .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;align-items:start}
   .objective-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);height:100%}
-  .objective-header{
-    background:linear-gradient(180deg,var(--header),var(--header-dark));
-    color:#fff;padding:18px 18px 16px;min-height:132px;display:block;
-  }
+  .objective-header{background:linear-gradient(180deg,var(--header),var(--header-dark));color:#fff;padding:18px 18px 16px;min-height:132px;display:block}
   .focus{font-size:18px;letter-spacing:.08em;text-transform:uppercase;opacity:.98;font-weight:800;text-align:center;display:block}
   .objective-title{font-size:20px;font-weight:700;text-transform:uppercase;line-height:1.1;letter-spacing:0.02em;margin-top:10px;max-width:100%;color:#ffffff;text-align:center}
   .objective-sub{margin-top:12px;font-size:11px;opacity:.9;line-height:1.45;max-width:100%;font-weight:400;text-align:center}
 
-  .subscore,.component-score{
-    text-align:center;
-    line-height:1;
-    border-radius:14px;
-    font-weight:900;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
-  }
+  .subscore,.component-score{text-align:center;line-height:1;border-radius:14px;font-weight:900;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
   .subscore{min-width:82px;padding:10px 10px;font-size:24px}
   .component-score{min-width:48px;padding:5px 6px;border-radius:10px;font-size:14px}
   .subscore small,.component-score small{display:block;text-transform:uppercase;font-weight:800}
@@ -128,7 +81,6 @@
   .kr-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
   .kr-name{font-size:22px;font-weight:900;line-height:1.05;color:var(--ink)}
   .kr-note{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.45;font-weight:500}
-
   .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
   .box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px}
   .box .label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
@@ -141,7 +93,6 @@
   .chev{transition:transform .2s ease}
   details[open] .chev{transform:rotate(180deg)}
   .details-body{padding-top:10px}
-
   .component-grid{display:grid;grid-template-columns:1fr;gap:8px}
   .component-row{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
   .component-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -155,7 +106,6 @@
     .hero-top{grid-template-columns:1fr;text-align:center}
     .logo-wrap,.meta-wrap{justify-content:center;align-items:center}
     .legend{justify-content:center}
-    .objective-title,.objective-sub{max-width:100%}
     .tag{align-items:center}
   }
   @media (max-width:700px){
@@ -163,7 +113,6 @@
     .objective-title{font-size:18px}
     .kr-name{font-size:18px}
     .summary-grid,.component-metrics{grid-template-columns:1fr}
-    .section-title{font-size:24px}
   }
 </style>
 </head>
@@ -171,9 +120,7 @@
 <div class="container">
   <div class="hero">
     <div class="hero-top">
-      <div class="logo-wrap">
-        <img src="logo-okrs.png" alt="Cultivamos futuro">
-      </div>
+      <div class="logo-wrap"><img src="logo-okrs.png" alt="Cultivamos futuro"></div>
       <div class="title-wrap">
         <div class="eyebrow">Valle y Pampa · 2026</div>
         <h1>Dashboard Indicadores Estratégicos</h1>
@@ -202,9 +149,7 @@ const sections = [
     title:'Agrícola San Gallán (ASG)',
     icon:'logo-asg.png',
     iconClass:'',
-    subtitle:'Producto: Granada',
-    companyLogo:'',
-    companyClass:'',
+    subtitle:'granada',
     objectives:[
       {
         foco:'CALIDAD',
@@ -214,14 +159,14 @@ const sections = [
           {
             name:'IVC',
             note:'Índice de valor comercializable para granada.',
-            actual:69,
-            meta:82,
+            actual:52.94,
+            meta:59.82,
             components:[
-              {label:'% Exportable', actual:81, meta:85, comparison:'-4 pts'},
-              {label:'% CAT 1 + 2', actual:79, meta:82, comparison:'-3 pts'},
-              {label:'% Arribos ≥ 4', actual:88, meta:90, comparison:'-2 pts'}
+              {label:'% Exportable', actual:81, meta:78.2, comparison:'+2.8 pp'},
+              {label:'% CAT 1 + 2 s/exportable', actual:79, meta:90, comparison:'-11.0 pp'},
+              {label:'% Arribos ≥ 4', actual:88, meta:85, comparison:'+3.0 pp'}
             ],
-            comparison:'69 | -16%'
+            comparison:'-6.88 | -11.5%'
           }
         ]
       },
@@ -279,9 +224,7 @@ const sections = [
     title:'Family Farms Perú (FFP)',
     icon:'logo-family.png',
     iconClass:'blueberry-icon',
-    subtitle:'Producto: Arándano',
-    companyLogo:'',
-    companyClass:'',
+    subtitle:'arándano',
     objectives:[
       {
         foco:'CALIDAD',
@@ -291,14 +234,14 @@ const sections = [
           {
             name:'IVC',
             note:'Índice de valor comercializable para arándanos.',
-            actual:74,
-            meta:85,
+            actual:35.95,
+            meta:41.65,
             components:[
-              {label:'% Exportable', actual:84, meta:87, comparison:'-3 pts'},
-              {label:'% JBO Exportable', actual:48, meta:52, comparison:'-4 pts'},
-              {label:'% Arribos ≥ 4', actual:89, meta:91, comparison:'-2 pts'}
+              {label:'% Exportable', actual:84, meta:85, comparison:'-1.0 pp'},
+              {label:'% JBO s/total producido', actual:48, meta:30, comparison:'+18.0 pp'},
+              {label:'% Arribos ≥ 4', actual:89, meta:70, comparison:'+19.0 pp'}
             ],
-            comparison:'74 | -13%'
+            comparison:'-5.70 | -13.7%'
           }
         ]
       },
@@ -356,9 +299,7 @@ const sections = [
     title:'Nuevos Flujos de Negocios',
     icon:'logo-okrs.png',
     iconClass:'',
-    subtitle:'Índice consolidado',
-    companyLogo:'',
-    companyClass:'',
+    subtitle:'',
     objectives:[
       {
         foco:'CRECIMIENTO ESTRATÉGICO',
@@ -384,12 +325,9 @@ const sections = [
 
 function progress(actual, meta, name, lowerIsBetter=false){
   if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
-  if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) {
-    return actual > 0 ? (meta / actual) * 100 : 0;
-  }
+  if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) return actual > 0 ? (meta / actual) * 100 : 0;
   return meta > 0 ? (actual / meta) * 100 : 0;
 }
-
 function band(name, actual, meta, lowerIsBetter=false){
   const n = String(name).toLowerCase();
   if (n.includes('icp')) {
@@ -397,43 +335,46 @@ function band(name, actual, meta, lowerIsBetter=false){
     if (actual >= 90) return 'yellow';
     return 'red';
   }
+  if (n.includes('ivc')) {
+    const deviationPct = meta > 0 ? ((actual - meta) / meta) * 100 : 0;
+    if (deviationPct >= -5) return 'green';
+    if (deviationPct >= -10) return 'yellow';
+    return 'red';
+  }
   const p = progress(actual, meta, name, lowerIsBetter);
   if (p >= 90) return 'green';
   if (p >= 60) return 'yellow';
   return 'red';
 }
-
 function scoreClass(name, actual, meta, lowerIsBetter=false){
   const b = band(name, actual, meta, lowerIsBetter);
   return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
 }
-
 function fmt(v){
   if (typeof v === 'string') return v;
   return Number.isInteger(v) ? v.toString() : v.toFixed(2);
 }
-
 function componentIndex(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return '—';
   return Math.round(progress(c.actual, c.meta, c.label, !!c.lowerIsBetter)) + '%';
 }
-
 function componentBandValue(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return 'yellow';
   return band(c.label, c.actual, c.meta, !!c.lowerIsBetter);
 }
-
 function componentScoreClass(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return 'score-yellow';
   return scoreClass(c.label, c.actual, c.meta, !!c.lowerIsBetter);
 }
-
 function componentProgressValue(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return null;
   return progress(c.actual, c.meta, c.label, !!c.lowerIsBetter);
 }
-
 function krComputedProgress(k){
+  if (String(k.name).toLowerCase().includes('ivc')) {
+    const vals = (k.components || []).map(componentProgressValue).filter(v => typeof v === 'number' && !Number.isNaN(v));
+    if (vals.length) return vals.reduce((a,b)=>a+b,0) / vals.length;
+  }
   const numericComponents = (k.components || []).filter(c => typeof c.actual === 'number' && typeof c.meta === 'number');
   if (numericComponents.length > 0) {
     const vals = numericComponents.map(componentProgressValue).filter(v => typeof v === 'number' && !Number.isNaN(v));
@@ -441,8 +382,8 @@ function krComputedProgress(k){
   }
   return progress(k.actual, k.meta, k.name, !!k.lowerIsBetter);
 }
-
 function krComputedBand(k){
+  if (String(k.name).toLowerCase().includes('ivc')) return band(k.name, k.actual, k.meta, !!k.lowerIsBetter);
   const numericComponents = (k.components || []).filter(c => typeof c.actual === 'number' && typeof c.meta === 'number');
   if (numericComponents.length > 0) {
     const bands = numericComponents.map(componentBandValue);
@@ -452,7 +393,6 @@ function krComputedBand(k){
   }
   return band(k.name, k.actual, k.meta, !!k.lowerIsBetter);
 }
-
 function krComputedScoreClass(k){
   const b = krComputedBand(k);
   return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
@@ -461,24 +401,20 @@ function krComputedScoreClass(k){
 function build(){
   const sectionsWrap = document.getElementById('sections');
   sectionsWrap.innerHTML = '';
-
   sections.forEach(section => {
+    const fruitImg = section.subtitle ? `<img src="${section.subtitle === 'granada' ? 'granada.png' : 'arandano.png'}" style="height:72px;width:auto;object-fit:contain;"/>` : '';
     const sec = document.createElement('div');
     sec.className = 'dashboard-section';
-
     sec.innerHTML = `
       <div class="section-banner">
         <div class="section-left">
           <img class="${section.iconClass}" src="${section.icon}" alt="${section.title}" />
-          <div>
-            <div class="section-title">${section.title}</div>
-          </div>
+          <div><div class="section-title">${section.title}</div></div>
         </div>
-        <div class="section-product"><img src="${section.title.includes('San Gallán') ? 'granada.png' : 'arandano.png'}" style="height:72px;width:auto;object-fit:contain;"/></div>
+        <div class="section-product">${fruitImg}</div>
       </div>
       <div class="board"></div>
     `;
-
     const board = sec.querySelector('.board');
 
     section.objectives.forEach(o => {
@@ -492,13 +428,11 @@ function build(){
         </div>
         <div class="objective-body"></div>
       `;
-
       const body = objectiveCard.querySelector('.objective-body');
 
       o.krs.forEach(k => {
         const p = krComputedProgress(k);
         const colorClass = krComputedScoreClass(k);
-
         const shell = document.createElement('div');
         shell.className = 'kr-shell';
         shell.innerHTML = `
@@ -573,10 +507,8 @@ function semanaISO(d=new Date()){
   const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
   return Math.ceil((((date-yearStart)/86400000)+1)/7);
 }
-
 const hoy = new Date();
 document.getElementById('fecha').textContent = `${hoy.toLocaleDateString('es-PE')} | Semana ${semanaISO(hoy)}`;
-
 build();
 </script>
 </body>
