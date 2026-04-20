@@ -92,10 +92,11 @@
     display:flex;justify-content:space-between;align-items:center;gap:16px;
     margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);
     border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow);
+    height:110px;
   }
   .section-left{display:flex;align-items:center;gap:18px}
-  .section-left img{height:144px;width:auto;object-fit:contain}
-  .section-left img.blueberry-icon{height:72px;width:auto}
+  .section-left img{height:90px;width:auto;object-fit:contain}
+  .section-left img.blueberry-icon{height:90px;width:auto}
   .section-title{font-size:0;line-height:0}
   .section-product{font-size:18px;color:var(--muted);font-weight:600;text-align:right;white-space:nowrap}
 
@@ -473,7 +474,7 @@ function build(){
             <div class="section-title">${section.title}</div>
           </div>
         </div>
-        <div class="section-product"><img src="${section.title.includes('San Gallán') ? 'granada.png' : 'arandano.png'}" style="height:36px;width:auto;object-fit:contain;"/></div>
+        <div class="section-product"><img src="${section.title.includes('San Gallán') ? 'granada.png' : 'arandano.png'}" style="height:72px;width:auto;object-fit:contain;"/></div>
       </div>
       <div class="board"></div>
     `;
