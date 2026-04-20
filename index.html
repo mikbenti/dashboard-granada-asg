@@ -138,10 +138,7 @@
     color:#fff;
     padding:18px 18px 16px;
     min-height:132px;
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    align-items:flex-start;
+    display:block;
   }
   .focus{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.92;font-weight:700}
   .objective-title{
@@ -163,8 +160,7 @@
     font-weight:900;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
   }
-  .score-badge{min-width:98px;padding:10px 12px;font-size:30px}
-  .subscore{min-width:82px;padding:10px 10px;font-size:24px}
+    .subscore{min-width:82px;padding:10px 10px;font-size:24px}
   .component-score{min-width:48px;padding:5px 6px;border-radius:10px;font-size:14px}
   .score-badge small,.subscore small,.component-score small{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;margin-top:6px;font-weight:800}
   .component-score small{font-size:7px;margin-top:3px;letter-spacing:.06em}
@@ -478,10 +474,7 @@ function fmt(v){
 function componentIndex(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return '—';
   const val = Math.round(progress(c.actual, c.meta, c.label, !!c.lowerIsBetter));
-  if (String(c.label).toLowerCase().includes('kg producidos vs programa') || String(c.label).toLowerCase().includes('icp')){
-    return val + '%';
-  }
-  return val;
+  return val + '%';
 }
 
 function componentScoreClass(c){
@@ -514,10 +507,7 @@ function build(){
     const board = sec.querySelector('.board');
 
     section.objectives.forEach(o => {
-      const objectiveBands = o.krs.map(k => band(k.name, k.actual, k.meta, !!k.lowerIsBetter));
-      const objectiveColor = objectiveBands.includes('red') ? 'score-red' : objectiveBands.includes('yellow') ? 'score-yellow' : 'score-green';
-      const objectiveIndex = Math.min(...o.krs.map(k => progress(k.actual, k.meta, k.name, !!k.lowerIsBetter)));
-
+      
       const objectiveCard=document.createElement('div');
       objectiveCard.className='objective-card';
       objectiveCard.innerHTML=`
@@ -527,7 +517,6 @@ function build(){
             <div class="objective-title">${o.objetivo}</div>
             <div class="objective-sub">${o.descripcion}</div>
           </div>
-          <div class="score-badge ${objectiveColor}">${Math.round(objectiveIndex)}<small>índice</small></div>
         </div>
         <div class="objective-body"></div>
       `;
@@ -546,7 +535,7 @@ function build(){
               <div class="kr-name">${k.name}</div>
               <div class="kr-note">${k.note}</div>
             </div>
-            <div class="subscore ${colorClass}">${k.name.toLowerCase().includes('icp') ? Math.round(p)+'%' : Math.round(p)}<small>índice</small></div>
+            <div class="subscore ${colorClass}">${Math.round(p)}%<small>cumpl.</small></div>
           </div>
           <div class="summary-grid">
             <div class="box">
@@ -573,7 +562,7 @@ function build(){
                   <div class="component-row">
                     <div class="component-top">
                       <div class="component-title">${c.label}</div>
-                      <div class="component-score ${componentScoreClass(c)}">${componentIndex(c)}<small>índice</small></div>
+                      <div class="component-score ${componentScoreClass(c)}">${componentIndex(c)}<small>cumpl.</small></div>
                     </div>
                     <div class="component-metrics">
                       <div class="component-mini">
