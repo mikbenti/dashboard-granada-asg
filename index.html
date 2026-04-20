@@ -155,11 +155,17 @@
     </div>
   </div>
 
-  <div id="sections"></div>
+  <div style="display:flex; gap:12px; margin-bottom:16px;">
+  <select id="empresaSelect"></select>
+  <select id="productoSelect"></select>
+</div>
+<div id="sections"></div>
 </div>
 
 <script>
-const sections = [
+const data = {
+  'ASG': {
+    'Granada': 
   {
     title:'Agrícola San Gallán (ASG)',
     icon:'logo-asg.png',
@@ -336,7 +342,10 @@ const sections = [
       }
     ]
   }
-];
+    }
+  },
+  'FFP': {
+    'Arandano': 
 
 function progress(actual, meta, name, lowerIsBetter=false){
   if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
@@ -413,9 +422,31 @@ function krComputedScoreClass(k){
   return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
 }
 
+function populateSelectors(){
+  const empresaSel = document.getElementById('empresaSelect');
+  const productoSel = document.getElementById('productoSelect');
+
+  empresaSel.innerHTML = Object.keys(data).map(e => `<option value="${e}">${e}</option>`).join('');
+
+  function updateProductos(){
+    const empresa = empresaSel.value;
+    productoSel.innerHTML = Object.keys(data[empresa]).map(p => `<option value="${p}">${p}</option>`).join('');
+    populateSelectors();
+  }
+
+  empresaSel.addEventListener('change', updateProductos);
+  productoSel.addEventListener('change', build);
+
+  updateProductos();
+}
+
 function build(){
   const sectionsWrap = document.getElementById('sections');
   sectionsWrap.innerHTML = '';
+  const empresa = document.getElementById('empresaSelect').value;
+  const producto = document.getElementById('productoSelect').value;
+  const sections = data[empresa][producto];
+
   sections.forEach(section => {
     const fruitImg = section.subtitle ? `<img src="${section.subtitle === 'granada' ? 'granada.png' : 'arandano.png'}" style="height:72px;width:auto;object-fit:contain;"/>` : '';
     const sec = document.createElement('div');
