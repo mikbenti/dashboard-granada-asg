@@ -77,33 +77,11 @@
     box-shadow:0 4px 12px rgba(0,0,0,.04);
     min-width:250px;
   }
-  .tag-label{
-    font-size:14px;
-    font-weight:500;
-    color:var(--ink);
-    line-height:1.1;
-  }
-  .tag-date{
-    font-size:16px;
-    font-weight:800;
-    color:var(--ink);
-    line-height:1.2;
-    margin-top:6px;
-  }
+  .tag-label{font-size:14px;font-weight:500;color:var(--ink);line-height:1.1}
+  .tag-date{font-size:16px;font-weight:800;color:var(--ink);line-height:1.2;margin-top:6px}
 
-  .legend{
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    gap:14px;
-    margin-top:14px;
-  }
-  .legend-chip{
-    width:38px;
-    height:26px;
-    border-radius:12px;
-    display:inline-block;
-  }
+  .legend{display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-top:14px}
+  .legend-chip{width:38px;height:26px;border-radius:12px;display:inline-block}
 
   .score-green{color:#103f0d;background:#57ff1f;border:3px solid #1f5e10}
   .score-yellow{color:#7a5a00;background:#fff200;border:3px solid #a67c00}
@@ -111,16 +89,9 @@
 
   .dashboard-section{margin-bottom:24px}
   .section-banner{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:16px;
-    margin-bottom:14px;
-    padding:14px 18px;
-    border:1px solid var(--line);
-    border-radius:18px;
-    background:rgba(255,255,255,.75);
-    box-shadow:var(--shadow);
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    margin-bottom:14px;padding:14px 18px;border:1px solid var(--line);
+    border-radius:18px;background:rgba(255,255,255,.75);box-shadow:var(--shadow);
   }
   .section-left{display:flex;align-items:center;gap:14px}
   .section-left img{width:54px;height:54px;object-fit:contain}
@@ -135,35 +106,24 @@
   .objective-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);height:100%}
   .objective-header{
     background:linear-gradient(180deg,var(--header),var(--header-dark));
-    color:#fff;
-    padding:18px 18px 16px;
-    min-height:132px;
-    display:block;
+    color:#fff;padding:18px 18px 16px;min-height:132px;display:block;
   }
   .focus{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.92;font-weight:700}
-  .objective-title{
-    font-size:20px;
-    font-weight:700;
-    text-transform:uppercase;
-    line-height:1.1;
-    letter-spacing:0.02em;
-    margin-top:8px;
-    max-width:92%;
-    color:#ffffff;
-  }
+  .objective-title{font-size:20px;font-weight:700;text-transform:uppercase;line-height:1.1;letter-spacing:0.02em;margin-top:8px;max-width:92%;color:#ffffff}
   .objective-sub{margin-top:10px;font-size:13px;opacity:.88;line-height:1.45;max-width:92%;font-weight:500}
 
-  .score-badge,.subscore,.component-score{
+  .subscore,.component-score{
     text-align:center;
     line-height:1;
     border-radius:14px;
     font-weight:900;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
   }
-    .subscore{min-width:82px;padding:10px 10px;font-size:24px}
+  .subscore{min-width:82px;padding:10px 10px;font-size:24px}
   .component-score{min-width:48px;padding:5px 6px;border-radius:10px;font-size:14px}
-  .score-badge small,.subscore small,.component-score small{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;margin-top:6px;font-weight:800}
-  .component-score small{font-size:7px;margin-top:3px;letter-spacing:.06em}
+  .subscore small,.component-score small{display:block;text-transform:uppercase;font-weight:800}
+  .subscore small{font-size:10px;letter-spacing:.10em;margin-top:6px}
+  .component-score small{font-size:7px;letter-spacing:.06em;margin-top:3px}
 
   .objective-body{padding:16px;background:linear-gradient(180deg,#fff,#fbf8f2)}
   .kr-shell{background:#f9f6ef;border:1px solid #e7e0d3;border-radius:16px;padding:14px;margin-bottom:12px}
@@ -177,19 +137,7 @@
   .box .num{font-size:18px;font-weight:900;color:var(--ink);margin-top:4px}
 
   details.kr-details{margin-top:10px}
-  details.kr-details summary{
-    list-style:none;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:12px 14px;
-    border:1px solid #d8ddd5;
-    border-radius:12px;
-    background:#ffffff;
-    font-weight:800;
-    color:var(--ink);
-  }
+  details.kr-details summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid #d8ddd5;border-radius:12px;background:#ffffff;font-weight:800;color:var(--ink)}
   details.kr-details summary::-webkit-details-marker{display:none}
   .summary-right{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:700}
   .chev{transition:transform .2s ease}
@@ -299,11 +247,11 @@ const sections = [
           },
           {
             name:'ICP',
-            note:'Cumplimiento de producción.',
+            note:'Cumplimiento de producción de granada.',
             actual:93,
-            meta:'≥95%',
+            meta:95,
             components:[
-              {label:'Kg producidos vs programa', actual:'6.17MM', meta:'6.63MM', comparison:'-0.46MM'}
+              {label:'Kg producidos vs programa', actual:93, meta:95, comparison:'-2 pp', isICP:true}
             ],
             comparison:'93% | -2 pp'
           }
@@ -321,7 +269,6 @@ const sections = [
             meta:100,
             components:[
               {label:'% Kg por CAR', actual:82, meta:90, comparison:'-8 pts'},
-              {label:'Costo target/real', actual:0.93, meta:1.00, comparison:'-0.07'},
               {label:'Costo persona', actual:0.93, meta:1.00, comparison:'-0.07', lowerIsBetter:true}
             ],
             comparison:'76 | -24%'
@@ -377,11 +324,11 @@ const sections = [
           },
           {
             name:'ICP',
-            note:'Cumplimiento de producción.',
-            actual:93,
-            meta:'≥95%',
+            note:'Cumplimiento de producción de arándanos.',
+            actual:91,
+            meta:95,
             components:[
-              {label:'Kg producidos vs programa', actual:'9.95MM', meta:'10.93MM', comparison:'-0.98MM'}
+              {label:'Kg producidos vs programa', actual:91, meta:95, comparison:'-4 pp', isICP:true}
             ],
             comparison:'91% | -4 pp'
           }
@@ -399,7 +346,6 @@ const sections = [
             meta:100,
             components:[
               {label:'% Kg por CAR', actual:86, meta:92, comparison:'-6 pts'},
-              {label:'Costo target/real', actual:0.94, meta:1.00, comparison:'-0.06'},
               {label:'Costo persona', actual:0.94, meta:1.00, comparison:'-0.06', lowerIsBetter:true}
             ],
             comparison:'81 | -19%'
@@ -428,8 +374,7 @@ const sections = [
             meta:15,
             components:[
               {label:'Contrib. orgánica', actual:4.5, meta:7.5, comparison:'-3.0 pts'},
-              {label:'Contrib. inorgánica', actual:4.5, meta:7.5, comparison:'-3.0 pts'},
-              {label:'Contrib. total grupo', actual:100, meta:100, comparison:'0'}
+              {label:'Contrib. inorgánica', actual:4.5, meta:7.5, comparison:'-3.0 pts'}
             ],
             comparison:'9 | -40%'
           }
@@ -440,7 +385,6 @@ const sections = [
 ];
 
 function progress(actual, meta, name, lowerIsBetter=false){
-  if(String(name).toLowerCase().includes('icp')) return actual;
   if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
   if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) {
     return actual > 0 ? (meta / actual) * 100 : 0;
@@ -473,13 +417,47 @@ function fmt(v){
 
 function componentIndex(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return '—';
-  const val = Math.round(progress(c.actual, c.meta, c.label, !!c.lowerIsBetter));
-  return val + '%';
+  return Math.round(progress(c.actual, c.meta, c.label, !!c.lowerIsBetter)) + '%';
+}
+
+function componentBandValue(c){
+  if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return 'yellow';
+  return band(c.label, c.actual, c.meta, !!c.lowerIsBetter);
 }
 
 function componentScoreClass(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return 'score-yellow';
   return scoreClass(c.label, c.actual, c.meta, !!c.lowerIsBetter);
+}
+
+function componentProgressValue(c){
+  if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return null;
+  return progress(c.actual, c.meta, c.label, !!c.lowerIsBetter);
+}
+
+function krComputedProgress(k){
+  const numericComponents = (k.components || []).filter(c => typeof c.actual === 'number' && typeof c.meta === 'number');
+  if (numericComponents.length > 0) {
+    const vals = numericComponents.map(componentProgressValue).filter(v => typeof v === 'number' && !Number.isNaN(v));
+    if (vals.length > 0) return vals.reduce((a,b)=>a+b,0) / vals.length;
+  }
+  return progress(k.actual, k.meta, k.name, !!k.lowerIsBetter);
+}
+
+function krComputedBand(k){
+  const numericComponents = (k.components || []).filter(c => typeof c.actual === 'number' && typeof c.meta === 'number');
+  if (numericComponents.length > 0) {
+    const bands = numericComponents.map(componentBandValue);
+    if (bands.includes('red')) return 'red';
+    if (bands.includes('yellow')) return 'yellow';
+    return 'green';
+  }
+  return band(k.name, k.actual, k.meta, !!k.lowerIsBetter);
+}
+
+function krComputedScoreClass(k){
+  const b = krComputedBand(k);
+  return b === 'green' ? 'score-green' : b === 'yellow' ? 'score-yellow' : 'score-red';
 }
 
 function build(){
@@ -507,16 +485,13 @@ function build(){
     const board = sec.querySelector('.board');
 
     section.objectives.forEach(o => {
-      
       const objectiveCard=document.createElement('div');
       objectiveCard.className='objective-card';
       objectiveCard.innerHTML=`
         <div class="objective-header">
-          <div>
-            <div class="focus">${o.foco}</div>
-            <div class="objective-title">${o.objetivo}</div>
-            <div class="objective-sub">${o.descripcion}</div>
-          </div>
+          <div class="focus">${o.foco}</div>
+          <div class="objective-title">${o.objetivo}</div>
+          <div class="objective-sub">${o.descripcion}</div>
         </div>
         <div class="objective-body"></div>
       `;
@@ -524,8 +499,8 @@ function build(){
       const body = objectiveCard.querySelector('.objective-body');
 
       o.krs.forEach(k => {
-        const p = progress(k.actual, k.meta, k.name, !!k.lowerIsBetter);
-        const colorClass = scoreClass(k.name, k.actual, k.meta, !!k.lowerIsBetter);
+        const p = krComputedProgress(k);
+        const colorClass = krComputedScoreClass(k);
 
         const shell = document.createElement('div');
         shell.className = 'kr-shell';
@@ -544,7 +519,7 @@ function build(){
             </div>
             <div class="box">
               <div class="label">Real</div>
-              <div class="num">${fmt(k.actual)}</div>
+              <div class="num">${fmt(k.actual)}${k.name.toLowerCase().includes('icp') ? '%' : ''}</div>
             </div>
             <div class="box">
               <div class="label">Comparación</div>
@@ -567,11 +542,11 @@ function build(){
                     <div class="component-metrics">
                       <div class="component-mini">
                         <div class="mini-label">Meta</div>
-                        <div class="mini-num">${fmt(c.meta ?? '—')}</div>
+                        <div class="mini-num">${fmt(c.meta ?? '—')}${c.isICP ? '%' : ''}</div>
                       </div>
                       <div class="component-mini">
                         <div class="mini-label">Real</div>
-                        <div class="mini-num">${fmt(c.actual ?? '—')}</div>
+                        <div class="mini-num">${fmt(c.actual ?? '—')}${c.isICP ? '%' : ''}</div>
                       </div>
                       <div class="component-mini">
                         <div class="mini-label">Comparación</div>
@@ -602,8 +577,8 @@ function semanaISO(d=new Date()){
   return Math.ceil((((date-yearStart)/86400000)+1)/7);
 }
 
-const hoy=new Date();
-document.getElementById('fecha').textContent=`${hoy.toLocaleDateString('es-PE')} | Semana ${semanaISO(hoy)}`;
+const hoy = new Date();
+document.getElementById('fecha').textContent = `${hoy.toLocaleDateString('es-PE')} | Semana ${semanaISO(hoy)}`;
 
 build();
 </script>
