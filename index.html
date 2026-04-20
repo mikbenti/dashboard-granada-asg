@@ -307,8 +307,7 @@ const sections = [
             actual:93,
             meta:95,
             components:[
-              {label:'Kg producidos', actual:'6.17MM', meta:'6.63MM', comparison:'-0.46MM'},
-              {label:'Kg programados', actual:'6.63MM', meta:'6.63MM', comparison:'0'}
+              {label:'Kg producidos vs programa', actual:'6.17MM', meta:'6.63MM', comparison:'-0.46MM'}
             ],
             comparison:'-2 pts vs meta'
           }
@@ -386,8 +385,7 @@ const sections = [
             actual:91,
             meta:95,
             components:[
-              {label:'Kg producidos', actual:'9.95MM', meta:'10.93MM', comparison:'-0.98MM'},
-              {label:'Kg programados', actual:'10.93MM', meta:'10.93MM', comparison:'0'}
+              {label:'Kg producidos vs programa', actual:'9.95MM', meta:'10.93MM', comparison:'-0.98MM'}
             ],
             comparison:'-4 pts vs meta'
           }
@@ -478,7 +476,11 @@ function fmt(v){
 
 function componentIndex(c){
   if (typeof c.actual !== 'number' || typeof c.meta !== 'number') return '—';
-  return Math.round(progress(c.actual, c.meta, c.label, !!c.lowerIsBetter));
+  const val = Math.round(progress(c.actual, c.meta, c.label, !!c.lowerIsBetter));
+  if (String(c.label).toLowerCase().includes('kg producidos vs programa') || String(c.label).toLowerCase().includes('icp')){
+    return val + '%';
+  }
+  return val;
 }
 
 function componentScoreClass(c){
@@ -543,7 +545,7 @@ function build(){
               <div class="kr-name">${k.name}</div>
               <div class="kr-note">${k.note}</div>
             </div>
-            <div class="subscore ${colorClass}">${Math.round(p)}<small>índice</small></div>
+            <div class="subscore ${colorClass}">${k.name.toLowerCase().includes('icp') ? Math.round(p)+'%' : Math.round(p)}<small>índice</small></div>
           </div>
           <div class="summary-grid">
             <div class="box">
