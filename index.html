@@ -207,11 +207,11 @@ summary::-webkit-details-marker{display:none}
 
 <div class="topbar">
   <div style="display:flex;align-items:center;gap:10px">
-    <img src="logo-vyp.png" style="height:32px;width:auto;object-fit:contain" />
+    <img src="logo-vyp.png" style="height:32px;width:auto;object-fit:contain" onerror="this.style.display='none'" />
     <div class="title-wrap">
-    <div class="title">DASHBOARD OPERATIVO</div>
-    <div class="subtitle">Indicadores estratégicos y curvas de campaña</div>
-  </div>
+      <div class="title">DASHBOARD OPERATIVO</div>
+      <div class="subtitle">Indicadores estratégicos arriba · curvas y series abajo</div>
+    </div>
   </div>
   <div class="controls">
     <select id="empresaSelect"></select>
@@ -219,9 +219,19 @@ summary::-webkit-details-marker{display:none}
     <input type="file" id="excelFile" accept=".xlsx,.xls" style="background:#000;border:1px solid var(--line);color:var(--text);padding:7px 10px;font-size:12px;border-radius:6px;min-width:220px" />
     <div class="updated" id="updatedAt"></div>
   </div>
+</div>
 
-  <div id="excelStatus" class="updated" style="margin:-4px 0 2px 0;"></div>
-  <div id="excelMeta" class="updated" style="margin:0 0 10px 0;"></div>
+<div id="excelStatus" class="updated" style="margin:-2px 0 2px 0;"></div>
+<div id="excelMeta" class="updated" style="margin:0 0 10px 0;"></div>
+
+<div class="section-head">
+  <div class="section-brand" id="sectionBrand"></div>
+  <div class="legend">
+    <span class="legend-chip green"></span>
+    <span class="legend-chip yellow"></span>
+    <span class="legend-chip red"></span>
+  </div>
+</div>
 
 <div id="board" class="board"></div>
 
