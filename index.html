@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>V&P · OKRs 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,7 +75,7 @@
     background:#fff;
     color:var(--ink);
     box-shadow:0 4px 12px rgba(0,0,0,.04);
-    min-width:230px;
+    min-width:250px;
   }
   .tag-label{
     font-size:14px;
@@ -104,6 +104,7 @@
     border-radius:12px;
     display:inline-block;
   }
+
   .score-green{color:#103f0d;background:#57ff1f;border:3px solid #1f5e10}
   .score-yellow{color:#7a5a00;background:#fff200;border:3px solid #a67c00}
   .score-red{color:#5a0b0f;background:#ff3b30;border:3px solid #7a0f14}
@@ -119,7 +120,7 @@
     border:1px solid var(--line);
     border-radius:18px;
     background:rgba(255,255,255,.75);
-    box-shadow:var(--shadow)
+    box-shadow:var(--shadow);
   }
   .section-left{display:flex;align-items:center;gap:14px}
   .section-left img{width:54px;height:54px;object-fit:contain}
@@ -140,7 +141,7 @@
     display:flex;
     justify-content:space-between;
     gap:12px;
-    align-items:flex-start
+    align-items:flex-start;
   }
   .focus{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.92;font-weight:700}
   .objective-title{
@@ -155,17 +156,18 @@
   }
   .objective-sub{margin-top:10px;font-size:13px;opacity:.88;line-height:1.45;max-width:92%;font-weight:500}
 
-  .score-badge,.subscore{
+  .score-badge,.subscore,.component-score{
     text-align:center;
     line-height:1;
     border-radius:14px;
     font-weight:900;
-    border:3px solid transparent;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
   }
   .score-badge{min-width:98px;padding:10px 12px;font-size:30px}
   .subscore{min-width:82px;padding:10px 10px;font-size:24px}
-  .score-badge small,.subscore small{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;margin-top:6px;font-weight:800}
+  .component-score{min-width:48px;padding:5px 6px;border-radius:10px;font-size:14px}
+  .score-badge small,.subscore small,.component-score small{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;margin-top:6px;font-weight:800}
+  .component-score small{font-size:7px;margin-top:3px;letter-spacing:.06em}
 
   .objective-body{padding:16px;background:linear-gradient(180deg,#fff,#fbf8f2)}
   .kr-shell{background:#f9f6ef;border:1px solid #e7e0d3;border-radius:16px;padding:14px;margin-bottom:12px}
@@ -190,7 +192,7 @@
     border-radius:12px;
     background:#ffffff;
     font-weight:800;
-    color:var(--ink)
+    color:var(--ink);
   }
   details.kr-details summary::-webkit-details-marker{display:none}
   .summary-right{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:700}
@@ -202,8 +204,6 @@
   .component-row{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
   .component-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .component-title{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800;line-height:1.3}
-  .component-score{min-width:48px;padding:5px 6px;border-radius:10px;font-size:14px;font-weight:900;line-height:1;text-align:center;border:3px solid transparent}
-  .component-score small{display:block;font-size:7px;letter-spacing:.06em;text-transform:uppercase;margin-top:3px;font-weight:800}
   .component-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
   .component-mini{background:#faf8f3;border:1px solid var(--line);border-radius:8px;padding:6px 8px}
   .component-mini .mini-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
@@ -257,10 +257,10 @@
 <script>
 const sections = [
   {
-    title:'Granada',
+    title:'Agrícola San Gallán (ASG)',
     icon:'granada.png',
     iconClass:'',
-    subtitle:'Agrícola San Gallán (ASG)',
+    subtitle:'Producto: Granada',
     companyLogo:'logo-asg.png',
     companyClass:'asg',
     objectives:[
@@ -336,10 +336,10 @@ const sections = [
     ]
   },
   {
-    title:'Arándano',
+    title:'Family Farms Perú (FFP)',
     icon:'arandano.png',
     iconClass:'blueberry-icon',
-    subtitle:'Family Farms Perú (FFP)',
+    subtitle:'Producto: Arándano',
     companyLogo:'logo-family.png',
     companyClass:'family',
     objectives:[
