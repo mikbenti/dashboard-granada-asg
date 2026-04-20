@@ -303,9 +303,9 @@ const sections = [
           },
           {
             name:'ICP',
-            note:'Cumplimiento de producción de granada.',
+            note:'Cumplimiento de producción.',
             actual:93,
-            meta:95,
+            meta:'≥95%',
             components:[
               {label:'Kg producidos vs programa', actual:'6.17MM', meta:'6.63MM', comparison:'-0.46MM'}
             ],
@@ -381,9 +381,9 @@ const sections = [
           },
           {
             name:'ICP',
-            note:'Cumplimiento de producción de arándanos.',
-            actual:91,
-            meta:95,
+            note:'Cumplimiento de producción.',
+            actual:93,
+            meta:'≥95%',
             components:[
               {label:'Kg producidos vs programa', actual:'9.95MM', meta:'10.93MM', comparison:'-0.98MM'}
             ],
@@ -444,6 +444,7 @@ const sections = [
 ];
 
 function progress(actual, meta, name, lowerIsBetter=false){
+  if(String(name).toLowerCase().includes('icp')) return actual;
   if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
   if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) {
     return actual > 0 ? (meta / actual) * 100 : 0;
@@ -550,7 +551,7 @@ function build(){
           <div class="summary-grid">
             <div class="box">
               <div class="label">Meta</div>
-              <div class="num">${fmt(k.meta)}</div>
+              <div class="num">${k.name.toLowerCase().includes('icp') ? '≥95%' : fmt(k.meta)}</div>
             </div>
             <div class="box">
               <div class="label">Real</div>
