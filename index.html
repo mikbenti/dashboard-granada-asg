@@ -216,13 +216,19 @@ summary::-webkit-details-marker{display:none}
   <div class="controls">
     <select id="empresaSelect"></select>
     <select id="productoSelect"></select>
-    <input type="file" id="excelFile" accept=".xlsx,.xls" style="background:#000;border:1px solid var(--line);color:var(--text);padding:7px 10px;font-size:12px;border-radius:6px;min-width:220px" />
+    <input type="file" id="excelFileFFP" accept=".xlsx,.xls" style="background:#000;border:1px solid var(--line);color:var(--text);padding:8px 10px;font-size:12px;border-radius:6px;min-width:210px" />
+    <input type="file" id="excelFileASG" accept=".xlsx,.xls" style="background:#000;border:1px solid var(--line);color:var(--text);padding:8px 10px;font-size:12px;border-radius:6px;min-width:210px" />
     <div class="updated" id="updatedAt"></div>
   </div>
-</div>
 
-<div id="excelStatus" class="updated" style="margin:-2px 0 2px 0;"></div>
-<div id="excelMeta" class="updated" style="margin:0 0 10px 0;"></div>
+  <div id="excelStatusFFP" class="updated" style="margin:-2px 0 2px 0;"></div>
+  <div id="excelMetaFFP" class="updated" style="margin:0 0 2px 0;"></div>
+  <div id="excelSheetFFP" class="updated" style="margin:0 0 6px 0;"></div>
+  <div id="excelSheetFFP" class="updated" style="margin:0 0 6px 0;"></div>
+  <<div id="excelMetaASG" class="updated" style="margin:0 0 2px 0;"></div>
+  <div id="excelSheetASG" class="updated" style="margin:0 0 10px 0;"></div>
+  <div id="excelMetaASG" class="updated" style="margin:0 0 2px 0;"></div>
+  <div id="excelSheetASG" class="updated" style="margin:0 0 10px 0;"></div>
 
 <div class="section-head">
   <div class="section-brand" id="sectionBrand"></div>
@@ -273,14 +279,14 @@ const data = {
     Granada:{
       brand:{name:'Agrícola San Gallán (ASG)',logo:'logo-asg.png',productImg:'granada.png'},
       objectives:[
-        {foco:'CALIDAD',desc:'Captura de valor comercial entregada al mercado.',krs:[
+        {foco:'CALIDAD',objetivo:'Maximizar la captura de valor de la producción',desc:'Captura de valor comercial entregada al mercado.',krs:[
           {name:'IVC',note:'Índice de valor comercializable para granada.',actual:52.94,meta:59.82,comparison:'-6.88 | -11.5%',components:[
             {label:'% Exportable',actual:81,meta:78.2,comparison:'+2.8 pp'},
             {label:'% CAT 1 + 2 s/exportable',actual:79,meta:90,comparison:'-11.0 pp'},
             {label:'% Arribos ≥ 4',actual:88,meta:85,comparison:'+3.0 pp'}
           ]}
         ]},
-        {foco:'EFICIENCIA',desc:'Eficiencia productiva y cumplimiento de producción.',krs:[
+        {foco:'EFICIENCIA',objetivo:'Maximizar la eficiencia integral del negocio',desc:'Eficiencia productiva y cumplimiento de producción.',krs:[
           {name:'Breakeven/kg',note:'Costo de equilibrio por kg en ASG.',actual:1.28,meta:1.18,lowerIsBetter:true,comparison:'1.28 | +8%',components:[
             {label:'Egresos P&L',actual:'US$ 7.9MM',meta:'US$ 7.4MM',comparison:'+0.5MM'},
             {label:'Kg producidos',actual:'6.17MM',meta:'6.63MM',comparison:'-0.46MM'},
@@ -290,7 +296,7 @@ const data = {
             {label:'Kg producidos vs programa',actual:93,meta:95,comparison:'-2 pp',isICP:true}
           ]}
         ]},
-        {foco:'TALENTO',desc:'Productividad de personas y condiciones para su mejor desempeño.',krs:[
+        {foco:'TALENTO',objetivo:'Maximizar la productividad de las personas',desc:'Productividad de personas y condiciones para su mejor desempeño.',krs:[
           {name:'IP',note:'Índice de productividad en ASG.',actual:76,meta:100,comparison:'76 | -24%',components:[
             {label:'% Kg por CAR',actual:82,meta:90,comparison:'-8 pts'},
             {label:'Costo persona',actual:0.93,meta:1.00,comparison:'-0.07',lowerIsBetter:true}
@@ -299,7 +305,7 @@ const data = {
       ],
       series:{
         semanas:['W31','W32','W33','W34','W35','W36','W37','W38'],
-        produccion:{programado:[120,180,250,340,460,520,610,700],ejecutado:[100,170,230,300,430,505,590,660],programadoAc:[120,300,550,890,1350,1870,2480,3180],ejecutadoAc:[100,270,500,800,1230,1735,2325,2985]},
+        produccion:{programado:[120,180,250,340,460,520,610,700],ejecutado:null,programadoAc:[120,300,550,890,1350,1870,2480,3180],ejecutadoAc:null},
         ar:{semanal:[62,64,66,68,70,73,75,77],acumulado:[62,63,64,65,66,67,68,69]},
         calidad:{titulo:'% CAT 1 + CAT 2',subtitulo:'Semanal y acumulado exportable',semanal:[84,83,85,82,81,80,79,79],acumulado:[84,83.5,84,83.5,83,82.5,82,81.8]}
       }
@@ -309,14 +315,14 @@ const data = {
     Arandano:{
       brand:{name:'Family Farms Perú (FFP)',logo:'logo-family.png',productImg:'arandano.png',logoClass:'family'},
       objectives:[
-        {foco:'CALIDAD',desc:'Captura de valor comercial entregada al mercado.',krs:[
+        {foco:'CALIDAD',objetivo:'Maximizar la captura de valor de la producción',desc:'Captura de valor comercial entregada al mercado.',krs:[
           {name:'IVC',note:'Índice de valor comercializable para arándanos.',actual:35.95,meta:41.65,comparison:'-5.70 | -13.7%',components:[
             {label:'% Exportable',actual:84,meta:85,comparison:'-1.0 pp'},
             {label:'% JBO s/total producido',actual:48,meta:30,comparison:'+18.0 pp'},
             {label:'% Arribos ≥ 4',actual:89,meta:70,comparison:'+19.0 pp'}
           ]}
         ]},
-        {foco:'EFICIENCIA',desc:'Eficiencia productiva y cumplimiento de producción.',krs:[
+        {foco:'EFICIENCIA',objetivo:'Maximizar la eficiencia integral del negocio',desc:'Eficiencia productiva y cumplimiento de producción.',krs:[
           {name:'Breakeven/kg',note:'Costo de equilibrio por kg en FFP.',actual:1.62,meta:1.45,lowerIsBetter:true,comparison:'1.62 | +12%',components:[
             {label:'Egresos P&L',actual:'US$ 16.2MM',meta:'US$ 15.6MM',comparison:'+0.6MM'},
             {label:'Kg producidos',actual:'9.95MM',meta:'10.93MM',comparison:'-0.98MM'},
@@ -326,7 +332,7 @@ const data = {
             {label:'Kg producidos vs programa',actual:91,meta:95,comparison:'-4 pp',isICP:true}
           ]}
         ]},
-        {foco:'TALENTO',desc:'Productividad de personas y condiciones para su mejor desempeño.',krs:[
+        {foco:'TALENTO',objetivo:'Maximizar la productividad de las personas',desc:'Productividad de personas y condiciones para su mejor desempeño.',krs:[
           {name:'IP',note:'Índice de productividad en FFP.',actual:81,meta:100,comparison:'81 | -19%',components:[
             {label:'% Kg por CAR',actual:86,meta:92,comparison:'-6 pts'},
             {label:'Costo persona',actual:0.94,meta:1.00,comparison:'-0.06',lowerIsBetter:true}
@@ -335,7 +341,7 @@ const data = {
       ],
       series:{
         semanas:['W39','W40','W41','W42','W43','W44','W45','W46'],
-        produccion:{programado:[180,320,470,620,760,890,980,1100],ejecutado:[160,290,430,580,730,840,950,1030],programadoAc:[180,500,970,1590,2350,3240,4220,5320],ejecutadoAc:[160,450,880,1460,2190,3030,3980,5010]},
+        produccion:{programado:[180,320,470,620,760,890,980,1100],ejecutado:null,programadoAc:[180,500,970,1590,2350,3240,4220,5320],ejecutadoAc:null},
         ar:{semanal:[58,61,64,68,71,73,76,79],acumulado:[58,59,61,63,65,67,69,71]},
         calidad:{titulo:'% Jumbo',subtitulo:'Semanal y acumulado sobre total producido',semanal:[24,27,29,31,30,32,31,30],acumulado:[24,25,26,27,28,28.5,28.8,29]}
       }
@@ -344,10 +350,11 @@ const data = {
 };
 
 let prodChart, arChart, calidadChart;
-let uploadedProgramData = null;
+let uploadedProgramFFP = null;
+let uploadedProgramASG = null;
 
 function populateSelectors(){
-  setupExcelLoader();
+  setupExcelLoaders();
   const empresaSel=document.getElementById('empresaSelect');
   const productoSel=document.getElementById('productoSelect');
   empresaSel.innerHTML=Object.keys(data).map(v=>`<option value="${v}">${v}</option>`).join('');
@@ -361,30 +368,119 @@ function populateSelectors(){
   updateProductos();
 }
 
-function progress(actual, meta, name, lowerIsBetter=false){
-  if (typeof actual !== 'number' || typeof meta !== 'number') return 0;
-  if (lowerIsBetter || String(name).toLowerCase().includes('breakeven')) return actual > 0 ? (meta / actual) * 100 : 0;
-  return meta > 0 ? (actual / meta) * 100 : 0;
+function setupExcelLoaders(){
+  bindExcelLoader('efunction pickSheet(workbook, empresa, producto){
+  const names = workbook.SheetNames || [];
+  const normalize = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const candidates = [];
+  if (empresa === 'FFP' && producto === 'Arandano') {
+    candidates.push('ffp_arandano','ffp arandano','arandano','programa arandano','ffp');
+  }
+  if (empresa === 'ASG' && producto === 'Granada') {
+    candidates.push('asg_granada','asg granada','granada','programa granada','asg');
+  }
+  for (const candidate of candidates) {
+    const hit = names.find(name => normalize(name).includes(normalize(candidate)));
+    if (hit) return { sheet: workbook.Sheets[hit], sheetName: hit };
+  }
+  return { sheet: workbook.Sheets[names[0]], sheetName: names[0] };
+}st hit = names.find(name => normalize(name).includes(normalize(candidate)));
+    if (hit) return { sheet: workbook.Sheets[hit], sheetName: hit };
+  }
+  return { sheet: workbook.Sheets[names[0]], sheetName: names[0] };
 }
-function band(name, actual, meta, lowerIsBetter=false){
+
+function bindExcelLoader(iconst meta=document.getElementById(metaId);
+  const sheetInfo=document.getElementById(empresa === 'FFP' ? 'excelSheetFFP' : 'excelSheetASG');
+  const label=`${empresa} / ${producto}`;Id);
+  if(!input || input.dataset.bound==='1') return;
+  input.dataset.bound='1';
+  const status=document.getElementById(statusId);
+  const meta=document.getElementByIdconst workbook=XLSX.read(buffer,{type:'array'});
+      const picked=pickSheet(workbook,empresa,producto);
+      const rows=XLSX.utils.sheet_to_json(picked.sheet,{header:1,raw:true,defval:null});async (e)=>{
+    const file=e.target.files?.[0];
+    if(!file) return;
+    try{
+      const buffer=await file.arrayBuffer();
+      const workbook=XLSX.read(buffer,{type:'array'});
+      const picked=pickSheet(workbook,empresa,producto);
+      const rows=XLSX.utils.sheet_to_json(picked.sheet,{header:1,raw:true,defval:null});
+      const parsed=parseProgramSheet(rows);
+      if(empresa==='FFP') uploadedProgramFFP = parsed;
+      if(empresa==='ASG') uploadedProgramASG = parsed;
+      applyUploadedProgramToKRs(empresa,producto,parsed);
+      status.textContent=`Programa cargado y aplicado a la curva y a los KR dependientes de volumen: ${label}. Hoja detectada automáticamente.`;
+      const uploadedAt=new Date(file.lastModified);
+      meta.textContent=`Archivo: ${file.name} · Subido/última modificación: ${uploadedAt.toLocaleDateString('es-PE')} ${uploadedAt.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'})nfo) sheetInfo.textContent = `Hoja detectada: ${picked.sheetName}`;
+      build();
+    }catch(err){
+      if(empresa==='FFP') uploadedProgramFFP = null;
+      if(empresa==='ASG') uploadedProgramASG = null;
+      status.textContent=`No se pudo leer el archivo para ${label}. Revisa formato y hoja.`;
+      meta.textContent='';
+      if (sheetInfo) sheetInfo.textContent = '';
+      console.error(err);
+    }
+  });
+}
+
+function parseProgramSheet(rows){
+  const clean=rows.map(r=>r.map(v=>typeof v==='string'?v.trim():v));
+  const totalRow=clean.find(r=>String(r[0]||'').toUpperCase()==='TOTAL');
+  if(!totalRow) throw new Error('No se encontró la fila TOTAL.');
+  const weekRow=clean.find(r=>r.filter(v=>Number.isFinite(Number(v)) && Number(v)>=1 && Number(v)<=53).length>=8);
+  if(!weekRow) throw new Error('No se encontró la fila de semanas.');
+  let startIdx=weekRow.findIndex(v=>Number.isFinite(Number(v)) && Number(v)>=1 && Number(v)<=53);
+  if(startIdx===-1) throw new Error('No se encontró inicio de semanas.');
+  let endIdx=startIdx;
+  while(endIdx<weekRow.length && Number.isFinite(Number(weekRow[endIdx])) && Number(weekRow[endIdx])>=1 && Number(weekRow[endIdx])<=53){ endIdx+=1; }
+  let labels=weekRow.slice(startIdx,endIdx).map(v=>`W${Number(v)}`);
+  let programado=totalRow.slice(startIdx,endIdx).map(v=>{
+    if(v===null || v==='' || v==='-') return 0;
+    if(typeof v==='string') return Number(v.replace(/,/g,'')) || 0;
+    return Number(v) || 0;
+  });
+  const firstNonZeroIdx=programado.findIndex(v=>Number(v)>0);
+  if(firstNonZeroIdx>0){ labels=labels.slice(firstNonZeroIdx); programado=programado.slice(firstNonZeroIdx); }
+  const programadoAc=[];
+  programado.reduce((acc,val,idx)=>{ const next=acc+val; programadoAc[idx]=next; return next; },0);
+  return {labels,programado,programadoAc,ejecutado:null,ejecutadoAc:null,totalProgramado:programadoAc[programadoAc.length-1] || 0};
+}
+
+function applyUploadedProgramToKRs(empresa,producto,parsed){
+  const productData=data[empresa][producto];
+  const totalKg=parsed.totalProgramado || 0;
+  productData.objectives.forEach(obj=>{
+    obj.krs.forEach(kr=>{
+      if(String(kr.name).toLowerCase().includes('icp')){
+        kr.note=`Cumplimiento de producción con base en programa cargado (${Math.round(totalKg).toLocaleString('en-US')} kg programados).`;
+      }
+      if(String(kr.name).toLowerCase().includes('breakeven')){
+        kr.note=`${kr.note.split('·')[0].trim()} · Programa base cargado: ${Math.round(totalKg).toLocaleString('en-US')} kg.`;
+      }
+    });
+  });
+}
+
+function progress(actual,meta,name,lowerIsBetter=false){
+  if(typeof actual!=='number'||typeof meta!=='number') return 0;
+  if(lowerIsBetter || String(name).toLowerCase().includes('breakeven')) return actual>0?(meta/actual)*100:0;
+  return meta>0?(actual/meta)*100:0;
+}
+function band(name,actual,meta,lowerIsBetter=false){
   const n=String(name).toLowerCase();
   if(n.includes('icp')){ if(actual>=95) return 'green'; if(actual>=90) return 'yellow'; return 'red'; }
   if(n.includes('ivc')){ const d=meta>0?((actual-meta)/meta)*100:0; if(d>=-5) return 'green'; if(d>=-10) return 'yellow'; return 'red'; }
-  const p=progress(actual,meta,name,lowerIsBetter);
-  if(p>=90) return 'green'; if(p>=60) return 'yellow'; return 'red';
+  const p=progress(actual,meta,name,lowerIsBetter); if(p>=90) return 'green'; if(p>=60) return 'yellow'; return 'red';
 }
-function scoreClass(name, actual, meta, lowerIsBetter=false){
-  const b=band(name,actual,meta,lowerIsBetter); return b==='green'?'green':b==='yellow'?'yellow':'red';
-}
+function scoreClass(name,actual,meta,lowerIsBetter=false){ const b=band(name,actual,meta,lowerIsBetter); return b==='green'?'green':b==='yellow'?'yellow':'red'; }
 function fmt(v){ if(typeof v==='string') return v; return Number.isInteger(v)?v.toString():v.toFixed(2); }
 function componentIndex(c){ if(typeof c.actual!=='number'||typeof c.meta!=='number') return '—'; return Math.round(progress(c.actual,c.meta,c.label,!!c.lowerIsBetter))+'%'; }
 function componentProgressValue(c){ if(typeof c.actual!=='number'||typeof c.meta!=='number') return null; return progress(c.actual,c.meta,c.label,!!c.lowerIsBetter); }
 function componentScoreClass(c){ if(typeof c.actual!=='number'||typeof c.meta!=='number') return 'yellow'; return scoreClass(c.label,c.actual,c.meta,!!c.lowerIsBetter); }
 function krComputedProgress(k){
-  if(String(k.name).toLowerCase().includes('ivc')){
-    const vals=(k.components||[]).map(componentProgressValue).filter(v=>typeof v==='number'&&!Number.isNaN(v));
-    if(vals.length) return vals.reduce((a,b)=>a+b,0)/vals.length;
-  }
+  if(String(k.name).toLowerCase().includes('ivc')){ const vals=(k.components||[]).map(componentProgressValue).filter(v=>typeof v==='number'&&!Number.isNaN(v)); if(vals.length) return vals.reduce((a,b)=>a+b,0)/vals.length; }
   const nums=(k.components||[]).filter(c=>typeof c.actual==='number'&&typeof c.meta==='number');
   if(nums.length){ const vals=nums.map(componentProgressValue).filter(v=>typeof v==='number'&&!Number.isNaN(v)); if(vals.length) return vals.reduce((a,b)=>a+b,0)/vals.length; }
   return progress(k.actual,k.meta,k.name,!!k.lowerIsBetter);
@@ -399,66 +495,39 @@ function deltaArrow(text=''){ if(text.includes('+')) return '<span class="delta-
 
 function chartOptions(){
   return {
-    responsive:true,
-    maintainAspectRatio:false,
-    interaction:{mode:'index',intersect:false},
+    responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
     plugins:{legend:{labels:{color:'#cbd5e1',boxWidth:10,font:{size:10}}}},
-    scales:{
-      x:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(148,163,184,.08)'}},
-      y:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(148,163,184,.08)'}}
-    }
+    scales:{x:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(148,163,184,.08)'}},y:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(148,163,184,.08)'}}}
   };
 }
 
 function renderCharts(series){
-  const empresa = document.getElementById('empresaSelect').value;
-  const producto = document.getElementById('productoSelect').value;
-  const useUploadedProgram = uploadedProgramData && empresa === 'FFP' && producto === 'Arandano';
-  const prodSeries = useUploadedProgram ? uploadedProgramData : series.produccion;
-  if(prodChart) prodChart.destroy();
-  if(arChart) arChart.destroy();
-  if(calidadChart) calidadChart.destroy();
+  if(prodChart) prodChart.destroy(); if(arChart) arChart.destroy(); if(calidadChart) calidadChart.destroy();
+  const empresa=document.getElementById('empresaSelect').value;
+  const producto=document.getElementById('productoSelect').value;
+  const prodSeries = empresa==='FFP' && producto==='Arandano' && uploadedProgramFFP ? uploadedProgramFFP : empresa==='ASG' && producto==='Granada' && uploadedProgramASG ? uploadedProgramASG : series.produccion;
+  document.getElementById('qualityTitle').textContent=series.calidad.titulo;
+  document.getElementById('qualitySubtitle').textContent=series.calidad.subtitulo;
 
-  document.getElementById('qualityTitle').textContent = series.calidad.titulo;
-  document.getElementById('qualitySubtitle').textContent = series.calidad.subtitulo;
-
-  prodChart = new Chart(document.getElementById('chartProduccion'), {
+  prodChart=new Chart(document.getElementById('chartProduccion'),{
     type:'line',
-    data:{
-      labels:useUploadedProgram ? prodSeries.labels : series.semanas,
-      datasets:[
-        {label:'Programado', data:prodSeries.programado, borderColor:'#3b82f6', backgroundColor:'transparent', tension:.25},
-        ...(prodSeries.ejecutado ? [{label:'Ejecutado', data:prodSeries.ejecutado, borderColor:'#22d3ee', backgroundColor:'transparent', tension:.25}] : []),
-        {label:'Prog. acum.', data:prodSeries.programadoAc, borderColor:'#facc15', borderDash:[5,4], backgroundColor:'transparent', tension:.25},
-        ...(prodSeries.ejecutadoAc ? [{label:'Ejec. acum.', data:prodSeries.ejecutadoAc, borderColor:'#22c55e', borderDash:[5,4], backgroundColor:'transparent', tension:.25}] : [])
-      ]
-    },
-    options:chartOptions()
+    data:{labels:(prodSeries.labels || series.semanas),datasets:[
+      {label:'Programado',data:prodSeries.programado,borderColor:'#3b82f6',backgroundColor:'transparent',tension:.25},
+      ...(prodSeries.ejecutado?[{label:'Ejecutado',data:prodSeries.ejecutado,borderColor:'#22d3ee',backgroundColor:'transparent',tension:.25}]:[]),
+      {label:'Prog. acum.',data:prodSeries.programadoAc,borderColor:'#facc15',borderDash:[5,4],backgroundColor:'transparent',tension:.25},
+      ...(prodSeries.ejecutadoAc?[{label:'Ejec. acum.',data:prodSeries.ejecutadoAc,borderColor:'#22c55e',borderDash:[5,4],backgroundColor:'transparent',tension:.25}]:[])
+    ]}, options:chartOptions()
   });
 
-  arChart = new Chart(document.getElementById('chartAR'), {
-    type:'line',
-    data:{
-      labels:series.semanas,
-      datasets:[
-        {label:'AR semanal', data:series.ar.semanal, borderColor:'#22d3ee', backgroundColor:'transparent', tension:.25},
-        {label:'AR acumulado', data:series.ar.acumulado, borderColor:'#22c55e', backgroundColor:'transparent', tension:.25}
-      ]
-    },
-    options:chartOptions()
-  });
+  arChart=new Chart(document.getElementById('chartAR'),{type:'line',data:{labels:series.semanas,datasets:[
+    {label:'AR semanal',data:series.ar.semanal,borderColor:'#22d3ee',backgroundColor:'transparent',tension:.25},
+    {label:'AR acumulado',data:series.ar.acumulado,borderColor:'#22c55e',backgroundColor:'transparent',tension:.25}
+  ]},options:chartOptions()});
 
-  calidadChart = new Chart(document.getElementById('chartCalidad'), {
-    type:'line',
-    data:{
-      labels:series.semanas,
-      datasets:[
-        {label:'Semanal', data:series.calidad.semanal, borderColor:'#facc15', backgroundColor:'transparent', tension:.25},
-        {label:'Acumulado', data:series.calidad.acumulado, borderColor:'#ef4444', backgroundColor:'transparent', tension:.25}
-      ]
-    },
-    options:chartOptions()
-  });
+  calidadChart=new Chart(document.getElementById('chartCalidad'),{type:'line',data:{labels:series.semanas,datasets:[
+    {label:'Semanal',data:series.calidad.semanal,borderColor:'#facc15',backgroundColor:'transparent',tension:.25},
+    {label:'Acumulado',data:series.calidad.acumulado,borderColor:'#ef4444',backgroundColor:'transparent',tension:.25}
+  ]},options:chartOptions()});
 }
 
 function build(){
@@ -468,157 +537,50 @@ function build(){
   const board=document.getElementById('board');
   const brand=document.getElementById('sectionBrand');
   board.innerHTML='';
-
-  brand.innerHTML = `
-    <img class="logo ${view.brand.logoClass || ''}" src="${view.brand.logo}" alt="${view.brand.name}">
-    <div class="name">${view.brand.name}</div>
-    <img class="product" src="${view.brand.productImg}" alt="${producto}">
-  `;
+  brand.innerHTML=`<img class="logo ${view.brand.logoClass || ''}" src="${view.brand.logo}" alt="${view.brand.name}" onerror="this.style.display='none'"><div class="name">${view.brand.name}</div><img class="product" src="${view.brand.productImg}" alt="${producto}" onerror="this.style.display='none'">`;
 
   view.objectives.forEach(o=>{
     const panel=document.createElement('div');
     panel.className='panel';
     panel.innerHTML=`<div class="panel-head"><div class="panel-title">${o.foco}</div><div class="panel-sub">${o.objetivo}</div></div><div class="panel-body"></div>`;
     const body=panel.querySelector('.panel-body');
-
     o.krs.forEach(k=>{
       const pct=Math.round(krComputedProgress(k));
       const color=krComputedBand(k);
       const barWidth=Math.max(6,Math.min(100,pct));
       const kr=document.createElement('div');
       kr.className='kr';
-      kr.innerHTML=`
-        <div class="kr-head">
-          <div>
-            <div class="kr-name">${k.name}</div>
-            <div class="kr-note">${k.note}</div>
-          </div>
-          <div class="score ${color}">${pct}%</div>
-        </div>
-        <div class="stats">
-          <div class="stat"><div class="stat-label">Meta</div><div class="stat-value">${k.name.toLowerCase().includes('icp')?'≥95%':fmt(k.meta)}</div></div>
-          <div class="stat"><div class="stat-label">Real</div><div class="stat-value">${fmt(k.actual)}${k.name.toLowerCase().includes('icp')?'%':''}</div></div>
-          <div class="stat"><div class="stat-label">Comparación</div><div class="stat-value compare">${deltaArrow(k.comparison)}<span>${k.comparison}</span></div></div>
-        </div>
-        <div class="bar"><div class="fill" style="width:${barWidth}%"></div></div>
-        <details class="details">
-          <summary>Ver detalle</summary>
-          <div class="components">
-            ${k.components.map(c=>{
-              const cp=componentProgressValue(c);
-              const cPct=typeof cp==='number'?Math.round(cp):'—';
-              const cColor=componentScoreClass(c);
-              const cWidth=typeof cp==='number'?Math.max(6,Math.min(100,cPct)):50;
-              return `
-                <div class="component">
-                  <div class="component-top">
-                    <div class="component-name">${c.label}</div>
-                    <div class="component-score ${cColor}">${componentIndex(c)}</div>
-                  </div>
-                  <div class="component-stats">
-                    <div class="component-mini">Meta<b>${fmt(c.meta ?? '—')}${c.isICP?'%':''}</b></div>
-                    <div class="component-mini">Real<b>${fmt(c.actual ?? '—')}${c.isICP?'%':''}</b></div>
-                    <div class="component-mini">Comp.<b>${c.comparison ?? '—'}</b></div>
-                  </div>
-                  <div class="bar"><div class="fill" style="width:${cWidth}%"></div></div>
-                </div>`;
-            }).join('')}
-          </div>
-        </details>
-      `;
+      kr.innerHTML=`<div class="kr-head"><div><div class="kr-name">${k.name}</div><div class="kr-note">${k.note}</div></div><div class="score ${color}">${pct}%</div></div>
+      <div class="stats">
+        <div class="stat"><div class="stat-label">Meta</div><div class="stat-value">${k.name.toLowerCase().includes('icp')?'≥95%':fmt(k.meta)}</div></div>
+        <div class="stat"><div class="stat-label">Real</div><div class="stat-value">${fmt(k.actual)}${k.name.toLowerCase().includes('icp')?'%':''}</div></div>
+        <div class="stat"><div class="stat-label">Comparación</div><div class="stat-value compare">${deltaArrow(k.comparison)}<span>${k.comparison}</span></div></div>
+      </div>
+      <div class="bar"><div class="fill" style="width:${barWidth}%"></div></div>
+      <details class="details"><summary>Ver detalle</summary><div class="components">
+      ${k.components.map(c=>{ const cp=componentProgressValue(c); const cWidth=typeof cp==='number'?Math.max(6,Math.min(100,Math.round(cp))):50; return `<div class="component"><div class="component-top"><div class="component-name">${c.label}</div><div class="component-score ${componentScoreClass(c)}">${componentIndex(c)}</div></div><div class="component-stats"><div class="component-mini">Meta<b>${fmt(c.meta ?? '—')}${c.isICP?'%':''}</b></div><div class="component-mini">Real<b>${fmt(c.actual ?? '—')}${c.isICP?'%':''}</b></div><div class="component-mini">Comp.<b>${c.comparison ?? '—'}</b></div></div><div class="bar"><div class="fill" style="width:${cWidth}%"></div></div></div>`; }).join('')}
+      </div></details>`;
       body.appendChild(kr);
     });
-
     board.appendChild(panel);
   });
 
   renderCharts(view.series);
 }
 
-function setupExcelLoader(){
-  const input = document.getElementById('excelFile');
-  if (!input || input.dataset.bound === '1') return;
-  input.dataset.bound = '1';
-
-  input.addEventListener('change', async (e) => {
-    const file = e.target.files?.[0];
-    const status = document.getElementById('excelStatus');
-    const meta = document.getElementById('excelMeta');
-    if (!file) return;
-
-    try {
-      const buffer = await file.arrayBuffer();
-      const workbook = XLSX.read(buffer, { type:'array' });
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const rows = XLSX.utils.sheet_to_json(sheet, { header:1, raw:true, defval:null });
-      uploadedProgramData = parseProgramSheet(rows);
-      status.textContent = 'Programa cargado y aplicado a la curva de producción de FFP / Arándano.';
-      const uploadedAt = new Date(file.lastModified);
-      meta.textContent = `Archivo: ${file.name} · Subido/última modificación: ${uploadedAt.toLocaleDateString('es-PE')} ${uploadedAt.toLocaleTimeString('es-PE', {hour:'2-digit', minute:'2-digit'})}`;
-      build();
-    } catch (err) {
-      uploadedProgramData = null;
-      status.textContent = 'No se pudo leer el archivo. Revisa formato y hoja.';
-      if (meta) meta.textContent = '';
-      console.error(err);
-    }
-  });
-}
-
-function parseProgramSheet(rows){
-  const clean = rows.map(r => r.map(v => typeof v === 'string' ? v.trim() : v));
-
-  const totalRow = clean.find(r => String(r[0] || '').toUpperCase() === 'TOTAL');
-  if (!totalRow) throw new Error('No se encontró la fila TOTAL.');
-
-  const weekRow = clean.find(r => r.filter(v => Number.isFinite(Number(v)) && Number(v) >= 1 && Number(v) <= 53).length >= 8);
-  if (!weekRow) throw new Error('No se encontró la fila de semanas.');
-
-  let startIdx = weekRow.findIndex(v => Number.isFinite(Number(v)) && Number(v) >= 1 && Number(v) <= 53);
-  if (startIdx === -1) throw new Error('No se encontró inicio de semanas.');
-
-  let endIdx = startIdx;
-  while (endIdx < weekRow.length && Number.isFinite(Number(weekRow[endIdx])) && Number(weekRow[endIdx]) >= 1 && Number(weekRow[endIdx]) <= 53) {
-    endIdx += 1;
-  }
-
-  let weeks = weekRow.slice(startIdx, endIdx).map(v => `W${Number(v)}`);
-  let programado = totalRow.slice(startIdx, endIdx).map(v => {
-    if (v === null || v === '' || v === '-') return 0;
-    if (typeof v === 'string') return Number(v.replace(/,/g,'')) || 0;
-    return Number(v) || 0;
-  });
-
-    const firstNonZeroIdx = programado.findIndex(v => Number(v) > 0);
-  if (firstNonZeroIdx > 0) {
-    weeks = weeks.slice(firstNonZeroIdx);
-    programado = programado.slice(firstNonZeroIdx);
-  }
-
-  const programadoAc = [];
-  programado.reduce((acc, val, idx) => {
-    const next = acc + val;
-    programadoAc[idx] = next;
-    return next;
-  }, 0);
-
-  return { labels: weeks, programado, programadoAc };
-}
-
-function semanaISO(d=new Date()){ 
+function semanaISO(d=new Date()){
   const date=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
-  const dayNum=date.getUTCDay()||7;
-  date.setUTCDate(date.getUTCDate()+4-dayNum);
+  const dayNum=date.getUTCDay()||7; date.setUTCDate(date.getUTCDate()+4-dayNum);
   const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
   return Math.ceil((((date-yearStart)/86400000)+1)/7);
 }
 
 document.getElementById('updatedAt').textContent=`${new Date().toLocaleDateString('es-PE')} | Semana ${semanaISO(new Date())}`;
+document.getElementById('excelStatusFFP').textContent='Opcional: carga el Excel del programa de FFP / Arándano. Se usará para la curva y como base de volumen programado.';
+document.getElementById('excelSheetFFP').textContent='';
+document.getElementById('excelStatusASG').textContent='Opcional: carga el Excel del programa de ASG / Granada. Se usará para la curva y como base de volumen programado.';
+document.getElementById('excelSheetASG').textContent='';
 populateSelectors();
-if (document.getElementById('excelStatus')) {
-  document.getElementById('excelStatus').textContent = 'Opcional: carga un Excel con la fila TOTAL del programa para trazar la curva de producción de FFP / Arándano.';
-  document.getElementById('excelMeta').textContent = '';
-}
 </script>
 </body>
 </html>
