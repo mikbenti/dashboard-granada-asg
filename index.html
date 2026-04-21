@@ -101,19 +101,15 @@
     <div class="controls">
       <select id="empresaSelect"></select>
       <select id="productoSelect"></select>
-      <input type="file" id="excelFileFFP" accept=".xlsx,.xls">
-      <input type="file" id="excelFileASG" accept=".xlsx,.xls">
+      <input type="file" id="excelFile" accept=".xlsx,.xls">
       <div class="updated" id="updatedAt"></div>
     </div>
   </div>
 
   <div class="excel-meta">
-    <div id="excelStatusFFP" class="updated"></div>
-    <div id="excelMetaFFP" class="updated"></div>
-    <div id="excelSheetFFP" class="updated"></div>
-    <div id="excelStatusASG" class="updated"></div>
-    <div id="excelMetaASG" class="updated"></div>
-    <div id="excelSheetASG" class="updated"></div>
+    <div id="excelStatus" class="updated"></div>
+    <div id="excelMeta" class="updated"></div>
+    <div id="excelSheet" class="updated"></div>
   </div>
 
   <div class="section-head">
@@ -340,9 +336,47 @@ function bindExcelLoader(inputId, statusId, metaId, sheetId, empresa, producto){
   });
 }
 
-function setupExcelLoaders(){
-  bindExcelLoader('excelFileFFP','excelStatusFFP','excelMetaFFP','excelSheetFFP','FFP','Arandano');
-  bindExcelLoader('excelFileASG','excelStatusASG','excelMetaASG','excelSheetASG','ASG','Granada');
+function setupExcelLoader(){
+  const input = document.getElementById('excelFile');
+  if (!input || input.dataset.bound === '1') return;
+  input.dataset.bound = '1';
+
+  const status = document.getElementById('excelStatus');
+  const meta = document.getElementById('excelMeta');
+  const sheetInfo = document.getElementById('excelSheet');
+
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const empresa = document.getElementById('empresaSelect').value;
+    const producto = document.getElementById('productoSelect').value;
+
+    try {
+      const buffer = await file.arrayBuffer();
+      const workbook = XLSX.read(buffer, { type:'array' });
+      const picked = pickSheet(workbook, empresa, producto);
+      const rows = XLSX.utils.sheet_to_json(picked.sheet, { header:1, raw:true, defval:null });
+      const parsed = parseProgramSheet(rows);
+
+      if (empresa === 'FFP') uploadedProgramFFP = parsed;
+      if (empresa === 'ASG') uploadedProgramASG = parsed;
+
+      applyUploadedProgramToKRs(empresa, producto, parsed);
+
+      status.textContent = `Programa cargado para ${empresa} / ${producto}.`;
+      const uploadedAt = new Date(file.lastModified);
+      meta.textContent = `Archivo: ${file.name} · ${uploadedAt.toLocaleDateString('es-PE')} ${uploadedAt.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'})}`;
+      sheetInfo.textContent = `Hoja: ${picked.sheetName}`;
+
+      build();
+    } catch (err) {
+      status.textContent = `Error al cargar archivo para ${empresa} / ${producto}`;
+      meta.textContent = '';
+      sheetInfo.textContent = '';
+      console.error(err);
+    }
+  });
 }
 
 function progress(actual, meta, name, lowerIsBetter=false){
@@ -566,7 +600,7 @@ function build(){
 }
 
 function populateSelectors(){
-  setupExcelLoaders();
+  setupExcelLoader();
   const empresaSel = document.getElementById('empresaSelect');
   const productoSel = document.getElementById('productoSelect');
   empresaSel.innerHTML = Object.keys(data).map(v => `<option value="${v}">${v}</option>`).join('');
@@ -589,12 +623,9 @@ function semanaISO(d=new Date()){
 }
 
 document.getElementById('updatedAt').textContent = `${new Date().toLocaleDateString('es-PE')} | Semana ${semanaISO(new Date())}`;
-document.getElementById('excelStatusFFP').textContent = 'Opcional: carga el Excel del programa de FFP / Arándano. Se usará para la curva y como base de volumen programado.';
-document.getElementById('excelMetaFFP').textContent = '';
-document.getElementById('excelSheetFFP').textContent = '';
-document.getElementById('excelStatusASG').textContent = 'Opcional: carga el Excel del programa de ASG / Granada. Se usará para la curva y como base de volumen programado.';
-document.getElementById('excelMetaASG').textContent = '';
-document.getElementById('excelSheetASG').textContent = '';
+document.getElementById('excelStatus').textContent = 'Carga un Excel según la empresa seleccionada (FFP o ASG).';
+document.getElementById('excelMeta').textContent = '';
+document.getElementById('excelSheet').textContent = '';
 populateSelectors();
 </script>
 </body>
