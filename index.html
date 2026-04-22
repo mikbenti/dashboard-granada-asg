@@ -101,13 +101,12 @@
     <div class="controls">
       <select id="empresaSelect"></select>
       <select id="productoSelect"></select>
-      <input type="file" id="excelFile" accept=".xlsx,.xls">
+      
       <div class="updated" id="updatedAt"></div>
     </div>
   </div>
 
-  <div class="excel-meta">
-    <div id="excelStatus" class="updated"></div>
+  
     <div id="excelMeta" class="updated"></div>
     <div id="excelSheet" class="updated"></div>
   </div>
@@ -123,11 +122,7 @@
 
   <div id="board" class="board"></div>
 
-  <div class="charts">
-    <div class="chart-panel">
-      <div class="chart-head">
-        <div>
-          <div class="chart-title">Producción ejecutada vs programada</div>
+  
           <div class="chart-sub">Kg por semana y curva acumulada</div>
         </div>
       </div>
@@ -249,63 +244,16 @@ const data = {
   }
 };
 
-let prodChart = null;
-let arChart = null;
-let calidadChart = null;
-let uploadedProgramFFP = null;
-let uploadedProgramASG = null;
 
-function pickSheet(workbook, empresa, producto){
-  const names = workbook.SheetNames || [];
-  const normalize = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-  const candidates = [];
-  if (empresa === 'FFP' && producto === 'Arandano') candidates.push('ffp_arandano','ffp arandano','arandano','programa arandano','ffp');
-  if (empresa === 'ASG' && producto === 'Granada') candidates.push('asg_granada','asg granada','granada','programa granada','asg');
-  for (const candidate of candidates){
-    const hit = names.find(name => normalize(name).includes(normalize(candidate)));
-    if (hit) return { sheet: workbook.Sheets[hit], sheetName: hit };
-  }
+
   return { sheet: workbook.Sheets[names[0]], sheetName: names[0] };
 }
 
-function parseProgramSheet(rows){
-  const clean = rows.map(r => r.map(v => typeof v === 'string' ? v.trim() : v));
-  const totalRow = clean.find(r => String(r[0] || '').toUpperCase() === 'TOTAL');
-  if (!totalRow) throw new Error('No se encontró la fila TOTAL.');
-  const weekRow = clean.find(r => r.filter(v => Number.isFinite(Number(v)) && Number(v) >= 1 && Number(v) <= 53).length >= 8);
-  if (!weekRow) throw new Error('No se encontró la fila de semanas.');
-  let startIdx = weekRow.findIndex(v => Number.isFinite(Number(v)) && Number(v) >= 1 && Number(v) <= 53);
-  if (startIdx === -1) throw new Error('No se encontró el inicio de semanas.');
-  let endIdx = startIdx;
-  while (endIdx < weekRow.length && Number.isFinite(Number(weekRow[endIdx])) && Number(weekRow[endIdx]) >= 1 && Number(weekRow[endIdx]) <= 53) endIdx += 1;
-  let labels = weekRow.slice(startIdx, endIdx).map(v => `W${Number(v)}`);
-  let programado = totalRow.slice(startIdx, endIdx).map(v => {
-    if (v === null || v === '' || v === '-') return 0;
-    if (typeof v === 'string') return Number(v.replace(/,/g,'')) || 0;
-    return Number(v) || 0;
-  });
-  const firstNonZeroIdx = programado.findIndex(v => v > 0);
-  if (firstNonZeroIdx > 0) {
-    labels = labels.slice(firstNonZeroIdx);
-    programado = programado.slice(firstNonZeroIdx);
-  }
   const programadoAc = [];
   programado.reduce((acc, val, idx) => { const next = acc + val; programadoAc[idx] = next; return next; }, 0);
   return { labels, programado, ejecutado:null, programadoAc, ejecutadoAc:null, totalProgramado: programadoAc[programadoAc.length - 1] || 0 };
 }
 
-function applyUploadedProgramToKRs(empresa, producto, parsed){
-  const productData = data[empresa][producto];
-  const totalKg = parsed.totalProgramado || 0;
-  productData.objectives.forEach(obj => {
-    obj.krs.forEach(kr => {
-      if (kr.name === 'ICP') {
-        const actualKg = kr.components.find(c => c.label === 'Kg producidos');
-        const targetKg = kr.components.find(c => c.label === 'Kg programados');
-        if (targetKg) {
-          targetKg.actual = formatKg(totalKg);
-          targetKg.meta = formatKg(totalKg);
-        }
         if (actualKg && typeof kr.actual === 'number') {
           // preserve current real kg if already there; only note gets updated here
         }
@@ -321,38 +269,6 @@ function applyUploadedProgramToKRs(empresa, producto, parsed){
   productData.series.produccion = parsed;
 }
 
-function bindExcelLoader(){
-  const input = document.getElementById('excelFile');
-  if (!input || input.dataset.bound === '1') return;
-  input.dataset.bound = '1';
-  const status = document.getElementById('excelStatus');
-  const meta = document.getElementById('excelMeta');
-  const sheetInfo = document.getElementById('excelSheet');
-  input.addEventListener('change', async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const empresa = document.getElementById('empresaSelect').value;
-    const producto = document.getElementById('productoSelect').value;
-    try {
-      const buffer = await file.arrayBuffer();
-      const workbook = XLSX.read(buffer, { type:'array' });
-      const picked = pickSheet(workbook, empresa, producto);
-      const rows = XLSX.utils.sheet_to_json(picked.sheet, { header:1, raw:true, defval:null });
-      const parsed = parseProgramSheet(rows);
-      if (empresa === 'FFP') uploadedProgramFFP = parsed;
-      if (empresa === 'ASG') uploadedProgramASG = parsed;
-      applyUploadedProgramToKRs(empresa, producto, parsed);
-      status.textContent = `Programa cargado para ${empresa} / ${producto}.`;
-      const uploadedAt = new Date(file.lastModified);
-      meta.textContent = `Archivo: ${file.name} · ${uploadedAt.toLocaleDateString('es-PE')} ${uploadedAt.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'})}`;
-      sheetInfo.textContent = `Hoja: ${picked.sheetName}`;
-      build();
-    } catch (err) {
-      status.textContent = `Error al cargar archivo para ${empresa} / ${producto}`;
-      meta.textContent = '';
-      sheetInfo.textContent = '';
-      console.error(err);
-    }
   });
 }
 
@@ -484,40 +400,6 @@ function chartOptions(){
   };
 }
 
-function renderCharts(series){
-  if (prodChart) prodChart.destroy();
-  if (arChart) arChart.destroy();
-  if (calidadChart) calidadChart.destroy();
-  const empresa = document.getElementById('empresaSelect').value;
-  const producto = document.getElementById('productoSelect').value;
-  const prodSeries = empresa === 'FFP' && producto === 'Arandano' && uploadedProgramFFP
-    ? uploadedProgramFFP
-    : empresa === 'ASG' && producto === 'Granada' && uploadedProgramASG
-    ? uploadedProgramASG
-    : series.produccion;
-
-  document.getElementById('qualityTitle').textContent = series.calidad.titulo;
-  document.getElementById('qualitySubtitle').textContent = series.calidad.subtitulo;
-
-  prodChart = new Chart(document.getElementById('chartProduccion'), {
-    type:'line',
-    data:{
-      labels: prodSeries.labels,
-      datasets:[
-        {label:'Programado', data:prodSeries.programado, borderColor:'#3b82f6', backgroundColor:'transparent', tension:.25},
-        ...(prodSeries.ejecutado ? [{label:'Ejecutado', data:prodSeries.ejecutado, borderColor:'#22d3ee', backgroundColor:'transparent', tension:.25}] : []),
-        {label:'Prog. acum.', data:prodSeries.programadoAc, borderColor:'#facc15', borderDash:[5,4], backgroundColor:'transparent', tension:.25},
-        ...(prodSeries.ejecutadoAc ? [{label:'Ejec. acum.', data:prodSeries.ejecutadoAc, borderColor:'#22c55e', borderDash:[5,4], backgroundColor:'transparent', tension:.25}] : [])
-      ]
-    },
-    options: chartOptions()
-  });
-
-  arChart = new Chart(document.getElementById('chartAR'), {
-    type:'line',
-    data:{ labels: series.semanas, datasets:[
-      {label:'AR semanal', data:series.ar.semanal, borderColor:'#22d3ee', backgroundColor:'transparent', tension:.25},
-      {label:'AR acumulado', data:series.ar.acumulado, borderColor:'#22c55e', backgroundColor:'transparent', tension:.25}
     ]}, options: chartOptions()
   });
 
@@ -601,13 +483,11 @@ function build(){
     board.appendChild(panel);
   });
 
-  const showCharts = !(empresa === 'GRUPO');
-  document.querySelector('.charts').style.display = showCharts ? 'grid' : 'none';
-  if (showCharts) renderCharts(view.series);
+  
 }
 
 function populateSelectors(){
-  bindExcelLoader();
+  
   const empresaSel = document.getElementById('empresaSelect');
   const productoSel = document.getElementById('productoSelect');
   empresaSel.innerHTML = Object.keys(data).filter(k => k !== 'GRUPO').map(v => `<option value="${v}">${v}</option>`).join('');
@@ -630,7 +510,7 @@ function semanaISO(d=new Date()){
 }
 
 document.getElementById('updatedAt').textContent = `${new Date().toLocaleDateString('es-PE')} | Semana ${semanaISO(new Date())}`;
-document.getElementById('excelStatus').textContent = 'Carga un Excel según la empresa seleccionada (FFP o ASG).';
+
 document.getElementById('excelMeta').textContent = '';
 document.getElementById('excelSheet').textContent = '';
 populateSelectors();
